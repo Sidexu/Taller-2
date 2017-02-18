@@ -1,5 +1,5 @@
 package Logica;
-import Logica.Boleto;
+//import Logica.Boletos;
 
 public class Excursion {
 	private String codigo;
