@@ -39,5 +39,9 @@ public class Boleto {
 	}
 	public void setCel_pas(long cel_pas) {
 		this.cel_pas = cel_pas;
-	}	
+	}
+	
+	public String tipoBoleto (){
+		return "comun";
+	}
 }
