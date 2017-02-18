@@ -2,12 +2,12 @@ package Logica;
 import Logica.Boleto;
 
 import java.util.LinkedList;
-import java.util.ListIterator;
+//import java.util.Iterator;
 
 public class Boletos extends LinkedList<Boleto> {
 	
 	public Boletos(){
-		
+
 	}
 	
 	public void Delete (Boleto b){
@@ -18,28 +18,17 @@ public class Boletos extends LinkedList<Boleto> {
 		this.addLast(b);
 	}
 	
-	public ListIterator<Boleto> listadoDeBoletos (){
-		return this.listIterator();
-		
+	public Boleto[]  listadoDeBoletos (){
+		return this.toArray(new Boleto[]{});
 	}
 	
 	public void respaldoBoletos(){
 		
 	}
 	
-	public ListIterator<Boleto> listadoBoletoXTipo (String tipo){
-		ListIterator<Boleto> l = this.listIterator();		
-		LinkedList<Boleto> lst2 = new LinkedList<Boleto>(); // CREAMOS UNA LISTA VACIA PARA ASOCIARLA A UN LIST ITERATOR
-		ListIterator<Boleto> lxtipo = lst2.listIterator(); // PARA CREAR UN LIST ITERATOR, DEBEMOS HACERLO SOBRE UNA LINKED LIST
+	public void listadoBoletoXTipo (String tipo){
 		
-		while(l.hasNext()){
-			if(l.next().tipoBoleto() == tipo){
-				lxtipo.add(l.next());
-			}
-			l.remove();
-		}
-		return lxtipo;
 	}
-	
+
 
 }
