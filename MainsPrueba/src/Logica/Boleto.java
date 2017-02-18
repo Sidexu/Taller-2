@@ -2,16 +2,19 @@ package Logica;
 
 public class Boleto {
 	private int nroboleto;
-	private int edad_pad;
+	private int edad_pas;
 	private String lugar_procedencia;
 	private long cel_pas;
 	
-	public Boleto(int nroboleto, int edad_pad, String lugar_procedencia,
+	public Boleto(int nroboleto, int edad_pas, String lugar_procedencia,
 			long cel_pas) {
 		this.nroboleto = nroboleto;
-		this.edad_pad = edad_pad;
+		this.edad_pas = edad_pas;
 		this.lugar_procedencia = lugar_procedencia;
 		this.cel_pas = cel_pas;
+	}
+	public Boleto() {
+	
 	}
 	public int getNroboleto() {
 		return nroboleto;
@@ -19,11 +22,11 @@ public class Boleto {
 	public void setNroboleto(int nroboleto) {
 		this.nroboleto = nroboleto;
 	}
-	public int getEdad_pad() {
-		return edad_pad;
+	public int getEdad_pas() {
+		return edad_pas;
 	}
-	public void setEdad_pad(int edad_pad) {
-		this.edad_pad = edad_pad;
+	public void setEdad_pas(int edad_pas) {
+		this.edad_pas = edad_pas;
 	}
 	public String getLugar_procedencia() {
 		return lugar_procedencia;
