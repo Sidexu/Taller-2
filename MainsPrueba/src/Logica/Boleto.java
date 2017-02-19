@@ -6,6 +6,10 @@ public class Boleto {
 	private String lugar_procedencia;
 	private long cel_pas;
 	
+	public Boleto() {
+		
+	}
+	
 	public Boleto(int nroboleto, int edad_pas, String lugar_procedencia,
 			long cel_pas) {
 		this.nroboleto = nroboleto;
@@ -13,9 +17,7 @@ public class Boleto {
 		this.lugar_procedencia = lugar_procedencia;
 		this.cel_pas = cel_pas;
 	}
-	public Boleto() {
-	
-	}
+
 	public int getNroboleto() {
 		return nroboleto;
 	}
