@@ -1,6 +1,4 @@
 package Grafica;
-import java.util.LinkedList;
-
 
 import Logica.Boleto;
 import Logica.Boletos;
