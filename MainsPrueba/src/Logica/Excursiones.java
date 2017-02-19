@@ -8,7 +8,7 @@ import java.util.TreeMap;
 public class Excursiones{
 	private  TreeMap<String,Excursion> arbol;
 	
-	Excursiones(){
+	public Excursiones(){
 		arbol = new TreeMap<String,Excursion>();
 	}
 	public Excursion findExcursion(String clave){
