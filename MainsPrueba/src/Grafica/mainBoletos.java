@@ -14,6 +14,8 @@ public class mainBoletos {
 		Boleto b4 = new Boleto(4,2,"Montevideo",123456);
 			
 		Boleto lx[];
+		Boleto lx_tipo[];
+		
 		Boletos bol = new Boletos();
 		
 		bol.insert(b1);
@@ -31,6 +33,18 @@ public class mainBoletos {
 		}
 		
 		System.out.println("paso el primer lx");
+		
+		lx_tipo = bol.listadoBoletoXTipo("comun");
+		
+		for(int i=0; i<lx_tipo.length;i++ ){
+			System.out.println("Boleto: "+ lx_tipo[i].getNroboleto());
+			System.out.println(" Edad="+lx_tipo[i].getEdad_pas());
+			System.out.println(" Cel="+ lx_tipo[i].getCel_pas());
+			System.out.println(" L proc="+ lx_tipo[i].getLugar_procedencia() + " fin bol");
+			System.out.println(" ");
+		}
+		
+		System.out.println("paso el segundo lx_tipo");
 		
 		
 	}
