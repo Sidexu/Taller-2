@@ -53,7 +53,7 @@ public class mainExcursion {
 		lx = ex1.getBoletos().listadoDeBoletos(); lx2 = ex2.getBoletos().listadoDeBoletos();
 		
 		System.out.println("MODULO EXCURSION");
-		
+		//tete
 		System.out.println(" ");
 		System.out.println("Muestro datos EX1:");
 		System.out.println(" ");
