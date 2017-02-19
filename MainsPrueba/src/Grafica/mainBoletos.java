@@ -1,5 +1,8 @@
 package Grafica;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Logica.Boleto;
 import Logica.Boletos;
 import Logica.Especial;
@@ -17,11 +20,12 @@ public class mainBoletos {
 		Boleto e4 = new Especial(8,2,"San Jose",66666,66);
 		
 		// Defino arreglos del tipo boleto
-		Boleto [] lx, lx_tipo, lx_tipo2;
+		ArrayList<Boleto> lx,lx_tipo, lx_tipo2;
+		
 		
 		// Creo secuencia de boletos
 		Boletos bol = new Boletos();
-		
+
 		// Inserto los elementos
 		bol.insert(b1); bol.insert(b2); 
 		bol.insert(b3); bol.insert(b4);
@@ -37,13 +41,13 @@ public class mainBoletos {
 		System.out.println("Muestro todos los boletos:");
 		System.out.println(" ");
 		
-		for(int i=0; i<lx.length;i++ ){
-			System.out.print("Boleto: "+ lx[i].getNroboleto());
-			System.out.print(" Edad="+lx[i].getEdad_pas());
-			System.out.print(" Cel="+ lx[i].getCel_pas());
-			System.out.print(" L proc="+ lx[i].getLugar_procedencia());
-			if(lx[i].tipoBoleto() == "especial"){
-				System.out.print(" Descuento="+ ((Especial) lx[i]).getDescuento());
+		for(int i=0;i<lx.size();i++){
+			System.out.print("Boleto: "+ lx.get(i).getNroboleto());
+			System.out.print(" Edad="+lx.get(i).getEdad_pas());
+			System.out.print(" Cel="+ lx.get(i).getCel_pas());
+			System.out.print(" L proc="+ lx.get(i).getLugar_procedencia());
+			if(lx.get(i) instanceof Especial){
+				System.out.print(" Descuento="+ ((Especial) lx.get(i)).getDescuento());
 			}
 			System.out.println(" ");
 		}
@@ -52,11 +56,11 @@ public class mainBoletos {
 		System.out.println("Muestro los boletos Comunes:");
 		System.out.println(" ");
 		
-		for(int i=0; i<lx_tipo.length;i++ ){
-			System.out.print("Boleto: "+ lx_tipo[i].getNroboleto());
-			System.out.print(" Edad="+lx_tipo[i].getEdad_pas());
-			System.out.print(" Cel="+ lx_tipo[i].getCel_pas());
-			System.out.print(" L proc="+ lx_tipo[i].getLugar_procedencia());
+		for(int i=0; i<lx_tipo.size();i++ ){
+			System.out.print("Boleto: "+ lx_tipo.get(i).getNroboleto());
+			System.out.print(" Edad="+lx_tipo.get(i).getEdad_pas());
+			System.out.print(" Cel="+ lx_tipo.get(i).getCel_pas());
+			System.out.print(" L proc="+ lx_tipo.get(i).getLugar_procedencia());
 			System.out.println(" ");
 		}
 		
@@ -64,13 +68,15 @@ public class mainBoletos {
 		System.out.println("Muestro los boletos Especiales:");
 		System.out.println(" ");
 		
-		for(int i=0; i<lx_tipo2.length;i++ ){
-			System.out.print("Boleto: "+ lx_tipo2[i].getNroboleto());
-			System.out.print(" Edad="+lx_tipo2[i].getEdad_pas());
-			System.out.print(" Cel="+ lx_tipo2[i].getCel_pas());
-			System.out.print(" L proc="+ lx_tipo2[i].getLugar_procedencia());
-			System.out.print(" Descuento="+ ((Especial) lx_tipo2[i]).getDescuento());
-			System.out.println(" ");
+		for(int i=0; i<lx_tipo2.size();i++ ){
+				System.out.print("Boleto: "+ lx_tipo2.get(i).getNroboleto());
+				System.out.print(" Edad="+lx_tipo2.get(i).getEdad_pas());
+				System.out.print(" Cel="+ lx_tipo2.get(i).getCel_pas());
+				System.out.print(" L proc="+ lx_tipo2.get(i).getLugar_procedencia());
+				if(lx_tipo2.get(i) instanceof Especial){
+					System.out.print(" Descuento="+ ((Especial) lx_tipo2.get(i)).getDescuento());
+				}
+				System.out.println(" ");			
 		}
 		
 		

@@ -1,32 +1,61 @@
 package Logica;
 import Logica.Boleto;
+import Logica.Especial;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
 public class Boletos extends LinkedList<Boleto> {
+	protected LinkedList<Boleto> LL;
 	
 	public Boletos(){
-
+		LL = new LinkedList<Boleto>();
 	}
 	
 	public void Delete (Boleto b){
-		this.remove(b);
+		LL.remove(b);
 	}
 	
 	public void insert (Boleto b){
-		this.addLast(b);
+		LL.addLast(b);
 	}
 	
-	public Boleto[]  listadoDeBoletos (){
-		return this.toArray(new Boleto[]{});
+	public ArrayList<Boleto>  listadoDeBoletos (){
+		ArrayList<Boleto> arr= new ArrayList<Boleto>();
+		Iterator<Boleto> iter= LL.iterator();
+		while(iter.hasNext()){
+			Boleto b=iter.next();
+			if(b instanceof Especial){
+				arr.add(new Especial(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas(),((Especial) b).getDescuento()));
+			}else{
+				arr.add(new Boleto(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas()));
+			}
+		}
+		return arr;
 	}
 	
 	public void respaldoBoletos(){
 		
 	}
 	
-	public Boleto [] listadoBoletoXTipo (String tipo){
+	public ArrayList<Boleto> listadoBoletoXTipo (String tipo){
+		ArrayList<Boleto> arr= new ArrayList<Boleto>();
+		Iterator<Boleto> iter= LL.iterator();
+		while(iter.hasNext()){
+			Boleto b=iter.next();
+			if (tipo == "especial"){
+				if(b instanceof Especial){
+					arr.add(new Especial(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas(),((Especial) b).getDescuento()));
+				}
+			}else if(b.tipoBoleto() == "comun"){
+
+				arr.add(new Boleto(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas()));
+			}	
+		}
+		return arr;
 		
+		/*
 		//Copio el listado en uno auxiliar
 		LinkedList<Boleto> listado_copia = (LinkedList<Boleto>) this.clone();
 		// Declaro un array de boletos para almacenar los boletos temporalmente
@@ -60,18 +89,8 @@ public class Boletos extends LinkedList<Boleto> {
 		}
 		
 		return arregloBoletosDevuelve;
+		*/
 		
-		
-		// Recorro con foreach !!!!!NO ANDA!!!!! falta cambio tamaño
-		/*for (Boleto elem: arregloBoletos){
-			System.out.println("Boleto ini	: "+ elem.getNroboleto());
-			if(elem.tipoBoleto() == tipo){
-				// Guardo el boleto en el nuevo arreglo que voy a devolver
-				System.out.println("Boleto Entre: "+ elem.getNroboleto());
-				arregloBoletos[contador] = (Boleto) listado_copia.poll();
-				contador ++;
-			}
-		}*/
 		
 		
 	}
