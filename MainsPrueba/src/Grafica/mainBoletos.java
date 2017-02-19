@@ -23,10 +23,10 @@ public class mainBoletos {
 		Boletos bol = new Boletos();
 		
 		// Inserto los elementos
-		bol.insert(b1); bol.insert(e1);
-		bol.insert(b2); bol.insert(e2);
-		bol.insert(b3); bol.insert(e3);
-		bol.insert(b4); bol.insert(e4);
+		bol.insert(b1); bol.insert(b2); 
+		bol.insert(b3); bol.insert(b4);
+		bol.insert(e1); bol.insert(e2);
+		bol.insert(e3); bol.insert(e4);
 		
 		// Seteo 3 arreglos para mostrar los boletos
 		lx = bol.listadoDeBoletos();
