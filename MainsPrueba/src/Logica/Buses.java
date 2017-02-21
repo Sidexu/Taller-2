@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-public class Buses extends TreeMap <String,Bus> {
+public class Buses {
+	private TreeMap<String,Bus> TM;
 	
-	protected TreeMap<String,Bus> TM;
 	public Buses(){
 		TM = new TreeMap<String,Bus>();
 	}
