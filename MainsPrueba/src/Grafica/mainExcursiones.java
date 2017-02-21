@@ -12,7 +12,7 @@ import Logica.Excursiones;
 import Logica.Hora;
 
 public class mainExcursiones {
-
+	
 	public static void main(String[] args) {
 		Hora h_partida1= new Hora(10,00);
 		Hora h_partida= new Hora();
@@ -29,6 +29,8 @@ public class mainExcursiones {
 		
 		//creo un diccionario de excursiones
 		Excursiones dicExc= new Excursiones();
+		Excursiones EXCURSIONES1 = new Excursiones();
+		Excursiones EXCURSIONES2 = new Excursiones();
 		
 		// Inserto los elementos
 		BOLETOS2.insert(b1); BOLETOS1.insert(e1);
@@ -40,7 +42,7 @@ public class mainExcursiones {
 		ArrayList<Boleto> lx, lx2;	
 
 		//PARTE NUEVA
-		Bus BUS1 = new Bus("CEH 125", "Torino", 30); Bus BUS2 = new Bus();
+		Bus BUS1 = new Bus("CEH 125", "Torino", 30,EXCURSIONES1); Bus BUS2 = new Bus("","",0,EXCURSIONES2);
 		BUS2.setCapacidad(33);BUS2.setMarca("MARCOPOLO");BUS2.setMatricula("CEH 223");
 	
 	

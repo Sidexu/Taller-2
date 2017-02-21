@@ -1,6 +1,7 @@
 package Grafica;
 import java.util.ArrayList;
 
+import Logica.Excursiones;
 import Logica.Hora;
 import Logica.Boleto;
 import Logica.Boletos;
@@ -23,6 +24,8 @@ public class mainExcursion {
 
 		// Creo secuencia de boletos
 		Boletos BOLETOS1 = new Boletos(); Boletos BOLETOS2 = new Boletos();
+		Excursiones EXCURSIONES1 = new Excursiones();
+		Excursiones EXCURSIONES2 = new Excursiones();
 		
 		// Inserto los elementos
 		BOLETOS2.insert(b1); BOLETOS1.insert(e1);
@@ -34,7 +37,7 @@ public class mainExcursion {
 		ArrayList<Boleto> lx, lx2;	
 
 		//PARTE NUEVA
-		Bus BUS1 = new Bus("CEH 125", "Torino", 30); Bus BUS2 = new Bus();
+		Bus BUS1 = new Bus("CEH 125", "Torino", 30,EXCURSIONES1); Bus BUS2 = new Bus("","",0,EXCURSIONES2);
 		BUS2.setCapacidad(33);BUS2.setMarca("MARCOPOLO");BUS2.setMatricula("CEH 223");
 	
 	
@@ -48,7 +51,8 @@ public class mainExcursion {
 		Excursion ex2 = new Excursion(); ex2.setBoletos(BOLETOS2);ex2.setBus(BUS2);ex2.setCodigo("EX2");
 		ex2.setDestino("CAN");ex2.setPrecio_base(150);ex2.setHr_partida(h_partida);ex2.setHr_regreso(h_regreso);
 
-		
+		BUS1.getExc().insertExcursion(ex1);
+		BUS2.getExc().insertExcursion(ex2);
 		// Seteo 2 arreglos para mostrar los boletos
 		lx = ex1.getBoletos().listadoDeBoletos(); lx2 = ex2.getBoletos().listadoDeBoletos();
 		

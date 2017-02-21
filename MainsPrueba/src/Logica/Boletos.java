@@ -55,6 +55,9 @@ public class Boletos {
 		}
 		return arr;
 	}
+	public int tamBoletos(){
+		return LL.size();
+	}
 
 
 }

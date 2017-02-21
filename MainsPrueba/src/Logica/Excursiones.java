@@ -57,4 +57,7 @@ public class Excursiones{
 	public void respaldoExcursion(){
 		
 	}
+	public int tamExcursiones(){
+		return arbol.size();
+	}
 }

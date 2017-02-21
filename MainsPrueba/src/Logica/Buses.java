@@ -28,7 +28,7 @@ public class Buses {
 		Iterator<Bus> iter= TM.values().iterator();
 		while(iter.hasNext()){
 			Bus b=iter.next();
-			arr.add(new Bus(b.getMatricula(),b.getMarca(),b.getCapacidad()));
+			arr.add(new Bus(b.getMatricula(),b.getMarca(),b.getCapacidad(),b.getExc()));
 		}
 		return arr;
 	}
