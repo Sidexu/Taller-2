@@ -26,6 +26,16 @@ public class Hora {
 	public void setMin(int min) {
 		this.min = min;
 	}
-	
+	//retorna true si la hora que tengo es menor a la que me pasan
+	public boolean esMenorIgual(Hora h1){
+		boolean esMenor=false;
+		int min1=(h1.getHora()*60)+h1.getMin();
+		int miHora=(this.hora*60)+this.min;
+		if(miHora<=min1){
+			esMenor=true;
+		}
+			
+		return esMenor;
+	}
 	
 }

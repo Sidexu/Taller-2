@@ -52,5 +52,18 @@ public class Fachada {
 			return arrVO;
 		}
 	}*/
+	public void registroExcursion(VOExcursion vo){
+		if(excursiones.memberExcursion(vo.getCodigo())){
+			//error: la excursion ya existe
+		}else{
+			//VER EXCEPTION
+			Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");
+			Boletos bol=new Boletos();
+			Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
+			excursiones.insertExcursion(ex);
+			b.getExc().insertExcursion(ex);
+		}
+	}
+	
 	
 }

@@ -32,5 +32,29 @@ public class Buses {
 		}
 		return arr;
 	}
-
+	public Bus obtenerBusDisp(Hora partida, Hora regreso, int cap, String mat){
+		Iterator<Bus> iterBus= TM.values().iterator();
+		int i;
+		Bus bFin=null;//VER EXEPTION
+		boolean encontre=false;
+		while(iterBus.hasNext() && !encontre){
+			Bus b=iterBus.next();
+			if(b.getCapacidad()>cap && !(b.getMatricula().contentEquals(mat))){
+				Excursiones exc=b.getExc();
+				ArrayList<Excursion> arr= new ArrayList<Excursion>();
+				arr=exc.listarExcursiones();
+				i=0;
+				while(i<arr.size() && !encontre){
+					if(partida.esMenorIgual(arr.get(i).getHr_partida()) && arr.get(i).getHr_regreso().esMenorIgual(regreso)){
+						encontre=true;
+						bFin=b;
+					}
+				}
+			}
+		}
+		
+		//hacer exception si !encontre
+		
+		return bFin;
+	}
 }
