@@ -32,14 +32,14 @@ public class Buses {
 		}
 		return arr;
 	}
-	public Bus obtenerBusDisp(Hora partida, Hora regreso, int cap, String mat){
+	public Bus obtenerBusDisp(Hora partida, Hora regreso, int cap, String mat) throws ExcepcionBus{
 		Iterator<Bus> iterBus= TM.values().iterator();
 		int i;
-		Bus bFin=null;//VER EXEPTION
+		Bus bFin=null;
 		boolean encontre=false;
 		while(iterBus.hasNext() && !encontre){
 			Bus b=iterBus.next();
-			if(b.getCapacidad()>cap && !(b.getMatricula().contentEquals(mat))){
+			if(b.getCapacidad()>=cap && !(b.getMatricula().contentEquals(mat))){
 				Excursiones exc=b.getExc();
 				ArrayList<Excursion> arr= new ArrayList<Excursion>();
 				arr=exc.listarExcursiones();
@@ -49,12 +49,19 @@ public class Buses {
 						encontre=true;
 						bFin=b;
 					}
+					i++;
+				}
+				if(i==0){
+					encontre=true;
+					bFin=b;
 				}
 			}
 		}
-		
-		//hacer exception si !encontre
-		
-		return bFin;
+		if(!encontre){
+			String msg="No hay bus disponible";
+			throw new ExcepcionBus(msg);
+		}else{
+			return bFin;
+		}
 	}
 }

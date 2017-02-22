@@ -1,19 +1,26 @@
 package Logica;
 import java.util.ArrayList;
-
 import Logica.valueObjects.*;
 
 public class Fachada {
 	private Buses buses;
 	private Excursiones excursiones;
 	
+	
+	public Fachada(Buses buses, Excursiones excursiones) {
+		this.buses = buses;
+		this.excursiones = excursiones;
+	}
+	
 	//Requerimiento 1
-	public void registroNuevoBus(VOBus vo){
+	public void registroNuevoBus(VOBus vo) throws ExcepcionBus{
 		if(buses.memberBus(vo.getMatricula())){
-			//error: bus ya existe
+			String msg="El Bus ya existe";
+			throw new ExcepcionBus(msg);
 		}else{
 			if(vo.getCapacidad()<0){
-				//error: la capacidad no puede ser menor o igual a cero
+				String msg="Capacidad maxima del bus alcanzada";
+				throw new ExcepcionBus(msg);
 			}else{
 				Excursiones ex=new Excursiones();
 				Bus v = new Bus(vo.getMatricula(),vo.getMarca(),vo.getCapacidad(),ex);
@@ -35,17 +42,15 @@ public class Fachada {
 		return arrVO;
 	}
 	//Requerimiento 3
-	/*public VOExcursionDisp [] listadoExcursionesXBus(String mat){
-		
-		//HAY Q HACER EL MANEJO DE EXCEPCIONES
+	public VOExcursionDisp [] listadoExcursionesXBus(String mat) throws ExcepcionExcursion {
 		if(!buses.memberBus(mat)){
-			//error: la matricula no existe
+			String msg="El bus no existe";
+			throw new ExcepcionExcursion(msg);
 		}else{
 			Bus b=buses.findBus(mat);
 			ArrayList<Excursion> arr= new ArrayList<Excursion>();
 			arr= b.getExc().listarExcursiones();
 			VOExcursionDisp arrVO []= new VOExcursionDisp[arr.size()];
-			
 			for(int i=0;i<arr.size();i++){
 				Excursion ex=arr.get(i);
 				int cant_disponibles=b.getCapacidad()-ex.getBoletos().tamBoletos();
@@ -54,34 +59,41 @@ public class Fachada {
 			}
 			return arrVO;
 		}
-	}*/
+	}
 	//Requerimiento 4
-	public void registroExcursion(VOExcursion vo){
+	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus {
 		if(excursiones.memberExcursion(vo.getCodigo())){
-			//error: la excursion ya existe
+			String msg= "Ya existe excursion";
+			throw new ExcepcionExcursion(msg);
 		}else{
-			//VER EXCEPTION
+			try{
 			Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");
 			Boletos bol=new Boletos();
 			Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
 			excursiones.insertExcursion(ex);
 			b.getExc().insertExcursion(ex);
+			}catch(ExcepcionBus e){
+				throw new ExcepcionBus(e.darMensaje());
+			}
 		}
 	}
 	//Requerimiento 5
-	public void reasignacionExcursion(String codigo){
+	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus{
 		if(!excursiones.memberExcursion(codigo)){
-			//error: la excursion no existe
+			String msg = "la excursion no existe";
+			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion ex=excursiones.findExcursion(codigo);
 			String matriculaVieja=ex.getBus().getMatricula();
-			//VER EXCEPTION
+			try{
 			Bus b=buses.obtenerBusDisp(ex.getHr_partida(),ex.getHr_regreso(),ex.getBoletos().tamBoletos(), matriculaVieja);
-			//si obtengo un bus (sino exception)
 			b.getExc().insertExcursion(ex);
 			Bus bViejo=buses.findBus(matriculaVieja);
 			bViejo.getExc().deleteExcursion(ex);
 			ex.setBus(b);
+			}catch(ExcepcionBus e){
+				throw new ExcepcionBus(e.darMensaje());
+			}
 		}
 	}
 	//Requerimiento 6
@@ -89,14 +101,16 @@ public class Fachada {
 		
 	}
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoleto vo, float desc){
+	public void ventaBoleto(String codEx,VOBoleto vo, float desc) throws ExcepcionExcursion, ExcepcionBus{
 		if(!excursiones.memberExcursion(codEx)){
-			//error: la excursion no existe
+			String msg = "La excursion no existe";
+			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion ex=excursiones.findExcursion(codEx);
 			int cant_disp=ex.getBus().getCapacidad()-ex.getBoletos().tamBoletos();
 			if(cant_disp == 0){
-				//error: no quedan asientos disponibles
+				String msg2 = "No quedan asientos disponibles";
+				throw new ExcepcionBus(msg2);
 			}else{
 				if(desc == 0){//boleto comun
 					Boleto b = new Boleto(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
@@ -109,10 +123,11 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 8
-	public float recaudacionExcursion(String codEx){
+	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion{
 		float montoTotal=0;
 		if(!excursiones.memberExcursion(codEx)){
-			//error: la excursion no existe
+			String msg = "No existe la excursion";
+			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion ex=excursiones.findExcursion(codEx);
 			ArrayList<Boleto> arr= new ArrayList<Boleto>();
