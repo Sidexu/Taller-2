@@ -21,7 +21,7 @@ public class Excursiones{
 		arbol.put(e.getCodigo(), e);
 	}
 	public void deleteExcursion(Excursion e){
-		arbol.remove(e);
+		arbol.remove(e.getCodigo());
 	}
 	public ArrayList<Excursion> listarExcursiones(){
 		ArrayList<Excursion> arr= new ArrayList<Excursion>();

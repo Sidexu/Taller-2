@@ -34,31 +34,44 @@ public class Buses {
 	}
 	public Bus obtenerBusDisp(Hora partida, Hora regreso, int cap, String mat) throws ExcepcionBus{
 		Iterator<Bus> iterBus= TM.values().iterator();
-		int i;
+		
 		Bus bFin=null;
 		boolean encontre=false;
+		boolean capacidad=false;
 		while(iterBus.hasNext() && !encontre){
 			Bus b=iterBus.next();
 			if(b.getCapacidad()>=cap && !(b.getMatricula().contentEquals(mat))){
+				capacidad=true;
 				Excursiones exc=b.getExc();
 				ArrayList<Excursion> arr= new ArrayList<Excursion>();
 				arr=exc.listarExcursiones();
-				i=0;
-				while(i<arr.size() && !encontre){
-					if(partida.esMenorIgual(arr.get(i).getHr_partida()) && arr.get(i).getHr_regreso().esMenorIgual(regreso)){
-						encontre=true;
-						bFin=b;
+				int i=0;
+				int cont=0;
+				while(i<arr.size()){
+					//se tiene que cumplir que (hp<partida && hr<partida) || (hp>regreso && hr>regreso)
+					if( (arr.get(i).getHr_partida().esMenorIgual(partida) && arr.get(i).getHr_regreso().esMenorIgual(partida)) 
+							|| (regreso.esMenorIgual(arr.get(i).getHr_partida()) && regreso.esMenorIgual(arr.get(i).getHr_regreso()))){
+						cont++; 
+					}else{
+						i=arr.size(); //si encontre una excursion que esta en el rango horario de la que quiero agregar, termino el recorrido
 					}
 					i++;
 				}
-				if(i==0){
+				//si i=0, entonces el bus no tiene ninguna excursion y se la puedo asignar
+				// si cont == arr.size, entonces todas las excursiones estan fuera del rango horario de la excursion que quiero agregar
+				if(i==0 || cont==arr.size()){ 
 					encontre=true;
 					bFin=b;
 				}
 			}
 		}
-		if(!encontre){
-			String msg="No hay bus disponible";
+		if(!encontre ){
+			String msg="";
+			if(mat == "" || capacidad){ //obtener bus disponible entre dos horas
+				msg="Atención! No hay bus disponible en ese rango horario.";
+			}else{ //obtener bus para reasignar
+				msg="Atención! No hay bus disponible en ese rango horario ni con la capacidad necesaria.";
+			}
 			throw new ExcepcionBus(msg);
 		}else{
 			return bFin;

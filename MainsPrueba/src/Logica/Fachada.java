@@ -15,11 +15,11 @@ public class Fachada {
 	//Requerimiento 1
 	public void registroNuevoBus(VOBus vo) throws ExcepcionBus{
 		if(buses.memberBus(vo.getMatricula())){
-			String msg="El Bus ya existe";
+			String msg="Error! El Bus ya existe en el sistema.";
 			throw new ExcepcionBus(msg);
 		}else{
-			if(vo.getCapacidad()<0){
-				String msg="Capacidad maxima del bus alcanzada";
+			if(vo.getCapacidad()<=0){
+				String msg="Error! La capacidad del Bus no puede ser menor o igual a cero.";
 				throw new ExcepcionBus(msg);
 			}else{
 				Excursiones ex=new Excursiones();
@@ -44,7 +44,7 @@ public class Fachada {
 	//Requerimiento 3
 	public VOExcursionDisp [] listadoExcursionesXBus(String mat) throws ExcepcionExcursion {
 		if(!buses.memberBus(mat)){
-			String msg="El bus no existe";
+			String msg="Error! La matricula ingresada no pertenece a un Bus.";
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Bus b=buses.findBus(mat);
@@ -63,7 +63,7 @@ public class Fachada {
 	//Requerimiento 4
 	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus {
 		if(excursiones.memberExcursion(vo.getCodigo())){
-			String msg= "Ya existe excursion";
+			String msg= "Error! La excursion ingresada ya existe.";
 			throw new ExcepcionExcursion(msg);
 		}else{
 			try{
@@ -80,17 +80,17 @@ public class Fachada {
 	//Requerimiento 5
 	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus{
 		if(!excursiones.memberExcursion(codigo)){
-			String msg = "la excursion no existe";
+			String msg = "Error! El código ingresado no pertenece a ninguna Excursión.";
 			throw new ExcepcionExcursion(msg);
 		}else{
-			Excursion ex=excursiones.findExcursion(codigo);
-			String matriculaVieja=ex.getBus().getMatricula();
 			try{
-			Bus b=buses.obtenerBusDisp(ex.getHr_partida(),ex.getHr_regreso(),ex.getBoletos().tamBoletos(), matriculaVieja);
-			b.getExc().insertExcursion(ex);
-			Bus bViejo=buses.findBus(matriculaVieja);
-			bViejo.getExc().deleteExcursion(ex);
-			ex.setBus(b);
+				Excursion ex=excursiones.findExcursion(codigo);
+				String matriculaVieja=ex.getBus().getMatricula();
+				Bus b=buses.obtenerBusDisp(ex.getHr_partida(),ex.getHr_regreso(),ex.getBoletos().tamBoletos(), matriculaVieja);
+				b.getExc().insertExcursion(ex);
+				Bus bViejo=buses.findBus(matriculaVieja);
+				bViejo.getExc().deleteExcursion(ex);
+				ex.setBus(b);
 			}catch(ExcepcionBus e){
 				throw new ExcepcionBus(e.darMensaje());
 			}
