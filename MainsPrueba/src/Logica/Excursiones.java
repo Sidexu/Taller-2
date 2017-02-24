@@ -1,11 +1,12 @@
 package Logica;
 import Logica.Excursion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-public class Excursiones{
+public class Excursiones implements Serializable{
 	private  TreeMap<String,Excursion> arbol;
 	
 	public Excursiones(){
@@ -54,9 +55,7 @@ public class Excursiones{
 		}
 		return arr;
 	}
-	public void respaldoExcursion(){
-		
-	}
+
 	public int tamExcursiones(){
 		return arbol.size();
 	}

@@ -1,12 +1,14 @@
 package Logica;
 import Logica.Boleto;
 import Logica.Especial;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 
-public class Boletos {
+public class Boletos implements Serializable{
 	private LinkedList<Boleto> LL;
 	
 	public Boletos(){
@@ -35,9 +37,6 @@ public class Boletos {
 		return arr;
 	}
 	
-	public void respaldoBoletos(){
-		
-	}
 	
 	public ArrayList<Boleto> listadoBoletoXTipo (String tipo){
 		ArrayList<Boleto> arr= new ArrayList<Boleto>();

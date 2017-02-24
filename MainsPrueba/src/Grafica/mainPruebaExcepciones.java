@@ -1,11 +1,14 @@
 package Grafica;
 
+import Logica.Boleto;
 import Logica.Bus;
 import Logica.Buses;
-import Logica.ExcepcionBus;
-import Logica.ExcepcionExcursion;
+import Logica.Excursion;
 import Logica.Excursiones;
 import Logica.Hora;
+import Logica.Excepciones.ExcepcionBus;
+import Logica.Excepciones.ExcepcionExcursion;
+import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
 import Logica.valueObjects.VOExcursion;
@@ -86,6 +89,14 @@ public class mainPruebaExcepciones {
 		}catch(ExcepcionBus e2){
 			System.out.println("\t"+e2.darMensaje());
 		}
+		
+		///PRUEBA
+		Boleto b = new Boleto(1,12,"montevideo",44322222);
+		//prueba
+		Excursion prueba=excursiones.findExcursion("ROC 1");
+		prueba.getBoletos().insert(b);
+		
+		
 		
 		try{
 			System.out.println("\tIngreso Excursion2 COD: ROC 2, Destino:La Paloma, Hpartida: 9:00, Hregreso: 15:00, PrecioBase: 1200");
@@ -230,7 +241,20 @@ public class mainPruebaExcepciones {
 			System.out.println("\t"+e.darMensaje()+"\n");
 		}
 		
-		System.out.println("\nREQUERIMIENTO 7: venta de boleto");
+		
+		
+		
+		
+		System.out.println("\nREQUERIMIENTO 6: respaldo de datos");
+		try{
+			fach.respaldoDatos();
+			System.out.println("Se respaldo correctamente!");
+		}catch(ExcepcionPersistencia e){
+			System.out.println("\t"+e.darMensaje()+"\n");
+		}
+		
+		
+		
 		
 	}
 }

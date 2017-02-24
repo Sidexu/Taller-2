@@ -1,6 +1,12 @@
 package Logica;
 import java.util.ArrayList;
+
+import Logica.Excepciones.ExcepcionBus;
+import Logica.Excepciones.ExcepcionExcursion;
+import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.*;
+import Persistencia.Respaldo;
+
 
 public class Fachada {
 	private Buses buses;
@@ -97,8 +103,14 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 6
-	public void respaldoDatos(){
-		
+	public void respaldoDatos() throws ExcepcionPersistencia{
+		VOPersistencia vo = new VOPersistencia(buses, excursiones);
+		Respaldo r = new Respaldo();
+		try {
+			r.respaldar("respaldo.dat", vo);
+		} catch (ExcepcionPersistencia e) {
+			throw new ExcepcionPersistencia(e.darMensaje());
+		}
 	}
 	//Requerimiento 7
 	public void ventaBoleto(String codEx,VOBoleto vo, float desc) throws ExcepcionExcursion, ExcepcionBus{

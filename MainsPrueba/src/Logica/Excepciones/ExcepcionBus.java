@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Excepciones;
 
 public class ExcepcionBus extends Exception {
 	private String msg;

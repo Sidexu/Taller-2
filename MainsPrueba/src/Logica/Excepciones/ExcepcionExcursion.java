@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Excepciones;
 
 public class ExcepcionExcursion extends Exception {
 	private String msg;

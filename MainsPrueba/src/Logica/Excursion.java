@@ -1,10 +1,11 @@
 package Logica;
-import Logica.Hora;
+import java.io.Serializable;
 
+import Logica.Hora;
 import Logica.Boletos;
 import Logica.Bus;
 
-public class Excursion {
+public class Excursion implements Serializable{
 	private String codigo;
 	private String destino;
 	private Hora hr_partida;

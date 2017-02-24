@@ -1,11 +1,13 @@
 package Logica;
 import Logica.Bus;
+import Logica.Excepciones.ExcepcionBus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-public class Buses {
+public class Buses implements Serializable {
 	private TreeMap<String,Bus> TM;
 	
 	public Buses(){
