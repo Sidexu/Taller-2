@@ -28,6 +28,4 @@ public class VOBoleto {
 	public long getCel_pas() {
 		return cel_pas;
 	}
-
-	
 }

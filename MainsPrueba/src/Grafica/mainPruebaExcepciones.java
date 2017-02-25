@@ -24,7 +24,10 @@ public class mainPruebaExcepciones {
 		VOBus voBUS3 = new VOBus("CCC 345","VW",20);
 		Buses buses = new Buses();
 		Excursiones excursiones = new Excursiones();
-		Fachada fach = new Fachada(buses,excursiones);
+		//Fachada fach = new Fachada(buses,excursiones);
+		
+		
+		Fachada fach= Fachada.getInstance(buses,excursiones);
 		
 		System.out.println("REQUERIMIENTO 1: ingresar nuevo Bus");
 		try{
@@ -244,7 +247,6 @@ public class mainPruebaExcepciones {
 		
 		
 		
-		
 		System.out.println("\nREQUERIMIENTO 6: respaldo de datos");
 		try{
 			fach.respaldoDatos();
@@ -252,7 +254,6 @@ public class mainPruebaExcepciones {
 		}catch(ExcepcionPersistencia e){
 			System.out.println("\t"+e.darMensaje()+"\n");
 		}
-		
 		
 		
 		

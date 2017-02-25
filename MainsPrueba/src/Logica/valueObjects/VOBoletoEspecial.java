@@ -13,6 +13,5 @@ public class VOBoletoEspecial extends VOBoleto {
 	public float getDescuento() {
 		return descuento;
 	}
-
-	
 }
+

@@ -27,7 +27,7 @@ public class mainRecuperarDatos {
 			e.printStackTrace();
 			System.out.println(e.darMensaje());
 		}
-		Fachada fach = new Fachada(buses,excursiones);
+		Fachada fach= Fachada.getInstance(buses, excursiones);
 		
 		System.out.println("\nREQUERIMIENTO 2: listado general de buses");
 		VOBusCant arrVOBusCant[] ;

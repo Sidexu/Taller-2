@@ -11,9 +11,19 @@ import Persistencia.Respaldo;
 public class Fachada {
 	private Buses buses;
 	private Excursiones excursiones;
+	private static Fachada instancia;
+
+	private Fachada(){
+		
+	}
+	//PRUEBA
+    public static Fachada getInstance(Buses b , Excursiones e) {
+        if (instancia == null)
+        	instancia = new Fachada(b,e);
+        return instancia;
+    }
 	
-	
-	public Fachada(Buses buses, Excursiones excursiones) {
+	private Fachada(Buses buses, Excursiones excursiones) {
 		this.buses = buses;
 		this.excursiones = excursiones;
 	}
@@ -165,4 +175,54 @@ public class Fachada {
 		}
 		return montoTotal;
 	}
+
+	//REQUERIMIENTO 9
+	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion{
+		ArrayList<Boleto> arr = new ArrayList<Boleto>();
+		VOBoletoTipo arrVO[] = new VOBoletoTipo[arr.size()];
+		if(!excursiones.memberExcursion(codigo)){
+			String msg = "No existe la excursion";
+			throw new ExcepcionExcursion(msg);
+		}else{
+			Excursion exc = excursiones.findExcursion(codigo);
+			arr= exc.getBoletos().listadoBoletoXTipo(tipoBoleto);
+			for(int i=0; i<arr.size(); i++){
+					Boleto b = arr.get(i);
+					if(tipoBoleto=="especial"){
+						if(b instanceof Especial){
+							arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(),((Especial)arr.get(i)).getDescuento());
+						}
+					}else{
+						arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(), 0);
+					}
+			}
+		}
+		return arrVO;
+	}
+	
+	//REQUERIMIENTO 10
+	public VOExcursionDisp[] excursionesXDestino(String destino){
+		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
+		arrExc = excursiones.listarExcursionesPorDestino(destino);
+		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
+		for(int i=0; i<arrExc.size(); i++){
+			int cantidadDisponible = arrExc.get(i).getBus().getCapacidad() - arrExc.get(i).getBoletos().tamBoletos();
+			arrVO[i] = new VOExcursionDisp(arrExc.get(i).getCodigo(), arrExc.get(i).getDestino(), arrExc.get(i).getHr_partida(), arrExc.get(i).getHr_regreso(), arrExc.get(i).getPrecio_base(), cantidadDisponible);
+		}
+		return arrVO;
+	}
+	
+	//REQUERIMIENTO 11
+	public VOExcursionDisp[] excursionesXPrecio(float precio1, float precio2){
+		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
+		arrExc = excursiones.listarExcursionesPorPrecio(precio1, precio2);
+		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
+		for(int i=0; i<arrExc.size(); i++){
+			int cantidadDisponible = arrExc.get(i).getBus().getCapacidad() - arrExc.get(i).getBoletos().tamBoletos();
+			arrVO[i] = new VOExcursionDisp(arrExc.get(i).getCodigo(), arrExc.get(i).getDestino(), arrExc.get(i).getHr_partida(), arrExc.get(i).getHr_regreso(), arrExc.get(i).getPrecio_base(), cantidadDisponible);
+		}
+		return arrVO;
+	}
+	
+	
 }
