@@ -123,7 +123,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoleto vo, float desc) throws ExcepcionExcursion, ExcepcionBus{
+	public void ventaBoleto(String codEx,VOBoletoTipo vo, float desc) throws ExcepcionExcursion, ExcepcionBus{
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "La excursion no existe";
 			throw new ExcepcionExcursion(msg);
