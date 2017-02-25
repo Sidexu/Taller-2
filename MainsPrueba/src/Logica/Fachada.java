@@ -13,9 +13,6 @@ public class Fachada {
 	private Excursiones excursiones;
 	private static Fachada instancia;
 
-	private Fachada(){
-		
-	}
 	//PRUEBA
     public static Fachada getInstance(Buses b , Excursiones e) {
         if (instancia == null)
