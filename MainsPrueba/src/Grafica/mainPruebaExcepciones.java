@@ -393,7 +393,7 @@ public class mainPruebaExcepciones {
 		System.out.println("\nREQUERIMIENTO 10: listado excursiones por destino");
 		System.out.println("\t Destino Atlantida");
 		
-		VOExcursionDisp arr[];
+			VOExcursionDisp arr[];
 			arr=fach.excursionesXDestino("Atlantida");
 			if(arr.length==0){
 				System.out.println("\tNo hay excursiones para ese destino");
@@ -407,14 +407,39 @@ public class mainPruebaExcepciones {
 			
 			VOExcursionDisp arr2[];
 				arr2=fach.excursionesXDestino("Antoniopolis");
-				if(arr.length==0){
+				if(arr2.length==0){
 					System.out.println("\tNo hay excursiones para ese destino");
 				}else{
 					for(int i=0;i<arr2.length;i++){
 						System.out.println("\tCodigo:"+arr2[i].getCodigo()+", Destino:"+arr2[i].getDestino()+", HoraPartida: "+arr2[i].getHr_partida().getHora()+":"+arr2[i].getHr_partida().getMin()+", HoraRegreso: "+arr2[i].getHr_regreso().getHora()+":"+arr2[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr2[i].getPrecioBase());
 					}
 				}
+		
+				
+		System.out.println("\nREQUERIMIENTO 11: listado excursiones por rango de precio");
+		System.out.println("Rango de precio de 1500 a 2000");
+		
+			VOExcursionDisp arr3[];
+			arr3=fach.excursionesXPrecio(1500,2000);
+			if(arr3.length==0){
+				System.out.println("\tNo hay excursiones para ese rango de precios");
+			}else{
+				for(int i=0;i<arr3.length;i++){
+					System.out.println("\tCodigo:"+arr3[i].getCodigo()+", Destino:"+arr3[i].getDestino()+", HoraPartida: "+arr3[i].getHr_partida().getHora()+":"+arr3[i].getHr_partida().getMin()+", HoraRegreso: "+arr3[i].getHr_regreso().getHora()+":"+arr3[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr3[i].getPrecioBase());
+				}
+			}
 			
+		System.out.println("Rango de precio de 400 a 1000");
+			
+			VOExcursionDisp arr4[];
+				arr4=fach.excursionesXPrecio(400,1000);
+				if(arr4.length==0){
+					System.out.println("\tNo hay excursiones para ese rango de precios");
+				}else{
+					for(int i=0;i<arr4.length;i++){
+						System.out.println("\tCodigo:"+arr4[i].getCodigo()+", Destino:"+arr4[i].getDestino()+", HoraPartida: "+arr4[i].getHr_partida().getHora()+":"+arr4[i].getHr_partida().getMin()+", HoraRegreso: "+arr4[i].getHr_regreso().getHora()+":"+arr4[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr4[i].getPrecioBase());
+					}
+				}
 	
 		System.out.println("\nREQUERIMIENTO 6: respaldo de datos");
 		try{
