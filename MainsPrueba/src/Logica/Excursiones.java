@@ -4,6 +4,7 @@ import Logica.Excursion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class Excursiones implements Serializable{
@@ -38,7 +39,7 @@ public class Excursiones implements Serializable{
 		Iterator<Excursion> iter= arbol.values().iterator();
 		while(iter.hasNext()){
 			Excursion e=iter.next();
-			if(e.getDestino() == destino){
+			if(Objects.equals(e.getDestino(), destino)){
 				arr.add(new Excursion(e.getCodigo(),e.getDestino(),e.getHr_partida(),e.getHr_regreso(),e.getPrecio_base(),e.getBus(),e.getBoletos()));
 			}
 		}

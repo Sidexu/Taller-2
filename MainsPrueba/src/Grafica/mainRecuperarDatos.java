@@ -12,7 +12,7 @@ import Persistencia.Respaldo;
 public class mainRecuperarDatos {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		Buses buses=new Buses();
 		Excursiones excursiones=new Excursiones();
 		Respaldo r = new Respaldo();

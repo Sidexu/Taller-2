@@ -34,7 +34,7 @@ public class Buses implements Serializable {
 		}
 		return arr;
 	}
-	public Bus obtenerBusDisp(Hora partida, Hora regreso, int cap, String mat) throws ExcepcionBus{
+	public Bus obtenerBusDisp(Hora partida, Hora regreso, int venta_boleto, String mat) throws ExcepcionBus{
 		Iterator<Bus> iterBus= TM.values().iterator();
 		
 		Bus bFin=null;
@@ -42,7 +42,7 @@ public class Buses implements Serializable {
 		boolean capacidad=false;
 		while(iterBus.hasNext() && !encontre){
 			Bus b=iterBus.next();
-			if(b.getCapacidad()>=cap && !(b.getMatricula().contentEquals(mat))){
+			if((b.getCapacidad()-venta_boleto)>=0 && !(b.getMatricula().contentEquals(mat))){
 				capacidad=true;
 				Excursiones exc=b.getExc();
 				ArrayList<Excursion> arr= new ArrayList<Excursion>();

@@ -9,6 +9,7 @@ import Logica.Hora;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
+import Logica.valueObjects.VOBoletoTipo;
 import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
 import Logica.valueObjects.VOExcursion;
@@ -19,9 +20,9 @@ public class mainPruebaExcepciones {
 
 	public static void main(String[] args) {
 		
-		VOBus voBUS1 = new VOBus("AAA 123","Mercedes",30);
+		VOBus voBUS1 = new VOBus("AAA 123","Mercedes",1);
 		VOBus voBUS2 = new VOBus("BBB 234","Yutong",0);
-		VOBus voBUS3 = new VOBus("CCC 345","VW",20);
+		VOBus voBUS3 = new VOBus("CCC 345","VW",3);
 		Buses buses = new Buses();
 		Excursiones excursiones = new Excursiones();
 		//Fachada fach = new Fachada(buses,excursiones);
@@ -93,14 +94,6 @@ public class mainPruebaExcepciones {
 			System.out.println("\t"+e2.darMensaje());
 		}
 		
-		///PRUEBA
-		Boleto b = new Boleto(1,12,"montevideo",44322222);
-		//prueba
-		Excursion prueba=excursiones.findExcursion("ROC 1");
-		prueba.getBoletos().insert(b);
-		
-		
-		
 		try{
 			System.out.println("\tIngreso Excursion2 COD: ROC 2, Destino:La Paloma, Hpartida: 9:00, Hregreso: 15:00, PrecioBase: 1200");
 			fach.registroExcursion(voEx2);
@@ -122,7 +115,7 @@ public class mainPruebaExcepciones {
 		}
 		
 		try{
-			System.out.println("\tIngreso Excursion3 COD: ROC 3, Destino:La Pedrera, Hpartida: 10:00, Hregreso: 11:00, PrecioBase: 500");
+			System.out.println("\tIngreso Excursion3 COD: ROC 3, Destino:La Pedrera, Hpartida: 10:00, Hregreso: 11:00, PrecioBase: 1400");
 			fach.registroExcursion(voEx3);
 			System.out.println("\tRegristro ingresado con éxito.");
 		}catch(ExcepcionExcursion e1){
@@ -132,7 +125,7 @@ public class mainPruebaExcepciones {
 		}
 		
 		try{
-			System.out.println("\tIngreso Excursion4 COD: ROC 4, Destino:Antonipolis, Hpartida: 15:00, Hregreso: 18:00, PrecioBase: 1400");
+			System.out.println("\tIngreso Excursion4 COD: ROC 4, Destino:Antonipolis, Hpartida: 15:00, Hregreso: 18:00, PrecioBase: 500");
 			fach.registroExcursion(voEx4);
 			System.out.println("\tRegristro ingresado con éxito.");
 		}catch(ExcepcionExcursion e1){
@@ -245,8 +238,184 @@ public class mainPruebaExcepciones {
 		}
 		
 		
+		System.out.println("\nREQUERIMIENTO 7: Venta de boleto");
+		System.out.println("\tCodigo de Excursion: NOEXISTE, datos del pasajero: NRO_BOLETO: 1, EDAD:12, PROCEDENCIA: CANELONES, CEL: 598996655, DESCUENTO:0");
+		VOBoletoTipo vo=new VOBoletoTipo(1,12,"Canelones",598996655,0);
+		try{
+			fach.ventaBoleto("NOEXISTE", vo);
+			System.out.println("Boleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
 		
+		System.out.println("\tCodigo de Excursion: ROC 1, datos del pasajero: NRO_BOLETO: 1, EDAD:12, PROCEDENCIA: CANELONES, CEL: 598996655, DESCUENTO:0");
+		try{
+			fach.ventaBoleto("ROC 1", vo);
+			System.out.println("\tBoleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
 		
+		System.out.println("\tCodigo de Excursion: ROC 1, datos del pasajero: NRO_BOLETO: 2, EDAD:28, PROCEDENCIA: PAYSANDU, CEL: 598200022, DESCUENTO:300");
+		VOBoletoTipo vo2=new VOBoletoTipo(2,28,"Paysandu",598200022,300);
+		try{
+			fach.ventaBoleto("ROC 1", vo2);
+			System.out.println("Boleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		System.out.println("\tCodigo de Excursion: ROC 4,  datos del pasajero: NRO_BOLETO: 1, EDAD:12, PROCEDENCIA: CANELONES, CEL: 598996655, DESCUENTO:0");
+		try{
+			fach.ventaBoleto("ROC 4", vo);
+			System.out.println("\tBoleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\tCodigo de Excursion: ROC 4, datos del pasajero: NRO_BOLETO: 2, EDAD:28, PROCEDENCIA: PAYSANDU, CEL: 598200022, DESCUENTO:300");
+		try{
+			fach.ventaBoleto("ROC 4", vo2);
+			System.out.println("\tBoleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\tCodigo de Excursion: ROC 4, datos del pasajero: NRO_BOLETO: 2, EDAD:12, PROCEDENCIA: SAN JOSE, CEL: 598445522, DESCUENTO:200");
+		VOBoletoTipo vo8=new VOBoletoTipo(3,12,"San Jose",598445522,200);
+		try{
+			fach.ventaBoleto("ROC 4", vo8);
+			System.out.println("\tBoleto ingresado con exito.");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\nREQUERIMIENTO 3: listado de excursiones por bus");
+		
+		System.out.println("\tListado BUS1 MAT: AAA 123");
+		try{
+			VOExcursionDisp arrVOExDis[];
+			arrVOExDis=fach.listadoExcursionesXBus("AAA 123");
+			for(int i=0;i<arrVOExDis.length;i++){
+				VOExcursionDisp vo3=arrVOExDis[i];
+				System.out.println("\tExcursion COD: "+vo3.getCodigo()+", Destino: "+vo3.getDestino()+", Hora Partida: "+vo3.getHr_partida().getHora()+":"+vo3.getHr_partida().getMin()+", Hora regreso: "+vo3.getHr_regreso().getHora()+":"+vo3.getHr_regreso().getMin()+", Precio base: "+vo3.getPrecioBase()+", Cant asientos disp: "+vo3.getCant_disponibles());
+			}
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\tListado BUS3 MAT: CCC 345");
+		try{
+			VOExcursionDisp arrVOExDis[];
+			arrVOExDis=fach.listadoExcursionesXBus("CCC 345");
+			for(int i=0;i<arrVOExDis.length;i++){
+				VOExcursionDisp vo4=arrVOExDis[i];
+				System.out.println("\tExcursion COD: "+vo4.getCodigo()+", Destino: "+vo4.getDestino()+", Hora Partida: "+vo4.getHr_partida().getHora()+":"+vo4.getHr_partida().getMin()+", Hora regreso: "+vo4.getHr_regreso().getHora()+":"+vo4.getHr_regreso().getMin()+", Precio base: "+vo4.getPrecioBase()+", Cant asientos disp: "+vo4.getCant_disponibles());
+			}
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje()+"\n");
+		}
+		
+		System.out.println("\nREQUERIMIENTO 5: reasignar una excursión ");
+		System.out.println("\tSe reasignará la excursion1 'ROC 1' ");
+		try{
+			fach.reasignacionExcursion("ROC 1");
+			System.out.println("\tReasignación realizada con éxito");
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje()+"\n");
+		}catch(ExcepcionBus e){
+			System.out.println("\t"+e.darMensaje()+"\n");
+		}
+
+		
+		System.out.println("\nREQUERIMIENTO 8: recaudacion de una excursion");
+		System.out.println("\tRecaudacion de la excursion NOEXISTE");
+		try{
+			float recaudacion=fach.recaudacionExcursion("NOEXISTE");
+			System.out.println("\tLa recaudacion fue: "+recaudacion);
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\tRecaudacion de la excursion ROC 4");
+		try{
+			float recaudacion=fach.recaudacionExcursion("ROC 4");
+			System.out.println("\tLa recaudacion fue: "+recaudacion);
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje()+"\n");
+		}
+		
+		System.out.println("\nREQUERIMIENTO 9: listado de boletos vendidos para una excursion");
+		System.out.println("\t Codigo excursion 'NOEXISTE' tipo boleto comun");
+		try{
+			VOBoletoTipo arr[];
+			arr=fach.boletosVendidosXEx("NOEXISTE","comun");
+			for(int i=0;i<arr.length;i++){
+				System.out.println("\tNroBoleto:"+arr[i].getNro_boleto()+", EdadPas:"+arr[i].getEdad_pas()+", LugarProc:"+arr[i].getLugar_procedencia()+", CelPas:"+arr[i].getCel_pas()+", Descuento:"+arr[i].getDescuento());
+			}
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\t Codigo excursion 'ROC 4' tipo boleto comun");
+		try{
+			VOBoletoTipo arr[];
+			arr=fach.boletosVendidosXEx("ROC 4","comun");
+			for(int i=0;i<arr.length;i++){
+				System.out.println("/tNroBoleto:"+arr[i].getNro_boleto()+", EdadPas:"+arr[i].getEdad_pas()+", LugarProc:"+arr[i].getLugar_procedencia()+", CelPas:"+arr[i].getCel_pas()+", Descuento:"+arr[i].getDescuento());
+			}
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\t Codigo excursion 'ROC 4' tipo boleto especial");
+		try{
+			VOBoletoTipo arr[];
+			arr=fach.boletosVendidosXEx("ROC 4","especial");
+			for(int i=0;i<arr.length;i++){
+				System.out.println("\tNroBoleto:"+arr[i].getNro_boleto()+", EdadPas:"+arr[i].getEdad_pas()+", LugarProc:"+arr[i].getLugar_procedencia()+", CelPas:"+arr[i].getCel_pas()+", Descuento:"+arr[i].getDescuento());
+			}
+		}catch(ExcepcionExcursion e){
+			System.out.println("\t"+e.darMensaje());
+		}
+		
+		System.out.println("\nREQUERIMIENTO 10: listado excursiones por destino");
+		System.out.println("\t Destino Atlantida");
+		
+		VOExcursionDisp arr[];
+			arr=fach.excursionesXDestino("Atlantida");
+			if(arr.length==0){
+				System.out.println("\tNo hay excursiones para ese destino");
+			}else{
+				for(int i=0;i<arr.length;i++){
+					System.out.println("\tCodigo:"+arr[i].getCodigo()+", Destino:"+arr[i].getDestino()+", HoraPartida: "+arr[i].getHr_partida().getHora()+":"+arr[i].getHr_partida().getMin()+", HoraRegreso: "+arr[i].getHr_regreso().getHora()+":"+arr[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr[i].getPrecioBase());
+				}
+			}
+			
+			System.out.println("\t Destino Antoniopolis");
+			
+			VOExcursionDisp arr2[];
+				arr2=fach.excursionesXDestino("Antoniopolis");
+				if(arr.length==0){
+					System.out.println("\tNo hay excursiones para ese destino");
+				}else{
+					for(int i=0;i<arr2.length;i++){
+						System.out.println("\tCodigo:"+arr2[i].getCodigo()+", Destino:"+arr2[i].getDestino()+", HoraPartida: "+arr2[i].getHr_partida().getHora()+":"+arr2[i].getHr_partida().getMin()+", HoraRegreso: "+arr2[i].getHr_regreso().getHora()+":"+arr2[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr2[i].getPrecioBase());
+					}
+				}
+			
+	
 		System.out.println("\nREQUERIMIENTO 6: respaldo de datos");
 		try{
 			fach.respaldoDatos();

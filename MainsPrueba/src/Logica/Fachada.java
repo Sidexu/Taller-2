@@ -120,7 +120,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoletoTipo vo, float desc) throws ExcepcionExcursion, ExcepcionBus{
+	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus{
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "La excursion no existe";
 			throw new ExcepcionExcursion(msg);
@@ -131,11 +131,11 @@ public class Fachada {
 				String msg2 = "No quedan asientos disponibles";
 				throw new ExcepcionBus(msg2);
 			}else{
-				if(desc == 0){//boleto comun
+				if(vo.getDescuento() == 0){//boleto comun
 					Boleto b = new Boleto(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
 					ex.getBoletos().insert(b);
 				}else{ //boleto especial
-					Boleto b = new Especial(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas(),desc); 
+					Boleto b = new Especial(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas(),vo.getDescuento()); 
 					ex.getBoletos().insert(b);
 				}				
 			}
@@ -176,13 +176,14 @@ public class Fachada {
 	//REQUERIMIENTO 9
 	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion{
 		ArrayList<Boleto> arr = new ArrayList<Boleto>();
-		VOBoletoTipo arrVO[] = new VOBoletoTipo[arr.size()];
+		VOBoletoTipo arrVO[]; 
 		if(!excursiones.memberExcursion(codigo)){
 			String msg = "No existe la excursion";
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion exc = excursiones.findExcursion(codigo);
 			arr= exc.getBoletos().listadoBoletoXTipo(tipoBoleto);
+			arrVO = new VOBoletoTipo[arr.size()];
 			for(int i=0; i<arr.size(); i++){
 					Boleto b = arr.get(i);
 					if(tipoBoleto=="especial"){
