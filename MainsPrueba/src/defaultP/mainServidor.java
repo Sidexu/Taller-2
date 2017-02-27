@@ -26,18 +26,7 @@ public class mainServidor {
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			Naming.rebind(ruta, fach);
 			
-			VOBus voBUS1 = new VOBus("AAA 123","Mercedes",1);
-			VOBus voBUS2 = new VOBus("BBB 234","Yutong",0);
-			VOBus voBUS3 = new VOBus("CCC 345","VW",3);
 			
-			System.out.println("REQUERIMIENTO 1: ingresar nuevo Bus");
-			try{
-				System.out.println("\tSe ingresa bus MAT:AAA 123, MARCA:Mercedes, CAP:30.");
-				fach.registroNuevoBus(voBUS1);
-				System.out.println("\tRegristro ingresado con éxito.");
-			}catch(ExcepcionBus e){
-				System.out.println("\t"+e.darMensaje()+"");
-			}
 
 		}
 		catch (RemoteException e)
