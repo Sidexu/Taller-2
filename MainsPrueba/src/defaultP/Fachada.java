@@ -1,4 +1,6 @@
 package defaultP;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import Logica.Boleto;
@@ -8,14 +10,17 @@ import Logica.Buses;
 import Logica.Especial;
 import Logica.Excursion;
 import Logica.Excursiones;
+import Logica.Monitor1;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
-import Logica.valueObjects.*;
+import Logica.valueObjects.VOBoletoTipo;
+import Logica.valueObjects.VOBus;
+import Logica.valueObjects.VOBusCant;
+import Logica.valueObjects.VOExcursion;
+import Logica.valueObjects.VOExcursionDisp;
+import Logica.valueObjects.VOPersistencia;
 import Persistencia.Respaldo;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 public class Fachada extends UnicastRemoteObject implements IFachada{
 	/**
@@ -50,26 +55,31 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	public void setExcursiones(Excursiones e){
 		this.excursiones=e;
 	}
-	
+	Monitor1 m = new Monitor1();
 	//Requerimiento 1
 	public void registroNuevoBus(VOBus vo) throws ExcepcionBus, RemoteException{
+		m.comenzarEscritura();
 		if(buses.memberBus(vo.getMatricula())){
 			String msg="Error! El Bus ya existe en el sistema.";
+			m.escrituraTerminada();
 			throw new ExcepcionBus(msg);
 		}else{
 			if(vo.getCapacidad()<=0){
 				String msg="Error! La capacidad del Bus no puede ser menor o igual a cero.";
+				m.escrituraTerminada();
 				throw new ExcepcionBus(msg);
 			}else{
 				Excursiones ex=new Excursiones();
 				Bus v = new Bus(vo.getMatricula(),vo.getMarca(),vo.getCapacidad(),ex);
 				buses.insertBus(v);
+				m.escrituraTerminada();
 			}
 		}
 	}
 	//Requerimiento 2
 	public VOBusCant [] listadoGralBuses() throws RemoteException{
 		ArrayList<Bus> arr= new ArrayList<Bus>();
+		m.comenzarLectura();
 		arr= buses.listadoBuses();
 		VOBusCant arrVO[]= new VOBusCant[arr.size()];
 		
@@ -78,12 +88,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			VOBusCant vobuscant= new VOBusCant(b.getMatricula(),b.getMarca(),b.getCapacidad(),b.getExc().tamExcursiones());
 			arrVO[i]= vobuscant;
 		}
+		m.lecturaTerminada();
 		return arrVO;
 	}
 	//Requerimiento 3
 	public VOExcursionDisp [] listadoExcursionesXBus(String mat) throws ExcepcionExcursion, RemoteException {
+		m.comenzarLectura();
 		if(!buses.memberBus(mat)){
 			String msg="Error! La matricula ingresada no pertenece a un Bus.";
+			m.lecturaTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Bus b=buses.findBus(mat);
@@ -96,73 +109,90 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				VOExcursionDisp vodisp= new VOExcursionDisp(ex.getCodigo(),ex.getDestino(),ex.getHr_partida(),ex.getHr_regreso(),ex.getPrecio_base(),cant_disponibles);
 				arrVO[i]= vodisp;
 			}
+			m.lecturaTerminada();
 			return arrVO;
 		}
 	}
 	//Requerimiento 4
 	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException {
+		m.comenzarEscritura();
 		if(excursiones.memberExcursion(vo.getCodigo())){
 			String msg= "Error! La excursion ingresada ya existe.";
+			m.escrituraTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			try{
-			Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");
-			Boletos bol=new Boletos();
-			Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
-			excursiones.insertExcursion(ex);
-			b.getExc().insertExcursion(ex);
+				Boletos bol=new Boletos();
+				Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");	
+				Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
+				excursiones.insertExcursion(ex);
+				b.getExc().insertExcursion(ex);
+				m.escrituraTerminada();
 			}catch(ExcepcionBus e){
+				m.escrituraTerminada();
 				throw new ExcepcionBus(e.darMensaje());
 			}
 		}
 	}
 	//Requerimiento 5
 	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+		m.comenzarEscritura();
 		if(!excursiones.memberExcursion(codigo)){
 			String msg = "Error! El código ingresado no pertenece a ninguna Excursión.";
+			m.escrituraTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			try{
 				Excursion ex=excursiones.findExcursion(codigo);
 				String matriculaVieja=ex.getBus().getMatricula();
 				Bus b=buses.obtenerBusDisp(ex.getHr_partida(),ex.getHr_regreso(),ex.getBoletos().tamBoletos(), matriculaVieja);
-				b.getExc().insertExcursion(ex);
 				Bus bViejo=buses.findBus(matriculaVieja);
 				bViejo.getExc().deleteExcursion(ex);
 				ex.setBus(b);
+				b.getExc().insertExcursion(ex);
+				m.escrituraTerminada();
 			}catch(ExcepcionBus e){
+				m.escrituraTerminada();
 				throw new ExcepcionBus(e.darMensaje());
 			}
 		}
 	}
 	//Requerimiento 6
 	public void respaldoDatos() throws ExcepcionPersistencia, RemoteException{
+		m.comenzarEscritura();
 		VOPersistencia vo = new VOPersistencia(buses, excursiones);
 		Respaldo r = new Respaldo();
 		try {
 			r.respaldar("respaldo.dat", vo);
+			m.escrituraTerminada();
 		} catch (ExcepcionPersistencia e) {
+			m.escrituraTerminada();
 			throw new ExcepcionPersistencia(e.darMensaje());
 		}
 	}
 	//Requerimiento 7
 	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+		m.comenzarEscritura();
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "La excursion no existe";
+			m.escrituraTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion ex=excursiones.findExcursion(codEx);
 			int cant_disp=ex.getBus().getCapacidad()-ex.getBoletos().tamBoletos();
 			if(cant_disp == 0){
 				String msg2 = "No quedan asientos disponibles";
+				m.escrituraTerminada();
 				throw new ExcepcionBus(msg2);
 			}else{
 				if(vo.getDescuento() == 0){//boleto comun
 					Boleto b = new Boleto(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
 					ex.getBoletos().insert(b);
+					m.escrituraTerminada();
 				}else{ //boleto especial
 					Boleto b = new Especial(vo.getNro_boleto(),vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas(),vo.getDescuento()); 
 					ex.getBoletos().insert(b);
+					m.escrituraTerminada();
 				}				
 			}
 		}
@@ -170,8 +200,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	//Requerimiento 8
 	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion, RemoteException{
 		float montoTotal=0;
+		m.comenzarLectura();
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "No existe la excursion";
+			m.lecturaTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion ex=excursiones.findExcursion(codEx);
@@ -195,16 +227,19 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 					}
 				}
 			}
+			m.lecturaTerminada();
 		}
 		return montoTotal;
 	}
 
 	//REQUERIMIENTO 9
 	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, RemoteException{
+		m.comenzarLectura();
 		ArrayList<Boleto> arr = new ArrayList<Boleto>();
 		VOBoletoTipo arrVO[]; 
 		if(!excursiones.memberExcursion(codigo)){
 			String msg = "No existe la excursion";
+			m.lecturaTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
 			Excursion exc = excursiones.findExcursion(codigo);
@@ -220,12 +255,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 						arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(), 0);
 					}
 			}
+			m.lecturaTerminada();
 		}
 		return arrVO;
 	}
 	
 	//REQUERIMIENTO 10
 	public VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException{
+		m.comenzarLectura();
 		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
 		arrExc = excursiones.listarExcursionesPorDestino(destino);
 		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
@@ -233,11 +270,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			int cantidadDisponible = arrExc.get(i).getBus().getCapacidad() - arrExc.get(i).getBoletos().tamBoletos();
 			arrVO[i] = new VOExcursionDisp(arrExc.get(i).getCodigo(), arrExc.get(i).getDestino(), arrExc.get(i).getHr_partida(), arrExc.get(i).getHr_regreso(), arrExc.get(i).getPrecio_base(), cantidadDisponible);
 		}
+		m.lecturaTerminada();
 		return arrVO;
 	}
 	
 	//REQUERIMIENTO 11
 	public VOExcursionDisp[] excursionesXPrecio(float precio1, float precio2) throws RemoteException{
+		m.comenzarLectura();
 		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
 		arrExc = excursiones.listarExcursionesPorPrecio(precio1, precio2);
 		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
@@ -245,6 +284,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			int cantidadDisponible = arrExc.get(i).getBus().getCapacidad() - arrExc.get(i).getBoletos().tamBoletos();
 			arrVO[i] = new VOExcursionDisp(arrExc.get(i).getCodigo(), arrExc.get(i).getDestino(), arrExc.get(i).getHr_partida(), arrExc.get(i).getHr_regreso(), arrExc.get(i).getPrecio_base(), cantidadDisponible);
 		}
+		m.lecturaTerminada();
 		return arrVO;
 	}
 	

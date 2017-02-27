@@ -7,8 +7,13 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Properties;
 
+import Logica.Buses;
+import Logica.Excursiones;
 import Logica.Excepciones.ExcepcionBus;
+import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.VOBus;
+import Logica.valueObjects.VOPersistencia;
+import Persistencia.Respaldo;
 
 public class mainServidor {
 	public static void main(String[] args)
@@ -26,7 +31,23 @@ public class mainServidor {
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			Naming.rebind(ruta, fach);
 			
-			
+			/*
+			Buses buses=new Buses();
+			Excursiones excursiones=new Excursiones();
+			Respaldo r = new Respaldo();
+			VOPersistencia voPers = new VOPersistencia(buses,excursiones);
+			try {
+				voPers=r.recuperar("respaldo.dat");
+				buses=voPers.getBuses();
+				excursiones=voPers.getExcursiones();
+				
+			} catch (ExcepcionPersistencia e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(e.darMensaje());
+			}
+			fach.setBuses(buses);
+			fach.setExcursiones(excursiones);*/
 
 		}
 		catch (RemoteException e)

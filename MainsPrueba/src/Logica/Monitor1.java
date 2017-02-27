@@ -1,8 +1,13 @@
 package Logica;
 
-public class Monitor {
-	private int lectores;
-	private boolean alguien_escribe;
+public class Monitor1 {
+	private static int lectores;
+	private static boolean alguien_escribe;
+	
+	public void Monitor1(){
+		lectores = 0;
+		alguien_escribe = false;
+	}
 	
 	public synchronized void comenzarLectura(){
 		while(alguien_escribe){
@@ -17,9 +22,7 @@ public class Monitor {
 	
 	public synchronized void lecturaTerminada(){
 		lectores--;
-		if(lectores == 0){
-			this.notify();
-		}
+		this.notifyAll();	
 	}
 	
 	public synchronized void comenzarEscritura(){
