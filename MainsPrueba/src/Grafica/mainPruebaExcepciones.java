@@ -2,6 +2,7 @@ package Grafica;
 
 import java.rmi.RemoteException;
 
+import defaultP.Fachada;
 import Logica.Boleto;
 import Logica.Bus;
 import Logica.Buses;
@@ -16,7 +17,6 @@ import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
 import Logica.valueObjects.VOExcursion;
 import Logica.valueObjects.VOExcursionDisp;
-import Logica.Fachada;
 
 public class mainPruebaExcepciones {
 

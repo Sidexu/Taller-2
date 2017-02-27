@@ -1,6 +1,7 @@
 package Grafica;
 import java.rmi.RemoteException;
 
+import defaultP.Fachada;
 import Logica.*;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;

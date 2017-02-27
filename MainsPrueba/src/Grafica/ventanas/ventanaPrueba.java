@@ -22,9 +22,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import defaultP.Fachada;
 import Logica.Buses;
 import Logica.Excursiones;
-import Logica.Fachada;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;

@@ -1,6 +1,8 @@
 package Logica.valueObjects;
 
-public class VOBusCant extends VOBus{
+import java.io.Serializable;
+
+public class VOBusCant extends VOBus implements Serializable{
 	private int cat_ex;
 
 	public VOBusCant(String matricula, String marca, int capacidad, int cat_ex) {

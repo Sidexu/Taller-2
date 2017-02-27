@@ -1,4 +1,4 @@
-package Grafica;
+package defaultP;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

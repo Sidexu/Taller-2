@@ -1,8 +1,10 @@
 package Logica.valueObjects;
 
+import java.io.Serializable;
+
 import Logica.Hora;
 
-public class VOExcursionDisp extends VOExcursion{
+public class VOExcursionDisp extends VOExcursion implements Serializable{
 	private int cant_disponibles;
 
 	public VOExcursionDisp(String codigo, String destino, Hora hr_partida,

@@ -1,17 +1,24 @@
-package Logica;
+package defaultP;
 import java.util.ArrayList;
 
-import Grafica.IFachada;
+import Logica.Boleto;
+import Logica.Boletos;
+import Logica.Bus;
+import Logica.Buses;
+import Logica.Especial;
+import Logica.Excursion;
+import Logica.Excursiones;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.*;
 import Persistencia.Respaldo;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Fachada extends UnicastRemoteObject implements IFachada {
+public class Fachada extends UnicastRemoteObject implements IFachada, Serializable {
 	/**
 	 * 
 	 */

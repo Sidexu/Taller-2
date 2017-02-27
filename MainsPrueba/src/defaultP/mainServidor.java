@@ -1,4 +1,4 @@
-package Grafica;
+package defaultP;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Properties;
 
-import Logica.Fachada;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.valueObjects.VOBus;
 
