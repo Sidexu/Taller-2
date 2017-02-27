@@ -1,51 +1,33 @@
 package Grafica.ventanas;
 
-import java.awt.EventQueue;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JPopupMenu;
-
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JPanel;
-import javax.swing.JTree;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-
-import java.awt.FlowLayout;
-
-import javax.swing.UIManager;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.SystemColor;
-
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+
+import Logica.Buses;
+import Logica.Excursiones;
+import Logica.Fachada;
+import Logica.Excepciones.ExcepcionBus;
+import Logica.valueObjects.VOBus;
+import Logica.valueObjects.VOBusCant;
 
 public class ventanaPrueba {
 
@@ -72,6 +54,7 @@ public class ventanaPrueba {
 	private JTextField textField_19;
 	private JTextField textField_20;
 	private JTextField textField_21;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -106,6 +89,30 @@ public class ventanaPrueba {
 		frame.setBounds(100, 100, 1024, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		final JPanel panel_listGralBus = new JPanel();
+		panel_listGralBus.setBounds(183, 11, 819, 539);
+		frame.getContentPane().add(panel_listGralBus);
+		panel_listGralBus.setBackground(Color.WHITE);
+		panel_listGralBus.setLayout(null);
+		
+		JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
+		lblListadoDeTodos.setBounds(28, 27, 500, 37);
+		lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+		panel_listGralBus.add(lblListadoDeTodos);
+		
+		String[] columnNames = {"Matricula",
+                "Marca",
+                "Capacidad",
+                "Cantidad de excursiones"};
+		Object[][] rowData = {
+			};
+		table = new JTable(rowData, columnNames);
+		table.setBounds(28, 93, 756, 368);
+		panel_listGralBus.add(table);
+		table.setLayout(new BorderLayout());
+		table.add(table.getTableHeader(), BorderLayout.PAGE_START);
+		
 		
 		final JPanel panel_inicio = new JPanel();
 		panel_inicio.setBackground(Color.WHITE);
@@ -422,21 +429,6 @@ public class ventanaPrueba {
 		textField_12.setBounds(93, 5, 146, 26);
 		panel_6.add(textField_12);
 		textField_12.setColumns(10);
-		
-		final JPanel panel_listGralBus = new JPanel();
-		panel_listGralBus.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_listGralBus);
-		panel_listGralBus.setBackground(Color.WHITE);
-		panel_listGralBus.setLayout(null);
-		
-		JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
-		lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblListadoDeTodos.setBounds(28, 27, 500, 37);
-		panel_listGralBus.add(lblListadoDeTodos);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(28, 90, 754, 369);
-		panel_listGralBus.add(panel_5);
 		
 		final JPanel panel_listExBus = new JPanel();
 		panel_listExBus.setBackground(Color.WHITE);

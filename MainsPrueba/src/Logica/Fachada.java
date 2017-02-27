@@ -1,32 +1,52 @@
 package Logica;
 import java.util.ArrayList;
 
+import Grafica.IFachada;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.*;
 import Persistencia.Respaldo;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Fachada {
+public class Fachada extends UnicastRemoteObject implements IFachada {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6371657270370176547L;
 	private Buses buses;
 	private Excursiones excursiones;
 	private static Fachada instancia;
 
-	//PRUEBA
-    public static Fachada getInstance(Buses b , Excursiones e) {
-        if (instancia == null)
-        	instancia = new Fachada(b,e);
+	//Singleton
+    public static Fachada getInstance() throws RemoteException {
+        if (instancia == null){
+        	try {
+				instancia = new Fachada();
+			} catch (RemoteException e1) {
+				throw new RemoteException(e1.getMessage());
+			}
+        }
         return instancia;
     }
 	
-	private Fachada(Buses buses, Excursiones excursiones) {
-		this.buses = buses;
-		this.excursiones = excursiones;
+	private Fachada() throws RemoteException {
+		this.buses = new Buses();
+		this.excursiones = new Excursiones();
+	}
+	
+	public void setBuses(Buses b){
+		this.buses=b;
+	}
+	
+	public void setExcursiones(Excursiones e){
+		this.excursiones=e;
 	}
 	
 	//Requerimiento 1
-	public void registroNuevoBus(VOBus vo) throws ExcepcionBus{
+	public void registroNuevoBus(VOBus vo) throws ExcepcionBus, RemoteException{
 		if(buses.memberBus(vo.getMatricula())){
 			String msg="Error! El Bus ya existe en el sistema.";
 			throw new ExcepcionBus(msg);
@@ -42,7 +62,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 2
-	public VOBusCant [] listadoGralBuses(){
+	public VOBusCant [] listadoGralBuses() throws RemoteException{
 		ArrayList<Bus> arr= new ArrayList<Bus>();
 		arr= buses.listadoBuses();
 		VOBusCant arrVO[]= new VOBusCant[arr.size()];
@@ -55,7 +75,7 @@ public class Fachada {
 		return arrVO;
 	}
 	//Requerimiento 3
-	public VOExcursionDisp [] listadoExcursionesXBus(String mat) throws ExcepcionExcursion {
+	public VOExcursionDisp [] listadoExcursionesXBus(String mat) throws ExcepcionExcursion, RemoteException {
 		if(!buses.memberBus(mat)){
 			String msg="Error! La matricula ingresada no pertenece a un Bus.";
 			throw new ExcepcionExcursion(msg);
@@ -74,7 +94,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 4
-	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus {
+	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException {
 		if(excursiones.memberExcursion(vo.getCodigo())){
 			String msg= "Error! La excursion ingresada ya existe.";
 			throw new ExcepcionExcursion(msg);
@@ -91,7 +111,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 5
-	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus{
+	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
 		if(!excursiones.memberExcursion(codigo)){
 			String msg = "Error! El código ingresado no pertenece a ninguna Excursión.";
 			throw new ExcepcionExcursion(msg);
@@ -110,7 +130,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 6
-	public void respaldoDatos() throws ExcepcionPersistencia{
+	public void respaldoDatos() throws ExcepcionPersistencia, RemoteException{
 		VOPersistencia vo = new VOPersistencia(buses, excursiones);
 		Respaldo r = new Respaldo();
 		try {
@@ -120,7 +140,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus{
+	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "La excursion no existe";
 			throw new ExcepcionExcursion(msg);
@@ -142,7 +162,7 @@ public class Fachada {
 		}
 	}
 	//Requerimiento 8
-	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion{
+	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion, RemoteException{
 		float montoTotal=0;
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "No existe la excursion";
@@ -174,7 +194,7 @@ public class Fachada {
 	}
 
 	//REQUERIMIENTO 9
-	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion{
+	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, RemoteException{
 		ArrayList<Boleto> arr = new ArrayList<Boleto>();
 		VOBoletoTipo arrVO[]; 
 		if(!excursiones.memberExcursion(codigo)){
@@ -199,7 +219,7 @@ public class Fachada {
 	}
 	
 	//REQUERIMIENTO 10
-	public VOExcursionDisp[] excursionesXDestino(String destino){
+	public VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException{
 		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
 		arrExc = excursiones.listarExcursionesPorDestino(destino);
 		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
@@ -211,7 +231,7 @@ public class Fachada {
 	}
 	
 	//REQUERIMIENTO 11
-	public VOExcursionDisp[] excursionesXPrecio(float precio1, float precio2){
+	public VOExcursionDisp[] excursionesXPrecio(float precio1, float precio2) throws RemoteException{
 		ArrayList<Excursion> arrExc = new ArrayList<Excursion>();
 		arrExc = excursiones.listarExcursionesPorPrecio(precio1, precio2);
 		VOExcursionDisp arrVO[] = new VOExcursionDisp[arrExc.size()];
