@@ -14,11 +14,10 @@ import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.*;
 import Persistencia.Respaldo;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Fachada extends UnicastRemoteObject implements IFachada, Serializable {
+public class Fachada extends UnicastRemoteObject implements IFachada{
 	/**
 	 * 
 	 */
