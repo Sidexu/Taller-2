@@ -1,8 +1,7 @@
 package Grafica;
-import java.util.ArrayList;
+import java.rmi.RemoteException;
 
 import Logica.*;
-import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.VOBusCant;
@@ -11,7 +10,7 @@ import Logica.valueObjects.VOPersistencia;
 import Persistencia.Respaldo;
 public class mainRecuperarDatos {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException {
 
 		Buses buses=new Buses();
 		Excursiones excursiones=new Excursiones();
@@ -27,7 +26,9 @@ public class mainRecuperarDatos {
 			e.printStackTrace();
 			System.out.println(e.darMensaje());
 		}
-		Fachada fach= Fachada.getInstance(buses, excursiones);
+		Fachada fach= Fachada.getInstance();
+		fach.setBuses(buses);
+		fach.setExcursiones(excursiones);
 		
 		System.out.println("\nREQUERIMIENTO 2: listado general de buses");
 		VOBusCant arrVOBusCant[] ;

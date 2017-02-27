@@ -1,5 +1,7 @@
 package Grafica;
 
+import java.rmi.RemoteException;
+
 import Logica.Boleto;
 import Logica.Bus;
 import Logica.Buses;
@@ -18,17 +20,14 @@ import Logica.Fachada;
 
 public class mainPruebaExcepciones {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)  throws RemoteException{
 		
 		VOBus voBUS1 = new VOBus("AAA 123","Mercedes",1);
 		VOBus voBUS2 = new VOBus("BBB 234","Yutong",0);
 		VOBus voBUS3 = new VOBus("CCC 345","VW",3);
-		Buses buses = new Buses();
-		Excursiones excursiones = new Excursiones();
-		//Fachada fach = new Fachada(buses,excursiones);
+
 		
-		
-		Fachada fach= Fachada.getInstance(buses,excursiones);
+		Fachada fach= Fachada.getInstance();
 		
 		System.out.println("REQUERIMIENTO 1: ingresar nuevo Bus");
 		try{
