@@ -90,6 +90,70 @@ public class ventanaPrueba {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		
+		final JPanel panel_inicio = new JPanel();
+		panel_inicio.setBackground(Color.WHITE);
+		panel_inicio.setBounds(183, 11, 819, 539);
+		frame.getContentPane().add(panel_inicio);
+		panel_inicio.setLayout(null);
+		
+		JLabel lblNewLabel_25 = new JLabel("Bienvenido al sistema Duck Boat");
+		lblNewLabel_25.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+		lblNewLabel_25.setBounds(28, 27, 421, 37);
+		panel_inicio.add(lblNewLabel_25);
+		
+				
+				JPanel panel_12 = new JPanel();
+				panel_12.setBounds(28, 90, 754, 369);
+				panel_inicio.add(panel_12);
+				panel_12.setLayout(null);
+				
+				JLabel label_2 = new JLabel("");
+				Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
+				label_2.setIcon(new ImageIcon(img));
+				label_2.setBounds(641, 0, 113, 136);
+				panel_12.add(label_2);
+				
+				JLabel lblNuestaMisin = new JLabel("Quienes somos");
+				lblNuestaMisin.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNuestaMisin.setBounds(15, 8, 200, 20);
+				panel_12.add(lblNuestaMisin);
+				
+				JLabel lblNewLabel_26 = new JLabel("Somos una empresa de transporte que realiza paseos tanto por tierra como por mar. ");
+				lblNewLabel_26.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblNewLabel_26.setBounds(63, 36, 576, 38);
+				panel_12.add(lblNewLabel_26);
+				
+				JLabel lblNewLabel_27 = new JLabel("Misi\u00F3n y Visi\u00F3n");
+				lblNewLabel_27.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNewLabel_27.setBounds(15, 202, 153, 29);
+				panel_12.add(lblNewLabel_27);
+				
+				JLabel lblNewLabel_28 = new JLabel("Ofrecer tanto a turistas como a residentes, paseos \u00FAnicos y recreativos.");
+				lblNewLabel_28.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblNewLabel_28.setBounds(63, 247, 676, 20);
+				panel_12.add(lblNewLabel_28);
+				
+				JLabel lblNewLabel_29 = new JLabel("Convertirnos en uno de los paseos t\u00EDpicos de la zona de nuestro departamento Rocha, Uruguay.");
+				lblNewLabel_29.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblNewLabel_29.setBounds(63, 277, 661, 28);
+				panel_12.add(lblNewLabel_29);
+				
+				JLabel lblPosicionarnos = new JLabel("Posicionarnos como una empresa seria y responsable, cuya garant\u00EDa sea la satisfacci\u00F3n del cliente. ");
+				lblPosicionarnos.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblPosicionarnos.setBounds(63, 310, 676, 28);
+				panel_12.add(lblPosicionarnos);
+				
+				JLabel lblNewLabel_30 = new JLabel("Contamos con una flota de \u00F3mnibus llamados \"Duck boats\", los cuales son \u00FAnicos ");
+				lblNewLabel_30.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblNewLabel_30.setBounds(63, 75, 576, 28);
+				panel_12.add(lblNewLabel_30);
+				
+				JLabel lblNewLabel_31 = new JLabel("en nuestro pa\u00EDs. ");
+				lblNewLabel_31.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
+				lblNewLabel_31.setBounds(63, 110, 152, 20);
+				panel_12.add(lblNewLabel_31);
+		
 		final JPanel panel_listGralBus = new JPanel();
 		panel_listGralBus.setBounds(183, 11, 819, 539);
 		frame.getContentPane().add(panel_listGralBus);
@@ -113,69 +177,6 @@ public class ventanaPrueba {
 		table.setLayout(new BorderLayout());
 		table.add(table.getTableHeader(), BorderLayout.PAGE_START);
 		
-		
-		final JPanel panel_inicio = new JPanel();
-		panel_inicio.setBackground(Color.WHITE);
-		panel_inicio.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_inicio);
-		panel_inicio.setLayout(null);
-		
-		JLabel lblNewLabel_25 = new JLabel("Bienvenido al sistema Duck Boat");
-		lblNewLabel_25.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_25.setBounds(28, 27, 421, 37);
-		panel_inicio.add(lblNewLabel_25);
-
-		
-		JPanel panel_12 = new JPanel();
-		panel_12.setBounds(28, 90, 754, 369);
-		panel_inicio.add(panel_12);
-		panel_12.setLayout(null);
-		
-		JLabel label_2 = new JLabel("");
-		Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
-		label_2.setIcon(new ImageIcon(img));
-		label_2.setBounds(641, 0, 113, 136);
-		panel_12.add(label_2);
-		
-		JLabel lblNuestaMisin = new JLabel("Quienes somos");
-		lblNuestaMisin.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNuestaMisin.setBounds(15, 8, 200, 20);
-		panel_12.add(lblNuestaMisin);
-		
-		JLabel lblNewLabel_26 = new JLabel("Somos una empresa de transporte que realiza paseos tanto por tierra como por mar. ");
-		lblNewLabel_26.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblNewLabel_26.setBounds(63, 36, 576, 38);
-		panel_12.add(lblNewLabel_26);
-		
-		JLabel lblNewLabel_27 = new JLabel("Misi\u00F3n y Visi\u00F3n");
-		lblNewLabel_27.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_27.setBounds(15, 202, 153, 20);
-		panel_12.add(lblNewLabel_27);
-		
-		JLabel lblNewLabel_28 = new JLabel("Ofrecer tanto a turistas como a residentes, paseos \u00FAnicos y recreativos.");
-		lblNewLabel_28.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblNewLabel_28.setBounds(63, 247, 676, 20);
-		panel_12.add(lblNewLabel_28);
-		
-		JLabel lblNewLabel_29 = new JLabel("Convertirnos en uno de los paseos t\u00EDpicos de la zona de nuestro departamento Rocha, Uruguay.");
-		lblNewLabel_29.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblNewLabel_29.setBounds(63, 277, 661, 28);
-		panel_12.add(lblNewLabel_29);
-		
-		JLabel lblPosicionarnos = new JLabel("Posicionarnos como una empresa seria y responsable, cuya garant\u00EDa sea la satisfacci\u00F3n del cliente. ");
-		lblPosicionarnos.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblPosicionarnos.setBounds(63, 310, 676, 28);
-		panel_12.add(lblPosicionarnos);
-		
-		JLabel lblNewLabel_30 = new JLabel("Contamos con una flota de \u00F3mnibus llamados \"Duck boats\", los cuales son \u00FAnicos ");
-		lblNewLabel_30.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblNewLabel_30.setBounds(63, 75, 576, 28);
-		panel_12.add(lblNewLabel_30);
-		
-		JLabel lblNewLabel_31 = new JLabel("en nuestro pa\u00EDs. ");
-		lblNewLabel_31.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-		lblNewLabel_31.setBounds(63, 110, 152, 20);
-		panel_12.add(lblNewLabel_31);
 
 		
 		
