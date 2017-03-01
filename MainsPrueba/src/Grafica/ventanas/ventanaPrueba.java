@@ -99,7 +99,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_25 = new JLabel("Bienvenido al sistema Duck Boat");
 		lblNewLabel_25.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_25.setBounds(28, 27, 421, 37);
+		lblNewLabel_25.setBounds(28, 27, 754, 37);
 		panel_inicio.add(lblNewLabel_25);
 		
 				
@@ -111,7 +111,7 @@ public class ventanaPrueba {
 				JLabel label_2 = new JLabel("");
 				Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
 				label_2.setIcon(new ImageIcon(img));
-				label_2.setBounds(641, 0, 113, 136);
+				label_2.setBounds(633, 8, 113, 136);
 				panel_12.add(label_2);
 				
 				JLabel lblNuestaMisin = new JLabel("Quienes somos");
@@ -121,7 +121,7 @@ public class ventanaPrueba {
 				
 				JLabel lblNewLabel_26 = new JLabel("Somos una empresa de transporte que realiza paseos tanto por tierra como por mar. ");
 				lblNewLabel_26.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblNewLabel_26.setBounds(63, 36, 576, 38);
+				lblNewLabel_26.setBounds(35, 39, 681, 38);
 				panel_12.add(lblNewLabel_26);
 				
 				JLabel lblNewLabel_27 = new JLabel("Misi\u00F3n y Visi\u00F3n");
@@ -131,27 +131,27 @@ public class ventanaPrueba {
 				
 				JLabel lblNewLabel_28 = new JLabel("Ofrecer tanto a turistas como a residentes, paseos \u00FAnicos y recreativos.");
 				lblNewLabel_28.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblNewLabel_28.setBounds(63, 247, 676, 20);
+				lblNewLabel_28.setBounds(35, 246, 676, 20);
 				panel_12.add(lblNewLabel_28);
 				
 				JLabel lblNewLabel_29 = new JLabel("Convertirnos en uno de los paseos t\u00EDpicos de la zona de nuestro departamento Rocha, Uruguay.");
 				lblNewLabel_29.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblNewLabel_29.setBounds(63, 277, 661, 28);
+				lblNewLabel_29.setBounds(35, 277, 681, 28);
 				panel_12.add(lblNewLabel_29);
 				
 				JLabel lblPosicionarnos = new JLabel("Posicionarnos como una empresa seria y responsable, cuya garant\u00EDa sea la satisfacci\u00F3n del cliente. ");
 				lblPosicionarnos.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblPosicionarnos.setBounds(63, 310, 676, 28);
+				lblPosicionarnos.setBounds(35, 316, 711, 28);
 				panel_12.add(lblPosicionarnos);
 				
 				JLabel lblNewLabel_30 = new JLabel("Contamos con una flota de \u00F3mnibus llamados \"Duck boats\", los cuales son \u00FAnicos ");
 				lblNewLabel_30.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblNewLabel_30.setBounds(63, 75, 576, 28);
+				lblNewLabel_30.setBounds(35, 76, 681, 28);
 				panel_12.add(lblNewLabel_30);
 				
 				JLabel lblNewLabel_31 = new JLabel("en nuestro pa\u00EDs. ");
 				lblNewLabel_31.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
-				lblNewLabel_31.setBounds(63, 110, 152, 20);
+				lblNewLabel_31.setBounds(35, 110, 152, 20);
 				panel_12.add(lblNewLabel_31);
 		
 		final JPanel panel_listGralBus = new JPanel();
@@ -161,7 +161,7 @@ public class ventanaPrueba {
 		panel_listGralBus.setLayout(null);
 		
 		JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
-		lblListadoDeTodos.setBounds(28, 27, 500, 37);
+		lblListadoDeTodos.setBounds(28, 27, 754, 37);
 		lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
 		panel_listGralBus.add(lblListadoDeTodos);
 		
@@ -189,7 +189,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_24 = new JLabel("Respaldo de datos");
 		lblNewLabel_24.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_24.setBounds(28, 27, 421, 37);
+		lblNewLabel_24.setBounds(28, 27, 754, 37);
 		panel_respaldar.add(lblNewLabel_24);
 		
 		JPanel panel_11 = new JPanel();
@@ -198,7 +198,7 @@ public class ventanaPrueba {
 		panel_11.setLayout(null);
 		
 		JLabel lblestSeguroQue = new JLabel("\u00BFEst\u00E1 seguro que desea guardar los datos?");
-		lblestSeguroQue.setBounds(179, 98, 403, 27);
+		lblestSeguroQue.setBounds(179, 98, 550, 27);
 		lblestSeguroQue.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
 		panel_11.add(lblestSeguroQue);
 		
@@ -218,7 +218,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_22 = new JLabel("Listado de boletos vendidos para una excursion");
 		lblNewLabel_22.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_22.setBounds(28, 27, 600, 37);
+		lblNewLabel_22.setBounds(28, 27, 754, 37);
 		panel_boletoVendidosEx.add(lblNewLabel_22);
 		
 		JPanel panel_10 = new JPanel();
@@ -259,7 +259,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
 		lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_16.setBounds(28, 27, 421, 37);
+		lblNewLabel_16.setBounds(28, 27, 754, 37);
 		panel_ventaBoleto.add(lblNewLabel_16);
 		
 		JPanel panel_9 = new JPanel();
@@ -344,7 +344,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_14 = new JLabel("Recaudaci\u00F3n de excursi\u00F3n");
 		lblNewLabel_14.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_14.setBounds(28, 27, 421, 37);
+		lblNewLabel_14.setBounds(28, 27, 754, 37);
 		panel_recaudacionEx.add(lblNewLabel_14);
 		
 		JPanel panel_8 = new JPanel();
@@ -374,7 +374,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_12 = new JLabel("Listado de excursiones por rango de precios");
 		lblNewLabel_12.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_12.setBounds(28, 27, 600, 37);
+		lblNewLabel_12.setBounds(28, 27, 754, 37);
 		panel_listExPrecio.add(lblNewLabel_12);
 		
 		JPanel panel_7 = new JPanel();
@@ -409,7 +409,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_10 = new JLabel("Listado de excursiones por destino");
 		lblNewLabel_10.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_10.setBounds(28, 27, 461, 37);
+		lblNewLabel_10.setBounds(28, 27, 754, 37);
 		panel_listExDest.add(lblNewLabel_10);
 		
 		JButton btnNewButton_5 = new JButton("Listar");
@@ -439,7 +439,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_9 = new JLabel("Listado excursiones asignadas a un bus");
 		lblNewLabel_9.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_9.setBounds(28, 27, 500, 37);
+		lblNewLabel_9.setBounds(28, 27, 754, 37);
 		panel_listExBus.add(lblNewLabel_9);
 		
 		JButton btnListar = new JButton("Listar");
@@ -469,7 +469,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_6 = new JLabel("Reasignaci\u00F3n de excursi\u00F3n");
 		lblNewLabel_6.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_6.setBounds(28, 27, 421, 37);
+		lblNewLabel_6.setBounds(28, 27, 754, 37);
 		panel_reasigExcursion.add(lblNewLabel_6);
 		
 		JPanel panel_3 = new JPanel();
@@ -504,7 +504,7 @@ public class ventanaPrueba {
 		
 		JLabel lblNewLabel_2 = new JLabel("Registro de nueva excursi\u00F3n");
 		lblNewLabel_2.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_2.setBounds(28, 27, 421, 37);
+		lblNewLabel_2.setBounds(28, 27, 754, 37);
 		panel_nuevaExcursion.add(lblNewLabel_2);
 		
 		JPanel panel_2 = new JPanel();
@@ -604,7 +604,7 @@ public class ventanaPrueba {
 		panel_nuevoBus.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ingreso de un nuevo bus");
-		lblNewLabel_1.setBounds(28, 27, 421, 37);
+		lblNewLabel_1.setBounds(28, 27, 754, 37);
 		panel_nuevoBus.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
 		
@@ -822,7 +822,7 @@ public class ventanaPrueba {
 		btnListadoExcDest.setBounds(10, 263, 153, 31);
 		panel.add(btnListadoExcDest);
 		
-		JButton btnListadoExcPrecio = new JButton("Listado exc-precio");
+		JButton btnListadoExcPrecio = new JButton("List. exc-precio");
 		btnListadoExcPrecio.setFont(new Font("Verdana", Font.BOLD, 11));
 		btnListadoExcPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
