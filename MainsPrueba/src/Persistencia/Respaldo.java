@@ -20,7 +20,6 @@ public class Respaldo {
 			o.close();
 			f.close();
 		}catch(IOException e){
-			e.printStackTrace();
 			throw new ExcepcionPersistencia("Error al respaldar");
 		}
 	}
@@ -36,7 +35,6 @@ public class Respaldo {
 			f.close();
 			return VOPersistencia;
 		}catch (IOException | ClassNotFoundException e){ 
-			e.printStackTrace();
 			throw new ExcepcionPersistencia("Error al recuperar");
 		}
 	}

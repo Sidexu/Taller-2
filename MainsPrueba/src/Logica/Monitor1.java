@@ -1,8 +1,8 @@
 package Logica;
 
 public class Monitor1 {
-	private static int lectores;
-	private static boolean alguien_escribe;
+	private int lectores;
+	private  boolean alguien_escribe;
 	
 	public void Monitor1(){
 		lectores = 0;

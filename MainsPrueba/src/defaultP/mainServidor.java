@@ -21,7 +21,13 @@ public class mainServidor {
 		try
 		{
 			Properties p = new Properties();
-			Fachada fach = Fachada.getInstance();
+			Fachada fach = null;
+			try {
+				fach = Fachada.getInstance();
+			
+			} catch (ExcepcionPersistencia e) {
+				System.out.println(e.getMessage());
+			}
 			String nomArch = "config/config.properties";
 			p.load (new FileInputStream (nomArch));
 			String ip = p.getProperty("ipServidor");
@@ -30,37 +36,19 @@ public class mainServidor {
 			LocateRegistry.createRegistry(port);
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			Naming.rebind(ruta, fach);
-			
-			/*
-			Buses buses=new Buses();
-			Excursiones excursiones=new Excursiones();
-			Respaldo r = new Respaldo();
-			VOPersistencia voPers = new VOPersistencia(buses,excursiones);
-			try {
-				voPers=r.recuperar("respaldo.dat");
-				buses=voPers.getBuses();
-				excursiones=voPers.getExcursiones();
-				
-			} catch (ExcepcionPersistencia e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println(e.darMensaje());
-			}
-			fach.setBuses(buses);
-			fach.setExcursiones(excursiones);*/
-
+			System.out.println("Se inició servidor correctamente");
 		}
 		catch (RemoteException e)
 		{
-			e.printStackTrace();
+		
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+		
 		}
 	}
 }

@@ -30,22 +30,35 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	private Buses buses;
 	private Excursiones excursiones;
 	private static Fachada instancia;
+	private Monitor1 m; //VA STATIC?
 
 	//Singleton
-    public static Fachada getInstance() throws RemoteException {
+    public static Fachada getInstance() throws RemoteException, ExcepcionPersistencia {
         if (instancia == null){
         	try {
 				instancia = new Fachada();
-			} catch (RemoteException e1) {
-				throw new RemoteException(e1.getMessage());
+			} catch (ExcepcionPersistencia e1) {
+				throw new ExcepcionPersistencia(e1.getMessage());
 			}
         }
         return instancia;
     }
 	
-	private Fachada() throws RemoteException {
+	private Fachada() throws RemoteException, ExcepcionPersistencia {
 		this.buses = new Buses();
 		this.excursiones = new Excursiones();
+		this.m = new Monitor1();
+
+		Respaldo r = new Respaldo();
+		VOPersistencia voPers = new VOPersistencia(buses,excursiones);
+		try {
+			voPers=r.recuperar("respaldo.dat");
+			buses=voPers.getBuses();
+			excursiones=voPers.getExcursiones();
+		} catch (ExcepcionPersistencia e) {
+			this.respaldoDatos();
+			throw new ExcepcionPersistencia("se creó archivo nuevo.");
+		}
 	}
 	
 	public void setBuses(Buses b){
@@ -55,7 +68,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	public void setExcursiones(Excursiones e){
 		this.excursiones=e;
 	}
-	Monitor1 m = new Monitor1();
+	
 	//Requerimiento 1
 	public void registroNuevoBus(VOBus vo) throws ExcepcionBus, RemoteException{
 		m.comenzarEscritura();
