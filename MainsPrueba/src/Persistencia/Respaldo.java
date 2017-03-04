@@ -34,7 +34,7 @@ public class Respaldo {
 			o.close();
 			f.close();
 			return VOPersistencia;
-		}catch (IOException | ClassNotFoundException e){ 
+		}catch (IOException | ClassNotFoundException  e){ 
 			throw new ExcepcionPersistencia("Error al recuperar");
 		}
 	}

@@ -27,7 +27,17 @@ public class mainPruebaExcepciones {
 		VOBus voBUS3 = new VOBus("CCC 345","VW",3);
 
 		
-		Fachada fach= Fachada.getInstance();
+		Fachada fach=null;
+		try {
+			fach = Fachada.getInstance();
+
+		} catch (ExcepcionPersistencia e) {
+			try {
+				fach = Fachada.getInstance();
+			} catch (ExcepcionPersistencia e1) {
+				System.out.println(e.getMessage());
+			}
+		}
 		
 		System.out.println("REQUERIMIENTO 1: ingresar nuevo Bus");
 		try{

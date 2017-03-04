@@ -20,14 +20,18 @@ public class mainServidor {
 	{
 		try
 		{
-			Properties p = new Properties();
-			Fachada fach = null;
+			Fachada fach=null;
 			try {
 				fach = Fachada.getInstance();
-			
+
 			} catch (ExcepcionPersistencia e) {
-				System.out.println(e.getMessage());
+				try {
+					fach = Fachada.getInstance();
+				} catch (ExcepcionPersistencia e1) {
+					System.out.println(e.getMessage());
+				}
 			}
+			Properties p = new Properties();
 			String nomArch = "config/config.properties";
 			p.load (new FileInputStream (nomArch));
 			String ip = p.getProperty("ipServidor");
@@ -37,6 +41,7 @@ public class mainServidor {
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			Naming.rebind(ruta, fach);
 			System.out.println("Se inició servidor correctamente");
+			
 		}
 		catch (RemoteException e)
 		{

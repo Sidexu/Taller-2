@@ -38,11 +38,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
         	try {
 				instancia = new Fachada();
 			} catch (ExcepcionPersistencia e1) {
-				throw new ExcepcionPersistencia(e1.getMessage());
+				throw new ExcepcionPersistencia(e1.darMensaje());
 			}
         }
         return instancia;
     }
+    
 	
 	private Fachada() throws RemoteException, ExcepcionPersistencia {
 		this.buses = new Buses();
@@ -57,7 +58,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			excursiones=voPers.getExcursiones();
 		} catch (ExcepcionPersistencia e) {
 			this.respaldoDatos();
-			throw new ExcepcionPersistencia("se creó archivo nuevo.");
+			throw new ExcepcionPersistencia(e.darMensaje());
 		}
 	}
 	
