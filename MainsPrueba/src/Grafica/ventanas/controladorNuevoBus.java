@@ -24,7 +24,7 @@ public class controladorNuevoBus {
 
 		VOBus voB = new VOBus(Matricula,Marca,Integer.parseInt(Capacidad));
 		try {
-			managerIFachada.getInstancia().getCapaLogica().registroNuevoBus(voB);
+			managerIFachada.getInstancia().getIFachada().registroNuevoBus(voB);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {

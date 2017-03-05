@@ -22,7 +22,7 @@ public class controladorReasignarExcursion {
 	public static void reasignarExcursion(String Codigo) throws RemoteException, FileNotFoundException, ExcepcionExcursion, ExcepcionBus, IOException, NotBoundException
 	{
 		try {
-			managerIFachada.getInstancia().getCapaLogica().reasignacionExcursion(Codigo);
+			managerIFachada.getInstancia().getIFachada().reasignacionExcursion(Codigo);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {

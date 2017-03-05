@@ -23,7 +23,7 @@ public class controladorVentaBoleto {
 
 		VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
 		try {
-			managerIFachada.getInstancia().getCapaLogica().ventaBoleto(codigo, voBol);
+			managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {

@@ -163,6 +163,144 @@ public class ventanaPrueba {
 						lblNewLabel_31.setFont(new Font("Nirmala UI Semilight", Font.ITALIC, 16));
 						lblNewLabel_31.setBounds(35, 110, 152, 20);
 						panel_12.add(lblNewLabel_31);
+				
+
+				
+				
+				final JPanel panel_ventaBoleto = new JPanel();
+				panel_ventaBoleto.setBounds(183, 11, 819, 539);
+				frame.getContentPane().add(panel_ventaBoleto);
+				panel_ventaBoleto.setBackground(Color.WHITE);
+				panel_ventaBoleto.setLayout(null);
+				
+				JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
+				lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+				lblNewLabel_16.setBounds(28, 27, 754, 37);
+				panel_ventaBoleto.add(lblNewLabel_16);
+				
+				JPanel panel_9 = new JPanel();
+				panel_9.setBounds(28, 90, 754, 369);
+				panel_ventaBoleto.add(panel_9);
+				panel_9.setLayout(null);
+				
+				JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
+				lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_17.setBounds(63, 74, 129, 20);
+				panel_9.add(lblNewLabel_17);
+				
+				Tf_VentaBoleto_Codigo = new JTextField();
+				Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
+				panel_9.add(Tf_VentaBoleto_Codigo);
+				Tf_VentaBoleto_Codigo.setColumns(10);
+				
+				Tf_VentaBoleto_Descuento = new JTextField();
+				Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
+				panel_9.add(Tf_VentaBoleto_Descuento);
+				Tf_VentaBoleto_Descuento.setColumns(10);
+				
+				JCheckBox Cb_VentaBoleto_Descuento = new JCheckBox("Descuento");
+				Cb_VentaBoleto_Descuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				Cb_VentaBoleto_Descuento.setBounds(63, 106, 118, 29);
+				panel_9.add(Cb_VentaBoleto_Descuento);
+				
+				JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
+				lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNewLabel_18.setBounds(15, 160, 200, 50);
+				panel_9.add(lblNewLabel_18);
+				
+				JLabel lblNewLabel_19 = new JLabel("Edad");
+				lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_19.setBounds(63, 213, 70, 27);
+				panel_9.add(lblNewLabel_19);
+				
+				Tf_VentaBoleto_Edad = new JTextField();
+				Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Edad);
+				Tf_VentaBoleto_Edad.setColumns(10);
+				
+				JLabel lblNewLabel_20 = new JLabel("Procedencia");
+				lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_20.setBounds(63, 256, 100, 27);
+				panel_9.add(lblNewLabel_20);
+				
+				Tf_VentaBoleto_Procedencia = new JTextField();
+				Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Procedencia);
+				Tf_VentaBoleto_Procedencia.setColumns(10);
+				
+				JLabel lblNCel = new JLabel("N\u00B0 Cel");
+				lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNCel.setBounds(63, 299, 70, 27);
+				panel_9.add(lblNCel);
+				
+				Tf_VentaBoleto_Cel = new JTextField();
+				Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Cel);
+				Tf_VentaBoleto_Cel.setColumns(10);
+				
+				JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
+				lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNewLabel_21.setBounds(10, 11, 200, 50);
+				panel_9.add(lblNewLabel_21);
+				
+				final JLabel Lb_VentaBoleto_Mensaje = new JLabel("");
+				Lb_VentaBoleto_Mensaje.setBounds(28, 480, 413, 48);
+				panel_ventaBoleto.add(Lb_VentaBoleto_Mensaje);
+				
+				
+				JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
+				Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						String codigo = Tf_VentaBoleto_Codigo.getText();
+						String edad = Tf_VentaBoleto_Edad.getText();
+						String descuento = Tf_VentaBoleto_Descuento.getText();
+						String procedencia = Tf_VentaBoleto_Procedencia.getText();
+						String cel = Tf_VentaBoleto_Cel.getText();
+
+							try {
+								controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
+								Lb_VentaBoleto_Mensaje.setText("Boleto ingresado correctamente");
+								Tf_VentaBoleto_Codigo.setText("");
+								Tf_VentaBoleto_Edad.setText("");
+								Tf_VentaBoleto_Descuento.setText("0");
+								Tf_VentaBoleto_Procedencia.setText("");
+								Tf_VentaBoleto_Cel.setText("");
+							} catch (RemoteException e) {
+								Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+							} catch (FileNotFoundException e) {
+								Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+							} catch (ExcepcionExcursion e) {
+								Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
+							} catch (ExcepcionBus e) {
+								Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
+							} catch (IOException e) {
+								Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+							} catch (NotBoundException e) {
+								Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+							}
+					}
+				});
+				Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
+				panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
+				
+				JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
+				Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
+					
+					//BOTON LIMPIAR VENTA BOLETO
+					public void actionPerformed(ActionEvent arg0) {
+				
+						Tf_VentaBoleto_Codigo.setText("");
+						Tf_VentaBoleto_Edad.setText("");
+						Tf_VentaBoleto_Descuento.setText("0");
+						Tf_VentaBoleto_Procedencia.setText("");
+						Tf_VentaBoleto_Cel.setText("");
+						Lb_VentaBoleto_Mensaje.setText("");
+					}
+				});
+				Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
+				Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
+				panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
 		
 				
 				final JPanel panel_nuevaExcursion = new JPanel();
@@ -277,14 +415,21 @@ public class ventanaPrueba {
 								try {
 									controladorNuevaExcursion.nuevaExcursion (Codigo, Destino, HrPartida, HrPartidaMin, HrRegreso, HrRegresoMin, Precio);
 									Lb_RegistroNuevaExcursion_Mensaje.setText("Excursion ingresada correctamente!");
+									Tf_RegistroNuevaExcursion_Codigo.setText("");
+									Tf_RegistroNuevaExcursion_Destino.setText("");
+									Tf_RegistroNuevaExcursion_HrPartida.setText("");
+									Tf_RegistroNuevaExcursion_HrPartidaMin.setText("");
+									Tf_RegistroNuevaExcursion_HrRegreso.setText("");
+									Tf_RegistroNuevaExcursion_HrRegresoMin.setText("");
+									Tf_RegistroNuevaExcursion_Precio.setText("");
 								} catch (RemoteException e) {
-									
+									Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
 								} catch (FileNotFoundException e) {
 									Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
 								} catch (ExcepcionExcursion e) {
-									Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+									Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
 								} catch (ExcepcionBus e) {
-									Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+									Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
 								} catch (IOException e) {
 									Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
 								} catch (NotBoundException e) {
@@ -308,6 +453,7 @@ public class ventanaPrueba {
 						Tf_RegistroNuevaExcursion_HrRegreso.setText("");
 						Tf_RegistroNuevaExcursion_HrRegresoMin.setText("");
 						Tf_RegistroNuevaExcursion_Precio.setText("");
+						Lb_RegistroNuevaExcursion_Mensaje.setText("");
 					}
 				});
 				Btn_RegistroNuevaExcursion_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -346,7 +492,7 @@ public class ventanaPrueba {
 		Tf_ReasignacionDeExcursion_Codigo.setColumns(10);
 		
 		
-		final JLabel Lb_ReasignacionDeExcursion_Mensaje = new JLabel("New label");
+		final JLabel Lb_ReasignacionDeExcursion_Mensaje = new JLabel("");
 		Lb_ReasignacionDeExcursion_Mensaje.setBounds(28, 393, 482, 66);
 		panel_reasigExcursion.add(Lb_ReasignacionDeExcursion_Mensaje);
 		
@@ -366,9 +512,9 @@ public class ventanaPrueba {
 						} catch (FileNotFoundException e) {
 							Lb_ReasignacionDeExcursion_Mensaje.setText(e.getMessage());
 						} catch (ExcepcionExcursion e) {
-							Lb_ReasignacionDeExcursion_Mensaje.setText(e.getMessage());
+							Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
 						} catch (ExcepcionBus e) {
-							Lb_ReasignacionDeExcursion_Mensaje.setText(e.getMessage());
+							Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
 						} catch (IOException e) {
 							Lb_ReasignacionDeExcursion_Mensaje.setText(e.getMessage());
 						} catch (NotBoundException e) {
@@ -380,138 +526,6 @@ public class ventanaPrueba {
 		});
 		Btn_ReasignacionNuevaExcursion_Reasignar.setBounds(655, 475, 127, 48);
 		panel_reasigExcursion.add(Btn_ReasignacionNuevaExcursion_Reasignar);
-		
-
-		
-		
-		final JPanel panel_ventaBoleto = new JPanel();
-		panel_ventaBoleto.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_ventaBoleto);
-		panel_ventaBoleto.setBackground(Color.WHITE);
-		panel_ventaBoleto.setLayout(null);
-		
-		JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
-		lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_16.setBounds(28, 27, 754, 37);
-		panel_ventaBoleto.add(lblNewLabel_16);
-		
-		JPanel panel_9 = new JPanel();
-		panel_9.setBounds(28, 90, 754, 369);
-		panel_ventaBoleto.add(panel_9);
-		panel_9.setLayout(null);
-		
-		JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
-		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_17.setBounds(63, 74, 129, 20);
-		panel_9.add(lblNewLabel_17);
-		
-		Tf_VentaBoleto_Codigo = new JTextField();
-		Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
-		panel_9.add(Tf_VentaBoleto_Codigo);
-		Tf_VentaBoleto_Codigo.setColumns(10);
-		
-		Tf_VentaBoleto_Descuento = new JTextField();
-		Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
-		panel_9.add(Tf_VentaBoleto_Descuento);
-		Tf_VentaBoleto_Descuento.setColumns(10);
-		
-		JCheckBox Cb_VentaBoleto_Descuento = new JCheckBox("Descuento");
-		Cb_VentaBoleto_Descuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		Cb_VentaBoleto_Descuento.setBounds(63, 106, 139, 29);
-		panel_9.add(Cb_VentaBoleto_Descuento);
-		
-		JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
-		lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_18.setBounds(15, 160, 200, 50);
-		panel_9.add(lblNewLabel_18);
-		
-		JLabel lblNewLabel_19 = new JLabel("Edad");
-		lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_19.setBounds(63, 213, 70, 27);
-		panel_9.add(lblNewLabel_19);
-		
-		Tf_VentaBoleto_Edad = new JTextField();
-		Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Edad);
-		Tf_VentaBoleto_Edad.setColumns(10);
-		
-		JLabel lblNewLabel_20 = new JLabel("Procedencia");
-		lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_20.setBounds(63, 256, 100, 27);
-		panel_9.add(lblNewLabel_20);
-		
-		Tf_VentaBoleto_Procedencia = new JTextField();
-		Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Procedencia);
-		Tf_VentaBoleto_Procedencia.setColumns(10);
-		
-		JLabel lblNCel = new JLabel("N\u00B0 Cel");
-		lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNCel.setBounds(63, 299, 70, 27);
-		panel_9.add(lblNCel);
-		
-		Tf_VentaBoleto_Cel = new JTextField();
-		Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Cel);
-		Tf_VentaBoleto_Cel.setColumns(10);
-		
-		JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
-		lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_21.setBounds(10, 11, 200, 50);
-		panel_9.add(lblNewLabel_21);
-		
-		final JLabel Lb_VentaBoleto_Mensaje = new JLabel("");
-		Lb_VentaBoleto_Mensaje.setBounds(28, 480, 413, 48);
-		panel_ventaBoleto.add(Lb_VentaBoleto_Mensaje);
-		
-		
-		JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
-		Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				String codigo = Tf_VentaBoleto_Codigo.getText();
-				String edad = Tf_VentaBoleto_Edad.getText();
-				String descuento = Tf_VentaBoleto_Descuento.getText();
-				String procedencia = Tf_VentaBoleto_Procedencia.getText();
-				String cel = Tf_VentaBoleto_Cel.getText();
-
-					try {
-						controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
-					} catch (RemoteException e) {
-						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
-					} catch (FileNotFoundException e) {
-						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
-					} catch (ExcepcionExcursion e) {
-						Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-					} catch (ExcepcionBus e) {
-						Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-					} catch (IOException e) {
-						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
-					} catch (NotBoundException e) {
-						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
-					}
-			}
-		});
-		Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
-		panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
-		
-		JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
-		Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
-			
-			//BOTON LIMPIAR VENTA BOLETO
-			public void actionPerformed(ActionEvent arg0) {
-		
-				Tf_VentaBoleto_Codigo.setText("");
-				Tf_VentaBoleto_Edad.setText("");
-				Tf_VentaBoleto_Descuento.setText("0");
-				Tf_VentaBoleto_Procedencia.setText("");
-				Tf_VentaBoleto_Cel.setText("");
-				Lb_VentaBoleto_Mensaje.setText("");
-			}
-		});
-		Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
-		Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
-		panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
 		
 		
 		final JPanel panel_nuevoBus = new JPanel();
@@ -608,6 +622,7 @@ public class ventanaPrueba {
 				Tf_NuevoBus_Matricula.setText("");
 				Tf_NuevoBus_Marca.setText("");
 				Tf_NuevoBus_Capacidad.setText("");
+				Lb_NuevoBus_mensaje.setText("");
 			}
 		});
 		Btn_NuevoBus_Limpiar.setBounds(500, 475, 127, 48);
@@ -920,6 +935,7 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
+				Lb_RegistroNuevaExcursion_Mensaje.setText("");
 			}
 		});
 		btnNuevaExcursion.setBounds(10, 137, 153, 31);
@@ -942,6 +958,8 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
+				Lb_ReasignacionDeExcursion_Mensaje.setText("");
+				Tf_ReasignacionDeExcursion_Codigo.setText("");
 			}
 		});
 		btnReasignacionExcursion.setBounds(10, 179, 153, 31);
@@ -1048,6 +1066,8 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(true);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
+				Tf_VentaBoleto_Descuento.setText("0");
+				Lb_VentaBoleto_Mensaje.setText("");
 			}
 		});
 		btnVentaBoleto.setBounds(10, 389, 153, 31);

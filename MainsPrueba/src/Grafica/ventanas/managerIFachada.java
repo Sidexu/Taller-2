@@ -35,7 +35,7 @@ public class managerIFachada {
 		return instancia;
 	}
 	
-	public IFachada getCapaLogica()
+	public IFachada getIFachada()
 	{
 		return fach;
 	}

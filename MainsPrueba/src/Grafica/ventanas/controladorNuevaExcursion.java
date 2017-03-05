@@ -27,7 +27,7 @@ public class controladorNuevaExcursion {
 
 		VOExcursion voE = new VOExcursion(Codigo,Destino,HrP,HrR,Float.parseFloat(Precio));
 		try {
-			managerIFachada.getInstancia().getCapaLogica().registroExcursion(voE);
+			managerIFachada.getInstancia().getIFachada().registroExcursion(voE);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {
