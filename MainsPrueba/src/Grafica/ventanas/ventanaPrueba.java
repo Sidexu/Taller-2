@@ -22,12 +22,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import Grafica.ventanas.controladoresVentanas.controladorListadoGralBuses;
+import Grafica.ventanas.controladoresVentanas.controladorNuevaExcursion;
+import Grafica.ventanas.controladoresVentanas.controladorNuevoBus;
+import Grafica.ventanas.controladoresVentanas.controladorReasignarExcursion;
+import Grafica.ventanas.controladoresVentanas.controladorVentaBoleto;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
+import Logica.valueObjects.VOBus;
+import Logica.valueObjects.VOBusCant;
+
+import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
 
 public class ventanaPrueba {
 
@@ -54,7 +65,8 @@ public class ventanaPrueba {
 	private JTextField Tf_VentaBoleto_Procedencia;
 	private JTextField Tf_VentaBoleto_Cel;
 	private JTextField Tf_ListadoBoletosExcursion_Codigo;
-	private JTable table;
+	private JTable tableListadoGralBus;
+	private JTable table1;
 
 	/**
 	 * Launch the application.
@@ -93,13 +105,41 @@ public class ventanaPrueba {
 		frame.getContentPane().setLayout(null);
 		
 		Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
-		
-		String[] columnNames = {"Matricula",
-                "Marca",
-                "Capacidad",
-                "Cantidad de excursiones"};
-		Object[][] rowData = {
-			};
+
+	
+				final JPanel panel_listGralBus = new JPanel();
+				panel_listGralBus.setBounds(183, 11, 819, 539);
+				frame.getContentPane().add(panel_listGralBus);
+				panel_listGralBus.setBackground(Color.WHITE);
+				panel_listGralBus.setLayout(null);
+				
+				JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
+				lblListadoDeTodos.setBounds(28, 27, 754, 37);
+				lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+				panel_listGralBus.add(lblListadoDeTodos);
+				JButton btnListadoGeneralBuses = new JButton("Listado gral buses");
+				
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(792, 84, -772, 398);
+				panel_listGralBus.add(scrollPane);
+				
+				
+				
+				// TABLA LISTADO GRAL BUSES
+				
+				
+				
+				//JScrollPane scrollPane = new JScrollPane();
+				
+				table1 = new JTable();
+				table1.setBorder(UIManager.getBorder("EditorPane.border"));
+				table1.setBounds(32, 84, 750, 379);
+				panel_listGralBus.add(table1);
+				//scrollPane.setViewportView(table1);	
+				
+								//table1.setLayout(new BorderLayout());
+								//panel_listGralBus.add(table1.getTableHeader(), BorderLayout.PAGE_START);
+				
 				
 				
 				final JPanel panel_inicio = new JPanel();
@@ -628,26 +668,6 @@ public class ventanaPrueba {
 		Btn_NuevoBus_Limpiar.setBounds(500, 475, 127, 48);
 		panel_nuevoBus.add(Btn_NuevoBus_Limpiar);
 		
-		final JPanel panel_listGralBus = new JPanel();
-		panel_listGralBus.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_listGralBus);
-		panel_listGralBus.setBackground(Color.WHITE);
-		panel_listGralBus.setLayout(null);
-		
-		JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
-		lblListadoDeTodos.setBounds(28, 27, 754, 37);
-		lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		panel_listGralBus.add(lblListadoDeTodos);
-		
-
-		
-		
-		table = new JTable(rowData, columnNames);
-		table.setBounds(28, 93, 756, 368);
-		panel_listGralBus.add(table);
-		table.setLayout(new BorderLayout());
-		table.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		
 		final JPanel panel_boletoVendidosEx = new JPanel();
 		panel_boletoVendidosEx.setBounds(183, 11, 819, 539);
 		frame.getContentPane().add(panel_boletoVendidosEx);
@@ -897,7 +917,8 @@ public class ventanaPrueba {
 		btnNuevoBus.setBounds(10, 53, 153, 31);
 		panel.add(btnNuevoBus);
 		
-		JButton btnListadoGeneralBuses = new JButton("Listado gral buses");
+		
+		
 		btnListadoGeneralBuses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_inicio.setVisible(false);
@@ -913,8 +934,47 @@ public class ventanaPrueba {
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
 				
+				
+				try {
+					VOBusCant arrVO[]=controladorListadoGralBuses.listadoGralBuses();
+					DefaultTableModel model = new DefaultTableModel(0, 0);
+					
+					String columnNames [] = new String[] {"Matricula",
+			                "Marca",
+			                "Capacidad",
+			                "Cant Ex"};
+					
+
+					model.setColumnIdentifiers(columnNames);
+					
+					table1.setModel(model);
+
+					panel_listGralBus.setLayout(new BorderLayout());
+					panel_listGralBus.add(table1.getTableHeader(), BorderLayout.PAGE_START);
+					panel_listGralBus.add(table1, BorderLayout.CENTER);
+					
+					for(int i=0;i<arrVO.length;i++){
+
+						model.addRow(new Object[] { arrVO[i].getMatricula(), arrVO[i].getMarca(), arrVO[i].getCapacidad(),
+								arrVO[i].getCat_ex()});
+					}
+					
+					
+					
+				} catch (RemoteException e1) {
+					
+				} catch (FileNotFoundException e1) {
+					
+				} catch (IOException e1) {
+					
+				} catch (NotBoundException e1) {
+				
+				}
 			}
 		});
+		
+
+		
 		btnListadoGeneralBuses.setFont(new Font("Verdana", Font.BOLD, 11));
 		btnListadoGeneralBuses.setBounds(10, 95, 153, 31);
 		panel.add(btnListadoGeneralBuses);

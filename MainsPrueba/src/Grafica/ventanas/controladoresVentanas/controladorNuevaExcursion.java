@@ -1,10 +1,12 @@
-package Grafica.ventanas;
+package Grafica.ventanas.controladoresVentanas;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import Grafica.ventanas.managerIFachada;
+import Grafica.ventanas.ventanaPrueba;
 import Logica.Hora;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
