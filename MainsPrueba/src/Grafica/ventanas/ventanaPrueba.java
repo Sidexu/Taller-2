@@ -8,6 +8,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -23,12 +26,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import Grafica.ventanas.Controladores.controladorNuevaExcursion;
-import Grafica.ventanas.Controladores.controladorNuevoBus;
-import Grafica.ventanas.Controladores.controladorReasignarExcursion;
-import Grafica.ventanas.Controladores.controladorVentaBoleto;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
+import Logica.valueObjects.controladorReasignarExcursion;
 
 public class ventanaPrueba {
 
@@ -92,267 +92,6 @@ public class ventanaPrueba {
 		frame.setBounds(100, 100, 1024, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		final JPanel panel_nuevoBus = new JPanel();
-		panel_nuevoBus.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_nuevoBus);
-		panel_nuevoBus.setBackground(Color.WHITE);
-		panel_nuevoBus.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("Ingreso de un nuevo bus");
-		lblNewLabel_1.setBounds(28, 27, 754, 37);
-		panel_nuevoBus.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		
-		final JPanel panel_1 = new JPanel();
-		panel_1.setBounds(28, 90, 754, 233);
-		panel_nuevoBus.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
-		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMatricula.setBounds(64, 76, 97, 17);
-		panel_1.add(lblMatricula);
-		
-		Tf_NuevoBus_Matricula = new JTextField();
-		Tf_NuevoBus_Matricula.setBounds(171, 76, 376, 20);
-		panel_1.add(Tf_NuevoBus_Matricula);
-		Tf_NuevoBus_Matricula.setColumns(10);
-		
-		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMarca.setBounds(64, 106, 71, 19);
-		panel_1.add(lblMarca);
-		
-		Tf_NuevoBus_Marca = new JTextField();
-		Tf_NuevoBus_Marca.setBounds(171, 107, 376, 20);
-		panel_1.add(Tf_NuevoBus_Marca);
-		Tf_NuevoBus_Marca.setColumns(10);
-		
-		JLabel lblCapacidad = new JLabel("Capacidad");
-		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblCapacidad.setBounds(64, 138, 97, 20);
-		panel_1.add(lblCapacidad);
-		
-		Tf_NuevoBus_Capacidad = new JTextField();
-		Tf_NuevoBus_Capacidad.setBounds(171, 138, 376, 20);
-		panel_1.add(Tf_NuevoBus_Capacidad);
-		Tf_NuevoBus_Capacidad.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Datos del bus");
-		lblNewLabel.setBounds(10, 11, 219, 27);
-		panel_1.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		
-		final JLabel Lb_NuevoBus_mensaje = new JLabel("");
-		Lb_NuevoBus_mensaje.setBounds(47, 352, 580, 48);
-		panel_nuevoBus.add(Lb_NuevoBus_mensaje);
-		
-		JButton Btn_NuevoBus_Ingresar = new JButton("Ingresar");
-		Btn_NuevoBus_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		Btn_NuevoBus_Ingresar.addActionListener(new ActionListener() {
-			
-			//ESTE ES EL BOTON INGRESAR DE NUEVO BUS
-			
-			public void actionPerformed(ActionEvent arg0) {
-				String Matricula = Tf_NuevoBus_Matricula.getText();
-				String Marca = Tf_NuevoBus_Marca.getText();
-				String Capacidad = Tf_NuevoBus_Capacidad.getText();
-				try {
-					controladorNuevoBus.nuevoBus (Matricula, Marca, Capacidad);
-					Lb_NuevoBus_mensaje.setText("Bus ingresado correctamente");
-					Tf_NuevoBus_Matricula.setText("");
-					Tf_NuevoBus_Marca.setText("");
-					Tf_NuevoBus_Capacidad.setText("");
-				} catch (ExcepcionBus e) {
-					Lb_NuevoBus_mensaje.setText(e.darMensaje());
-				} 
-			}
-		});
-		Btn_NuevoBus_Ingresar.setBounds(655, 475, 127, 48);
-		panel_nuevoBus.add(Btn_NuevoBus_Ingresar);
-		
-		JButton Btn_NuevoBus_Limpiar = new JButton("Limpiar");
-		Btn_NuevoBus_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		Btn_NuevoBus_Limpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Tf_NuevoBus_Matricula.setText("");
-				Tf_NuevoBus_Marca.setText("");
-				Tf_NuevoBus_Capacidad.setText("");
-			}
-		});
-		Btn_NuevoBus_Limpiar.setBounds(500, 475, 127, 48);
-		panel_nuevoBus.add(Btn_NuevoBus_Limpiar);
-		
-		
-		final JPanel panel_ventaBoleto = new JPanel();
-		panel_ventaBoleto.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_ventaBoleto);
-		panel_ventaBoleto.setBackground(Color.WHITE);
-		panel_ventaBoleto.setLayout(null);
-		
-		JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
-		lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_16.setBounds(28, 27, 754, 37);
-		panel_ventaBoleto.add(lblNewLabel_16);
-		
-		JPanel panel_9 = new JPanel();
-		panel_9.setBounds(28, 90, 754, 369);
-		panel_ventaBoleto.add(panel_9);
-		panel_9.setLayout(null);
-		
-		JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
-		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_17.setBounds(63, 74, 129, 20);
-		panel_9.add(lblNewLabel_17);
-		
-		Tf_VentaBoleto_Codigo = new JTextField();
-		Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
-		panel_9.add(Tf_VentaBoleto_Codigo);
-		Tf_VentaBoleto_Codigo.setColumns(10);
-		
-		Tf_VentaBoleto_Descuento = new JTextField();
-		Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
-		panel_9.add(Tf_VentaBoleto_Descuento);
-		Tf_VentaBoleto_Descuento.setColumns(10);
-		
-		JCheckBox Cb_VentaBoleto_Descuento = new JCheckBox("Descuento");
-		Cb_VentaBoleto_Descuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		Cb_VentaBoleto_Descuento.setBounds(63, 106, 139, 29);
-		panel_9.add(Cb_VentaBoleto_Descuento);
-		
-		JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
-		lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_18.setBounds(15, 160, 200, 50);
-		panel_9.add(lblNewLabel_18);
-		
-		JLabel lblNewLabel_19 = new JLabel("Edad");
-		lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_19.setBounds(63, 213, 70, 27);
-		panel_9.add(lblNewLabel_19);
-		
-		Tf_VentaBoleto_Edad = new JTextField();
-		Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Edad);
-		Tf_VentaBoleto_Edad.setColumns(10);
-		
-		JLabel lblNewLabel_20 = new JLabel("Procedencia");
-		lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_20.setBounds(63, 256, 100, 27);
-		panel_9.add(lblNewLabel_20);
-		
-		Tf_VentaBoleto_Procedencia = new JTextField();
-		Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Procedencia);
-		Tf_VentaBoleto_Procedencia.setColumns(10);
-		
-		JLabel lblNCel = new JLabel("N\u00B0 Cel");
-		lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNCel.setBounds(63, 299, 70, 27);
-		panel_9.add(lblNCel);
-		
-		Tf_VentaBoleto_Cel = new JTextField();
-		Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
-		panel_9.add(Tf_VentaBoleto_Cel);
-		Tf_VentaBoleto_Cel.setColumns(10);
-		
-		JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
-		lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_21.setBounds(10, 11, 200, 50);
-		panel_9.add(lblNewLabel_21);
-		
-		JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
-		Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				String codigo = Tf_VentaBoleto_Codigo.getText();
-				String edad = Tf_VentaBoleto_Edad.getText();
-				String descuento = Tf_VentaBoleto_Descuento.getText();
-				String procedencia = Tf_VentaBoleto_Procedencia.getText();
-				String cel = Tf_VentaBoleto_Cel.getText();
-				try {
-					controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
-				} catch (RemoteException e) {
-
-				} catch (ExcepcionExcursion e) {
-
-				} catch (ExcepcionBus e) {
-
-				}
-
-			}
-		});
-		Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
-		panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
-		
-		JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
-		Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
-			
-			//BOTON LIMPIAR VENTA BOLETO
-			public void actionPerformed(ActionEvent arg0) {
-		
-				Tf_VentaBoleto_Codigo.setText("");
-				Tf_VentaBoleto_Edad.setText("");
-				Tf_VentaBoleto_Descuento.setText("0");
-				Tf_VentaBoleto_Procedencia.setText("");
-				Tf_VentaBoleto_Cel.setText("");
-			}
-		});
-		Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
-		Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
-		panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
-		
-		final JPanel panel_reasigExcursion = new JPanel();
-		panel_reasigExcursion.setBackground(Color.WHITE);
-		panel_reasigExcursion.setBounds(183, 11, 819, 539);
-		frame.getContentPane().add(panel_reasigExcursion);
-		panel_reasigExcursion.setLayout(null);
-		
-		JLabel lblNewLabel_6 = new JLabel("Reasignaci\u00F3n de excursi\u00F3n");
-		lblNewLabel_6.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-		lblNewLabel_6.setBounds(28, 27, 754, 37);
-		panel_reasigExcursion.add(lblNewLabel_6);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(28, 90, 754, 233);
-		panel_reasigExcursion.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel lblNewLabel_7 = new JLabel("Ingrese c\u00F3digo de excursi\u00F3n a reasignar");
-		lblNewLabel_7.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-		lblNewLabel_7.setBounds(10, 11, 385, 27);
-		panel_3.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_8 = new JLabel("C\u00F3digo");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(63, 83, 70, 20);
-		panel_3.add(lblNewLabel_8);
-		
-		Tf_ReasignacionDeExcursion_Codigo = new JTextField();
-		Tf_ReasignacionDeExcursion_Codigo.setBounds(148, 80, 146, 26);
-		panel_3.add(Tf_ReasignacionDeExcursion_Codigo);
-		Tf_ReasignacionDeExcursion_Codigo.setColumns(10);
-		
-		JButton Btn_ReasignacionNuevaExcursion_Reasignar = new JButton("Reasignar");
-		Btn_ReasignacionNuevaExcursion_Reasignar.addActionListener(new ActionListener() {
-			
-			
-			//BOTON REASIGNAR EXCURSION
-			public void actionPerformed(ActionEvent arg0) {
-				String Codigo = Tf_RegistroNuevaExcursion_Codigo.getText();
-				try {
-					controladorReasignarExcursion.reasignarExcursion (Codigo);
-				} catch (RemoteException e) {
-					
-				} catch (ExcepcionExcursion e) {
-					
-				} catch (ExcepcionBus e) {
-					
-				}
-			}
-		});
-		Btn_ReasignacionNuevaExcursion_Reasignar.setBounds(655, 475, 127, 48);
-		panel_reasigExcursion.add(Btn_ReasignacionNuevaExcursion_Reasignar);
 		
 		final JPanel panel_nuevaExcursion = new JPanel();
 		panel_nuevaExcursion.setBackground(Color.WHITE);
@@ -445,6 +184,10 @@ public class ventanaPrueba {
 		panel_2.add(Tf_RegistroNuevaExcursion_HrRegresoMin);
 		Tf_RegistroNuevaExcursion_HrRegresoMin.setColumns(10);
 		
+		final JLabel Lb_RegistroNuevaExcursion_Mensaje = new JLabel("");
+		Lb_RegistroNuevaExcursion_Mensaje.setBounds(51, 365, 589, 82);
+		panel_nuevaExcursion.add(Lb_RegistroNuevaExcursion_Mensaje);
+		
 		JButton Btn_RegistroNuevaExcursion_Ingresar = new JButton("Ingresar");
 		Btn_RegistroNuevaExcursion_Ingresar.addActionListener(new ActionListener() {
 			
@@ -458,18 +201,23 @@ public class ventanaPrueba {
 				String HrRegreso = Tf_RegistroNuevaExcursion_HrRegreso.getText();
 				String HrRegresoMin = Tf_RegistroNuevaExcursion_HrRegresoMin.getText();
 				String Precio = Tf_RegistroNuevaExcursion_Precio.getText();
-					try {
-						controladorNuevaExcursion.nuevaExcursion (Codigo, Destino, HrPartida, HrPartidaMin, HrRegreso, HrRegresoMin, Precio);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExcepcionExcursion e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExcepcionBus e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
+						try {
+							controladorNuevaExcursion.nuevaExcursion (Codigo, Destino, HrPartida, HrPartidaMin, HrRegreso, HrRegresoMin, Precio);
+						} catch (RemoteException e) {
+							
+						} catch (FileNotFoundException e) {
+							Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+						} catch (ExcepcionExcursion e) {
+							Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+						} catch (ExcepcionBus e) {
+							Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+						} catch (IOException e) {
+							Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+						} catch (NotBoundException e) {
+							Lb_RegistroNuevaExcursion_Mensaje.setText(e.getMessage());
+						}
+
 
 			}
 		});
@@ -492,6 +240,292 @@ public class ventanaPrueba {
 		Btn_RegistroNuevaExcursion_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		Btn_RegistroNuevaExcursion_Limpiar.setBounds(500, 475, 127, 48);
 		panel_nuevaExcursion.add(Btn_RegistroNuevaExcursion_Limpiar);
+		
+
+		
+		
+		final JPanel panel_ventaBoleto = new JPanel();
+		panel_ventaBoleto.setBounds(183, 11, 819, 539);
+		frame.getContentPane().add(panel_ventaBoleto);
+		panel_ventaBoleto.setBackground(Color.WHITE);
+		panel_ventaBoleto.setLayout(null);
+		
+		JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
+		lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+		lblNewLabel_16.setBounds(28, 27, 754, 37);
+		panel_ventaBoleto.add(lblNewLabel_16);
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBounds(28, 90, 754, 369);
+		panel_ventaBoleto.add(panel_9);
+		panel_9.setLayout(null);
+		
+		JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
+		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_17.setBounds(63, 74, 129, 20);
+		panel_9.add(lblNewLabel_17);
+		
+		Tf_VentaBoleto_Codigo = new JTextField();
+		Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
+		panel_9.add(Tf_VentaBoleto_Codigo);
+		Tf_VentaBoleto_Codigo.setColumns(10);
+		
+		Tf_VentaBoleto_Descuento = new JTextField();
+		Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
+		panel_9.add(Tf_VentaBoleto_Descuento);
+		Tf_VentaBoleto_Descuento.setColumns(10);
+		
+		JCheckBox Cb_VentaBoleto_Descuento = new JCheckBox("Descuento");
+		Cb_VentaBoleto_Descuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Cb_VentaBoleto_Descuento.setBounds(63, 106, 139, 29);
+		panel_9.add(Cb_VentaBoleto_Descuento);
+		
+		JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
+		lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+		lblNewLabel_18.setBounds(15, 160, 200, 50);
+		panel_9.add(lblNewLabel_18);
+		
+		JLabel lblNewLabel_19 = new JLabel("Edad");
+		lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_19.setBounds(63, 213, 70, 27);
+		panel_9.add(lblNewLabel_19);
+		
+		Tf_VentaBoleto_Edad = new JTextField();
+		Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
+		panel_9.add(Tf_VentaBoleto_Edad);
+		Tf_VentaBoleto_Edad.setColumns(10);
+		
+		JLabel lblNewLabel_20 = new JLabel("Procedencia");
+		lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_20.setBounds(63, 256, 100, 27);
+		panel_9.add(lblNewLabel_20);
+		
+		Tf_VentaBoleto_Procedencia = new JTextField();
+		Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
+		panel_9.add(Tf_VentaBoleto_Procedencia);
+		Tf_VentaBoleto_Procedencia.setColumns(10);
+		
+		JLabel lblNCel = new JLabel("N\u00B0 Cel");
+		lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNCel.setBounds(63, 299, 70, 27);
+		panel_9.add(lblNCel);
+		
+		Tf_VentaBoleto_Cel = new JTextField();
+		Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
+		panel_9.add(Tf_VentaBoleto_Cel);
+		Tf_VentaBoleto_Cel.setColumns(10);
+		
+		JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
+		lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+		lblNewLabel_21.setBounds(10, 11, 200, 50);
+		panel_9.add(lblNewLabel_21);
+		
+		final JLabel Lb_VentaBoleto_Mensaje = new JLabel("");
+		Lb_VentaBoleto_Mensaje.setBounds(28, 480, 413, 48);
+		panel_ventaBoleto.add(Lb_VentaBoleto_Mensaje);
+		
+		
+		JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
+		Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String codigo = Tf_VentaBoleto_Codigo.getText();
+				String edad = Tf_VentaBoleto_Edad.getText();
+				String descuento = Tf_VentaBoleto_Descuento.getText();
+				String procedencia = Tf_VentaBoleto_Procedencia.getText();
+				String cel = Tf_VentaBoleto_Cel.getText();
+
+					try {
+						controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
+					} catch (RemoteException e) {
+						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+					} catch (FileNotFoundException e) {
+						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+					} catch (ExcepcionExcursion e) {
+						Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
+					} catch (ExcepcionBus e) {
+						Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
+					} catch (IOException e) {
+						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+					} catch (NotBoundException e) {
+						Lb_VentaBoleto_Mensaje.setText(e.getMessage());
+					}
+			}
+		});
+		Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
+		panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
+		
+		JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
+		Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
+			
+			//BOTON LIMPIAR VENTA BOLETO
+			public void actionPerformed(ActionEvent arg0) {
+		
+				Tf_VentaBoleto_Codigo.setText("");
+				Tf_VentaBoleto_Edad.setText("");
+				Tf_VentaBoleto_Descuento.setText("0");
+				Tf_VentaBoleto_Procedencia.setText("");
+				Tf_VentaBoleto_Cel.setText("");
+				Lb_VentaBoleto_Mensaje.setText("");
+			}
+		});
+		Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
+		Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
+		panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
+		
+		
+		final JPanel panel_nuevoBus = new JPanel();
+		panel_nuevoBus.setBounds(183, 11, 819, 539);
+		frame.getContentPane().add(panel_nuevoBus);
+		panel_nuevoBus.setBackground(Color.WHITE);
+		panel_nuevoBus.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Ingreso de un nuevo bus");
+		lblNewLabel_1.setBounds(28, 27, 754, 37);
+		panel_nuevoBus.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+		
+		final JPanel panel_1 = new JPanel();
+		panel_1.setBounds(28, 90, 754, 233);
+		panel_nuevoBus.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
+		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMatricula.setBounds(64, 76, 97, 17);
+		panel_1.add(lblMatricula);
+		
+		Tf_NuevoBus_Matricula = new JTextField();
+		Tf_NuevoBus_Matricula.setBounds(171, 76, 376, 20);
+		panel_1.add(Tf_NuevoBus_Matricula);
+		Tf_NuevoBus_Matricula.setColumns(10);
+		
+		JLabel lblMarca = new JLabel("Marca");
+		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMarca.setBounds(64, 106, 71, 19);
+		panel_1.add(lblMarca);
+		
+		Tf_NuevoBus_Marca = new JTextField();
+		Tf_NuevoBus_Marca.setBounds(171, 107, 376, 20);
+		panel_1.add(Tf_NuevoBus_Marca);
+		Tf_NuevoBus_Marca.setColumns(10);
+		
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCapacidad.setBounds(64, 138, 97, 20);
+		panel_1.add(lblCapacidad);
+		
+		Tf_NuevoBus_Capacidad = new JTextField();
+		Tf_NuevoBus_Capacidad.setBounds(171, 138, 376, 20);
+		panel_1.add(Tf_NuevoBus_Capacidad);
+		Tf_NuevoBus_Capacidad.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Datos del bus");
+		lblNewLabel.setBounds(10, 11, 219, 27);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+		
+		final JLabel Lb_NuevoBus_mensaje = new JLabel("");
+		Lb_NuevoBus_mensaje.setBounds(47, 352, 580, 48);
+		panel_nuevoBus.add(Lb_NuevoBus_mensaje);
+		
+		JButton Btn_NuevoBus_Ingresar = new JButton("Ingresar");
+		Btn_NuevoBus_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Btn_NuevoBus_Ingresar.addActionListener(new ActionListener() {
+			
+			//ESTE ES EL BOTON INGRESAR DE NUEVO BUS
+			
+			public void actionPerformed(ActionEvent arg0) {
+				String Matricula = Tf_NuevoBus_Matricula.getText();
+				String Marca = Tf_NuevoBus_Marca.getText();
+				String Capacidad = Tf_NuevoBus_Capacidad.getText();
+					try {
+						controladorNuevoBus.nuevoBus (Matricula, Marca, Capacidad);
+						Lb_NuevoBus_mensaje.setText("Bus ingresado correctamente");
+						Tf_NuevoBus_Matricula.setText("");
+						Tf_NuevoBus_Marca.setText("");
+						Tf_NuevoBus_Capacidad.setText("");
+					} catch (RemoteException e) {
+						Lb_NuevoBus_mensaje.setText(e.getMessage());
+					} catch (FileNotFoundException e) {
+						Lb_NuevoBus_mensaje.setText(e.getMessage());
+					} catch (ExcepcionBus e) {
+						Lb_NuevoBus_mensaje.setText(e.darMensaje());
+					} catch (IOException e) {
+						Lb_NuevoBus_mensaje.setText(e.getMessage());
+					} catch (NotBoundException e) {
+						Lb_NuevoBus_mensaje.setText(e.getMessage());
+					}
+			}
+		});
+		Btn_NuevoBus_Ingresar.setBounds(655, 475, 127, 48);
+		panel_nuevoBus.add(Btn_NuevoBus_Ingresar);
+		
+		JButton Btn_NuevoBus_Limpiar = new JButton("Limpiar");
+		Btn_NuevoBus_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Btn_NuevoBus_Limpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Tf_NuevoBus_Matricula.setText("");
+				Tf_NuevoBus_Marca.setText("");
+				Tf_NuevoBus_Capacidad.setText("");
+			}
+		});
+		Btn_NuevoBus_Limpiar.setBounds(500, 475, 127, 48);
+		panel_nuevoBus.add(Btn_NuevoBus_Limpiar);
+		
+		final JPanel panel_reasigExcursion = new JPanel();
+		panel_reasigExcursion.setBackground(Color.WHITE);
+		panel_reasigExcursion.setBounds(183, 11, 819, 539);
+		frame.getContentPane().add(panel_reasigExcursion);
+		panel_reasigExcursion.setLayout(null);
+		
+		JLabel lblNewLabel_6 = new JLabel("Reasignaci\u00F3n de excursi\u00F3n");
+		lblNewLabel_6.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+		lblNewLabel_6.setBounds(28, 27, 754, 37);
+		panel_reasigExcursion.add(lblNewLabel_6);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(28, 90, 754, 233);
+		panel_reasigExcursion.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_7 = new JLabel("Ingrese c\u00F3digo de excursi\u00F3n a reasignar");
+		lblNewLabel_7.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+		lblNewLabel_7.setBounds(10, 11, 385, 27);
+		panel_3.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("C\u00F3digo");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_8.setBounds(63, 83, 70, 20);
+		panel_3.add(lblNewLabel_8);
+		
+		Tf_ReasignacionDeExcursion_Codigo = new JTextField();
+		Tf_ReasignacionDeExcursion_Codigo.setBounds(148, 80, 146, 26);
+		panel_3.add(Tf_ReasignacionDeExcursion_Codigo);
+		Tf_ReasignacionDeExcursion_Codigo.setColumns(10);
+		
+		JButton Btn_ReasignacionNuevaExcursion_Reasignar = new JButton("Reasignar");
+		Btn_ReasignacionNuevaExcursion_Reasignar.addActionListener(new ActionListener() {
+			
+			
+			//BOTON REASIGNAR EXCURSION
+			public void actionPerformed(ActionEvent arg0) {
+				String Codigo = Tf_RegistroNuevaExcursion_Codigo.getText();
+
+					try {
+						controladorReasignarExcursion.reasignarExcursion (Codigo);
+					} catch (NotBoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+			}
+		});
+		Btn_ReasignacionNuevaExcursion_Reasignar.setBounds(655, 475, 127, 48);
+		panel_reasigExcursion.add(Btn_ReasignacionNuevaExcursion_Reasignar);
 		
 		final JPanel panel_listGralBus = new JPanel();
 		panel_listGralBus.setBounds(183, 11, 819, 539);
