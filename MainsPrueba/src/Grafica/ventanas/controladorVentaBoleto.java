@@ -12,21 +12,18 @@ import Logica.valueObjects.VOBoletoTipo;
 public class controladorVentaBoleto {
 	private ventanaPrueba ven;
 
-	 public controladorVentaBoleto (ventanaPrueba ven)
-	 {
-		 this.ven=ven;
-	}
-
-	public static void ventaBoleto (String codigo, String edad, String procedencia, String cel, String descuento) throws RemoteException, FileNotFoundException, ExcepcionExcursion, ExcepcionBus, IOException, NotBoundException
+	public controladorVentaBoleto(ventanaPrueba ven)
 	{
+		this.ven = ven;
 		
-		int ed = Integer.parseInt(edad);
-		long cl = Long.parseLong(cel);
-		float desc = Float.parseFloat(descuento);
-		VOBoletoTipo voB = new VOBoletoTipo(0,ed,procedencia,cl,desc);
+	}
+	
+	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws RemoteException, FileNotFoundException, ExcepcionExcursion, ExcepcionBus, IOException, NotBoundException
+	{
 
+		VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
 		try {
-			managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voB);
+			managerIFachada.getInstancia().getCapaLogica().ventaBoleto(codigo, voBol);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {
@@ -41,5 +38,5 @@ public class controladorVentaBoleto {
 			throw new NotBoundException(e.getMessage());
 		}
 
-	} 
+	}
 }

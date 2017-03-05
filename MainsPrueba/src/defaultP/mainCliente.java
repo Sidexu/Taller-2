@@ -29,8 +29,8 @@ public class mainCliente {
 			String puerto = p.getProperty("puertoServidor");
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			IFachada fach = (IFachada) Naming.lookup(ruta);
-			
-			/*VOBus voBUS1 = new VOBus("AAA 123","Mercedes",1);
+			/*
+			VOBus voBUS1 = new VOBus("AAA 123","Mercedes",1);
 			VOBus voBUS2 = new VOBus("BBB 234","Yutong",0);
 			VOBus voBUS3 = new VOBus("CCC 345","VW",3);
 
@@ -66,10 +66,10 @@ public class mainCliente {
 			}catch(ExcepcionBus e){
 				System.out.println("\t"+e.darMensaje()+"\n");
 			}
+			
+			
+			
 			*/
-			
-			
-			
 			System.out.println("\nREQUERIMIENTO 2: listado general de buses");
 			VOBusCant arrVOBusCant[] ;
 			arrVOBusCant=fach.listadoGralBuses();
@@ -286,8 +286,8 @@ public class mainCliente {
 							System.out.println("\tCodigo:"+arr4[i].getCodigo()+", Destino:"+arr4[i].getDestino()+", HoraPartida: "+arr4[i].getHr_partida().getHora()+":"+arr4[i].getHr_partida().getMin()+", HoraRegreso: "+arr4[i].getHr_regreso().getHora()+":"+arr4[i].getHr_regreso().getMin()+ ", PrecioBase:"+arr4[i].getPrecioBase());
 						}
 					}
-		*/
-			
+		
+			*/
 		}
 		catch (FileNotFoundException e)
 		{

@@ -22,7 +22,7 @@ public class managerIFachada {
 		String ip = p.getProperty("ipServidor");
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/obj";
-		fach = (IFachada) Naming.lookup(ruta);
+		this.fach = (IFachada) Naming.lookup(ruta);
 	}
 	
 	public static managerIFachada getInstancia() throws FileNotFoundException, IOException, NotBoundException
@@ -31,10 +31,11 @@ public class managerIFachada {
 		{
 			instancia = new managerIFachada();
 		}
+		
 		return instancia;
 	}
 	
-	public IFachada getIFachada()
+	public IFachada getCapaLogica()
 	{
 		return fach;
 	}

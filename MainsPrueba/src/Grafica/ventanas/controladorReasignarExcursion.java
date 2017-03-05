@@ -7,28 +7,28 @@ import java.rmi.RemoteException;
 
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
-import Logica.valueObjects.VOBoletoTipo;
-import Logica.valueObjects.VOBus;
 
-public class controladorNuevoBus {
+
+public class controladorReasignarExcursion {
+
 	private ventanaPrueba ven;
 
-	public controladorNuevoBus(ventanaPrueba ven)
+	public controladorReasignarExcursion(ventanaPrueba ven)
 	{
 		this.ven = ven;
 		
 	}
 	
-	public static void nuevoBus(String Matricula,String Marca,String Capacidad) throws RemoteException, FileNotFoundException, ExcepcionBus, IOException, NotBoundException{
-
-
-		VOBus voB = new VOBus(Matricula,Marca,Integer.parseInt(Capacidad));
+	public static void reasignarExcursion(String Codigo) throws RemoteException, FileNotFoundException, ExcepcionExcursion, ExcepcionBus, IOException, NotBoundException
+	{
 		try {
-			managerIFachada.getInstancia().getCapaLogica().registroNuevoBus(voB);
+			managerIFachada.getInstancia().getCapaLogica().reasignacionExcursion(Codigo);
 		} catch (RemoteException e) {
 			throw new RemoteException(e.getMessage());
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException(e.getMessage());
+		} catch (ExcepcionExcursion e) {
+			throw new ExcepcionExcursion(e.darMensaje());
 		} catch (ExcepcionBus e) {
 			throw new ExcepcionBus(e.darMensaje());
 		} catch (IOException e) {
@@ -36,6 +36,5 @@ public class controladorNuevoBus {
 		} catch (NotBoundException e) {
 			throw new NotBoundException(e.getMessage());
 		}
-
 	}
 }
