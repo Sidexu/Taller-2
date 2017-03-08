@@ -16,21 +16,49 @@ public class managerIFachada {
 	
 	private managerIFachada() throws FileNotFoundException, IOException, NotBoundException
 	{
-		Properties p = new Properties();
-		String nomArch = "config/config.properties";
-		p.load (new FileInputStream (nomArch));
-		String ip = p.getProperty("ipServidor");
-		String puerto = p.getProperty("puertoServidor");
-		String ruta = "//" + ip + ":" + puerto + "/obj";
-		this.fach = (IFachada) Naming.lookup(ruta);
+		try 
+		{
+			Properties p = new Properties();
+			String nomArch = "config/config.properties";
+			p.load (new FileInputStream (nomArch));
+			String ip = p.getProperty("ipServidor");
+			String puerto = p.getProperty("puertoServidor");
+			String ruta = "//" + ip + ":" + puerto + "/obj";
+			fach = (IFachada) Naming.lookup(ruta);
+		}catch (FileNotFoundException e)
+		{
+			throw new FileNotFoundException(e.getMessage());
+		}
+		catch (IOException e)
+		{
+			throw new IOException(e.getMessage());
+		} 
+		catch (NotBoundException e) 
+		{
+			throw new NotBoundException(e.getMessage());
+		}
 	}
 	
 	public static managerIFachada getInstancia() throws FileNotFoundException, IOException, NotBoundException
 	{
-		if(instancia == null)
+		try{
+			if(instancia == null)
+			{
+				instancia = new managerIFachada();
+			}
+		}catch (FileNotFoundException e)
 		{
-			instancia = new managerIFachada();
+			throw new FileNotFoundException(e.getMessage());
 		}
+		catch (IOException e)
+		{
+			throw new IOException(e.getMessage());
+		} 
+		catch (NotBoundException e) 
+		{
+			throw new NotBoundException(e.getMessage());
+		}
+		
 		
 		return instancia;
 	}

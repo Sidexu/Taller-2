@@ -249,7 +249,9 @@ public class mainPruebaExcepciones {
 		
 		System.out.println("\nREQUERIMIENTO 7: Venta de boleto");
 		System.out.println("\tCodigo de Excursion: NOEXISTE, datos del pasajero: NRO_BOLETO: 1, EDAD:12, PROCEDENCIA: CANELONES, CEL: 598996655, DESCUENTO:0");
-		VOBoletoTipo vo=new VOBoletoTipo(1,12,"Canelones",598996655,0);
+		String edad="12", cel="9999999", desc="0";
+		
+		VOBoletoTipo vo=new VOBoletoTipo(0,Integer.parseInt(edad),"Canelones",Long.parseLong(cel),Float.parseFloat(desc));
 		try{
 			fach.ventaBoleto("NOEXISTE", vo);
 			System.out.println("Boleto ingresado con exito.");
@@ -270,7 +272,7 @@ public class mainPruebaExcepciones {
 		}
 		
 		System.out.println("\tCodigo de Excursion: ROC 1, datos del pasajero: NRO_BOLETO: 2, EDAD:28, PROCEDENCIA: PAYSANDU, CEL: 598200022, DESCUENTO:300");
-		VOBoletoTipo vo2=new VOBoletoTipo(2,28,"Paysandu",598200022,300);
+		VOBoletoTipo vo2=new VOBoletoTipo(0,28,"Paysandu",598200022,300);
 		try{
 			fach.ventaBoleto("ROC 1", vo2);
 			System.out.println("Boleto ingresado con exito.");
@@ -300,7 +302,7 @@ public class mainPruebaExcepciones {
 		}
 		
 		System.out.println("\tCodigo de Excursion: ROC 4, datos del pasajero: NRO_BOLETO: 2, EDAD:12, PROCEDENCIA: SAN JOSE, CEL: 598445522, DESCUENTO:200");
-		VOBoletoTipo vo8=new VOBoletoTipo(3,12,"San Jose",598445522,200);
+		VOBoletoTipo vo8=new VOBoletoTipo(0,12,"San Jose",598445522,200);
 		try{
 			fach.ventaBoleto("ROC 4", vo8);
 			System.out.println("\tBoleto ingresado con exito.");
@@ -382,7 +384,7 @@ public class mainPruebaExcepciones {
 			VOBoletoTipo arr[];
 			arr=fach.boletosVendidosXEx("ROC 4","comun");
 			for(int i=0;i<arr.length;i++){
-				System.out.println("/tNroBoleto:"+arr[i].getNro_boleto()+", EdadPas:"+arr[i].getEdad_pas()+", LugarProc:"+arr[i].getLugar_procedencia()+", CelPas:"+arr[i].getCel_pas()+", Descuento:"+arr[i].getDescuento());
+				System.out.println("\tNroBoleto:"+arr[i].getNro_boleto()+", EdadPas:"+arr[i].getEdad_pas()+", LugarProc:"+arr[i].getLugar_procedencia()+", CelPas:"+arr[i].getCel_pas()+", Descuento:"+arr[i].getDescuento());
 			}
 		}catch(ExcepcionExcursion e){
 			System.out.println("\t"+e.darMensaje());

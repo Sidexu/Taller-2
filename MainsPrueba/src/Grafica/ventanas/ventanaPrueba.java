@@ -116,38 +116,6 @@ public class ventanaPrueba {
 		
 		Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
 				
-				
-				
-				
-
-	
-				final JPanel panel_listGralBus = new JPanel();
-				panel_listGralBus.setBounds(183, 11, 819, 539);
-				frame.getContentPane().add(panel_listGralBus);
-				panel_listGralBus.setBackground(Color.WHITE);
-				panel_listGralBus.setLayout(null);
-				
-				JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
-				lblListadoDeTodos.setBounds(28, 27, 754, 37);
-				lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-				panel_listGralBus.add(lblListadoDeTodos);
-				
-				final JPanel panel_5 = new JPanel();
-				panel_5.setBounds(28, 93, 754, 370);
-				panel_listGralBus.add(panel_5);
-				
-				
-				
-				// TABLA LISTADO GRAL BUSES
-				
-				
-				
-				//JScrollPane scrollPane = new JScrollPane();
-				
-				tableListadoBuses = new JTable();
-				panel_5.add(tableListadoBuses);
-				tableListadoBuses.setBorder(UIManager.getBorder("EditorPane.border"));
-				
 				final JPanel panel_boletoVendidosEx = new JPanel();
 				panel_boletoVendidosEx.setBounds(183, 11, 819, 539);
 				frame.getContentPane().add(panel_boletoVendidosEx);
@@ -184,7 +152,7 @@ public class ventanaPrueba {
 					public void actionPerformed(ActionEvent e) {	
 						VOBoletoTipo arrVO[];	
 							try {
-								arrVO = controladorBoletosVendidosXEx.boletosVendidosXEx(Tf_ListadoBoletosExcursion_Codigo.getText(), Cb_ListadoBoletosExcursion.getActionCommand());
+								arrVO = controladorBoletosVendidosXEx.boletosVendidosXEx(Tf_ListadoBoletosExcursion_Codigo.getText(), Cb_ListadoBoletosExcursion.getSelectedItem().toString());
 								DefaultTableModel model = new DefaultTableModel(0, 0);
 								
 								String columnNames [] = new String[] {"Nro boleto",
@@ -235,6 +203,38 @@ public class ventanaPrueba {
 				lblTipoDeBoleto.setBounds(458, 96, 103, 20);
 				panel_boletoVendidosEx.add(lblTipoDeBoleto);
 				lblTipoDeBoleto.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				
+				
+				
+				
+
+	
+				final JPanel panel_listGralBus = new JPanel();
+				panel_listGralBus.setBounds(183, 11, 819, 539);
+				frame.getContentPane().add(panel_listGralBus);
+				panel_listGralBus.setBackground(Color.WHITE);
+				panel_listGralBus.setLayout(null);
+				
+				JLabel lblListadoDeTodos = new JLabel("Listado de todos los buses registrados");
+				lblListadoDeTodos.setBounds(28, 27, 754, 37);
+				lblListadoDeTodos.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+				panel_listGralBus.add(lblListadoDeTodos);
+				
+				final JPanel panel_5 = new JPanel();
+				panel_5.setBounds(28, 93, 754, 370);
+				panel_listGralBus.add(panel_5);
+				
+				
+				
+				// TABLA LISTADO GRAL BUSES
+				
+				
+				
+				//JScrollPane scrollPane = new JScrollPane();
+				
+				tableListadoBuses = new JTable();
+				panel_5.add(tableListadoBuses);
+				tableListadoBuses.setBorder(UIManager.getBorder("EditorPane.border"));
 				
 			
 				
