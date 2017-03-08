@@ -24,7 +24,6 @@ public class controladorVentaBoleto {
 	{
 
 		VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
-		System.out.println("AAAAAAAAAAAAAA: codigo: "+codigo+" edad:"+Integer.parseInt(edad)+" procedencia: "+procedencia+" cel:"+Long.parseLong(cel)+" decuento:"+Float.parseFloat(descuento));
 		try {
 			managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
 		} catch (RemoteException e) {
