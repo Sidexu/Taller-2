@@ -2,6 +2,7 @@ package defaultP;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import Logica.Boleto;
 import Logica.Boletos;
@@ -247,32 +248,35 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	}
 
 	//REQUERIMIENTO 9
-	public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, RemoteException{
-		m.comenzarLectura();
-		ArrayList<Boleto> arr = new ArrayList<Boleto>();
-		VOBoletoTipo arrVO[]; 
-		if(!excursiones.memberExcursion(codigo)){
-			String msg = "No existe la excursion";
-			m.lecturaTerminada();
-			throw new ExcepcionExcursion(msg);
-		}else{
-			Excursion exc = excursiones.findExcursion(codigo);
-			arr= exc.getBoletos().listadoBoletoXTipo(tipoBoleto);
-			arrVO = new VOBoletoTipo[arr.size()];
-			for(int i=0; i<arr.size(); i++){
-					Boleto b = arr.get(i);
-					if(tipoBoleto=="especial"){
-						if(b instanceof Especial){
-							arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(),((Especial)arr.get(i)).getDescuento());
+		public VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, RemoteException{
+			m.comenzarLectura();
+			ArrayList<Boleto> arr = new ArrayList<Boleto>();
+			VOBoletoTipo arrVO[]; 
+			if(!excursiones.memberExcursion(codigo)){
+				String msg = "No existe la excursion";
+				m.lecturaTerminada();
+				throw new ExcepcionExcursion(msg);
+			}else{
+				Excursion exc = excursiones.findExcursion(codigo);
+				arr= exc.getBoletos().listadoBoletoXTipo(tipoBoleto);
+				arrVO = new VOBoletoTipo[arr.size()];
+				for(int i=0; i<arr.size(); i++){
+						if(Objects.equals(arr.get(i).tipoBoleto(),tipoBoleto) && Objects.equals(new String("especial"),tipoBoleto) ){
+							//if(b instanceof Especial){
+							Especial e = (Especial) arr.get(i);
+							//float descuento = ((Especial)arr.get(i)).getDescuento();
+								arrVO[i]= new VOBoletoTipo(e.getNroboleto(),e.getEdad_pas(),e.getLugar_procedencia(), e.getCel_pas(),e.getDescuento());
+							//}
+						}else{
+							System.out.println("entre a comun");
+							arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(), 0);
 						}
-					}else{
-						arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(), 0);
-					}
+				}
+				m.lecturaTerminada();
 			}
-			m.lecturaTerminada();
+			return arrVO;
 		}
-		return arrVO;
-	}
+		
 	
 	//REQUERIMIENTO 10
 	public VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException{

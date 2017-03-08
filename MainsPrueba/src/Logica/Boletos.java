@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Objects;
 
 
 public class Boletos implements Serializable{
@@ -43,7 +44,7 @@ public class Boletos implements Serializable{
 		Iterator<Boleto> iter= LL.iterator();
 		while(iter.hasNext()){
 			Boleto b=iter.next();
-			if (tipo == "especial"){
+			if (Objects.equals(new String("especial"),tipo)){
 				if(b instanceof Especial){
 					arr.add(new Especial(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas(),((Especial) b).getDescuento()));
 				}
