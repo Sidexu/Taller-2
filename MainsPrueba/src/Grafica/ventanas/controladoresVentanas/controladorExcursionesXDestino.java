@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 
 import Grafica.ventanas.managerIFachada;
 import Grafica.ventanas.ventanaPrueba;
+import Logica.Excepciones.ExcepcionPersistencia;
+import Logica.Excepciones.ExcepcionRMI;
 import Logica.valueObjects.VOExcursionDisp;
 
 public class controladorExcursionesXDestino {
@@ -17,17 +19,15 @@ public class controladorExcursionesXDestino {
 		this.ven = ven;
 	}
 	
-	public static VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException, FileNotFoundException, IOException, NotBoundException{
-		try {
-			return managerIFachada.getInstancia().getIFachada().excursionesXDestino(destino);
-		} catch (RemoteException e) {
-			throw new RemoteException(e.getMessage());
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException(e.getMessage());
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		} catch (NotBoundException e) {
-			throw new NotBoundException(e.getMessage());
-		}
+	public static VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI {
+		
+			try {
+				return managerIFachada.getInstancia().getIFachada().excursionesXDestino(destino);
+			} catch (ExcepcionPersistencia e) {
+				throw new ExcepcionPersistencia(e.darMensaje());
+			} catch (ExcepcionRMI e) {
+				throw new ExcepcionRMI(e.darMensaje());
+			}
+	
 	}
 }

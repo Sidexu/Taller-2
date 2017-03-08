@@ -10,6 +10,8 @@ import Grafica.ventanas.ventanaPrueba;
 import Logica.Hora;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
+import Logica.Excepciones.ExcepcionPersistencia;
+import Logica.Excepciones.ExcepcionRMI;
 import Logica.valueObjects.VOExcursion;
 
 public class controladorNuevaExcursion {
@@ -21,28 +23,26 @@ public class controladorNuevaExcursion {
 		
 	}
 	
-	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio) throws RemoteException, FileNotFoundException, ExcepcionExcursion, ExcepcionBus, IOException, NotBoundException
+	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio) throws RemoteException, ExcepcionExcursion, ExcepcionBus,ExcepcionRMI,ExcepcionPersistencia 
 	{
 		
 		Hora HrP = new Hora(Integer.parseInt(HrPartida),Integer.parseInt(HrPartidaMin));
 		Hora HrR = new Hora(Integer.parseInt(HrRegreso),Integer.parseInt(HrRegresoMin));
 
 		VOExcursion voE = new VOExcursion(Codigo,Destino,HrP,HrR,Float.parseFloat(Precio));
-		try {
-			managerIFachada.getInstancia().getIFachada().registroExcursion(voE);
-		} catch (RemoteException e) {
-			throw new RemoteException(e.getMessage());
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException(e.getMessage());
-		} catch (ExcepcionExcursion e) {
-			throw new ExcepcionExcursion(e.darMensaje());
-		} catch (ExcepcionBus e) {
-			throw new ExcepcionBus(e.darMensaje());
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		} catch (NotBoundException e) {
-			throw new NotBoundException(e.getMessage());
-		}
+		
+			try {
+				managerIFachada.getInstancia().getIFachada().registroExcursion(voE);
+			} catch (ExcepcionPersistencia e) {
+				throw new ExcepcionPersistencia(e.darMensaje());
+			} catch (ExcepcionRMI e) {
+				throw new ExcepcionRMI(e.darMensaje());
+			}catch(ExcepcionBus e){
+				throw new ExcepcionBus(e.darMensaje());
+			}catch(ExcepcionExcursion e){
+				throw new ExcepcionExcursion(e.darMensaje());
+			}
+	
 	}
 
 }

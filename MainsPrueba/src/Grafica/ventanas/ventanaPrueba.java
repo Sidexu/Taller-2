@@ -284,21 +284,22 @@ public class ventanaPrueba {
 					public void actionPerformed(ActionEvent e) {	
 							
 								float monto;
-									try {
-										monto = controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
-										lb_RecaudacionExc.setText("La recaudación para la excursión "+Tf_Recaudacion_Codigo.getText()+" es: "+monto);
-										lb_RecaudacionExc_msg.setText("");
-									} catch (RemoteException e1) {
-										lb_RecaudacionExc_msg.setText(e1.getMessage());
-									} catch (FileNotFoundException e1) {
-										lb_RecaudacionExc_msg.setText(e1.getMessage());
-									} catch (ExcepcionExcursion e1) {
-										lb_RecaudacionExc_msg.setText(e1.darMensaje());
-									} catch (IOException e1) {
-										lb_RecaudacionExc_msg.setText(e1.getMessage());
-									} catch (NotBoundException e1) {
-										lb_RecaudacionExc_msg.setText(e1.getMessage());
-									}
+									
+										try {
+											monto = controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
+											lb_RecaudacionExc.setText("La recaudación para la excursión "+Tf_Recaudacion_Codigo.getText()+" es: "+monto);
+											lb_RecaudacionExc_msg.setText("");
+										} catch (RemoteException e1) {
+											lb_RecaudacionExc_msg.setText(e1.getMessage());
+										} catch (ExcepcionExcursion e1) {
+											lb_RecaudacionExc_msg.setText(e1.darMensaje());
+										} catch (ExcepcionPersistencia e1) {
+											lb_RecaudacionExc_msg.setText(e1.darMensaje());
+										} catch (ExcepcionRMI e1) {
+											lb_RecaudacionExc_msg.setText(e1.darMensaje());
+										}
+										
+									
 					
 					}
 				});
@@ -334,43 +335,46 @@ public class ventanaPrueba {
 					public void actionPerformed(ActionEvent e) {	
 							VOExcursionDisp arrVO[];
 								
-									try {
-										arrVO = controladorExcursionesXPrecio.excursionesXPrecio(Tf_ListadoExcXRango_Rango1.getText(), Tf_ListadoExcXRango_Rango2.getText());
-										DefaultTableModel model = new DefaultTableModel(0, 0);
-										
-										String columnNames [] = new String[] {"Codigo",
-								                "Destino",
-								                "Hr Partida",
-								                "Hr Regreso",
-								                "Precio Base",
-								                "Cantidad disponible"};
-										
+									
+										try {
+											arrVO = controladorExcursionesXPrecio.excursionesXPrecio(Tf_ListadoExcXRango_Rango1.getText(), Tf_ListadoExcXRango_Rango2.getText());
+											DefaultTableModel model = new DefaultTableModel(0, 0);
+											
+											String columnNames [] = new String[] {"Codigo",
+									                "Destino",
+									                "Hr Partida",
+									                "Hr Regreso",
+									                "Precio Base",
+									                "Cantidad disponible"};
+											
 
-										model.setColumnIdentifiers(columnNames);
-										
-										tableListExBus.setModel(model);
+											model.setColumnIdentifiers(columnNames);
+											
+											tableListExBus.setModel(model);
 
-										panel_7.setLayout(new BorderLayout());
-										panel_7.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
-										panel_7.add(tableListExBus, BorderLayout.CENTER);
-										
-										for(int i=0;i<arrVO.length;i++){
-											Hora hp= arrVO[i].getHr_partida();
-											Hora hr= arrVO[i].getHr_regreso();
-											String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-											String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-											model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+											panel_7.setLayout(new BorderLayout());
+											panel_7.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
+											panel_7.add(tableListExBus, BorderLayout.CENTER);
+											
+											for(int i=0;i<arrVO.length;i++){
+												Hora hp= arrVO[i].getHr_partida();
+												Hora hr= arrVO[i].getHr_regreso();
+												String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+												String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+												model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+											}
+											lb_ListadoExcXRango_msg.setText("");
+										} catch (NumberFormatException e1) {
+											lb_ListadoExcXRango_msg.setText(e1.getMessage());
+										} catch (RemoteException e1) {
+											lb_ListadoExcXRango_msg.setText(e1.getMessage());
+										} catch (ExcepcionPersistencia e1) {
+											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
+										} catch (ExcepcionRMI e1) {
+											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
 										}
-										lb_ListadoExcXRango_msg.setText("");
-									} catch (RemoteException e1) {
-										lb_ListadoExcXRango_msg.setText(e1.getMessage());
-									} catch (FileNotFoundException e1) {
-										lb_ListadoExcXRango_msg.setText(e1.getMessage());
-									} catch (IOException e1) {
-										lb_ListadoExcXRango_msg.setText(e1.getMessage());
-									} catch (NotBoundException e1) {
-										lb_ListadoExcXRango_msg.setText(e1.getMessage());
-									}
+										
+									
 					}
 				});
 				
