@@ -40,6 +40,8 @@ import Grafica.ventanas.controladoresVentanas.controladorVentaBoleto;
 import Logica.Hora;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
+import Logica.Excepciones.ExcepcionPersistencia;
+import Logica.Excepciones.ExcepcionRMI;
 import Logica.valueObjects.VOBoletoTipo;
 import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
@@ -176,14 +178,12 @@ public class ventanaPrueba {
 								lb_ListadoBoletosEx_msg.setText("");
 							} catch (RemoteException e1) {
 								lb_ListadoBoletosEx_msg.setText(e1.getMessage());
-							} catch (FileNotFoundException e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.getMessage());
 							} catch (ExcepcionExcursion e1) {
 								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
-							} catch (IOException e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.getMessage());
-							} catch (NotBoundException e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.getMessage());
+							} catch (ExcepcionPersistencia e1) {
+								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
+							} catch (ExcepcionRMI e1) {
+								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
 							}
 
 					}

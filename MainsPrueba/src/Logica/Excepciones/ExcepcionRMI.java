@@ -1,9 +1,9 @@
 package Logica.Excepciones;
 
-public class ExcepcionPersistencia extends Exception {
+public class ExcepcionRMI extends Exception {
 	private String msg;
 
-	public ExcepcionPersistencia(String msg) {
+	public ExcepcionRMI(String msg) {
 		this.msg = msg;
 	}
 

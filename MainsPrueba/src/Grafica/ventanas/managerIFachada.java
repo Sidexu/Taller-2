@@ -7,6 +7,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.util.Properties;
 
+import Logica.Excepciones.ExcepcionPersistencia;
+import Logica.Excepciones.ExcepcionRMI;
 import defaultP.IFachada;
 
 
@@ -14,7 +16,7 @@ public class managerIFachada {
 	private static managerIFachada instancia;
 	private IFachada fach;
 	
-	private managerIFachada() throws FileNotFoundException, IOException, NotBoundException
+	private managerIFachada() throws ExcepcionPersistencia, ExcepcionRMI
 	{
 		try 
 		{
@@ -27,36 +29,29 @@ public class managerIFachada {
 			fach = (IFachada) Naming.lookup(ruta);
 		}catch (FileNotFoundException e)
 		{
-			throw new FileNotFoundException(e.getMessage());
+			throw new ExcepcionPersistencia("Error en persistencia");
 		}
 		catch (IOException e)
 		{
-			throw new IOException(e.getMessage());
+			throw new ExcepcionPersistencia("Error en persistencia");
 		} 
 		catch (NotBoundException e) 
 		{
-			throw new NotBoundException(e.getMessage());
+			throw new ExcepcionRMI("Error de comunicacion");
 		}
 	}
 	
-	public static managerIFachada getInstancia() throws FileNotFoundException, IOException, NotBoundException
+	public static managerIFachada getInstancia() throws ExcepcionPersistencia, ExcepcionRMI
 	{
 		try{
 			if(instancia == null)
 			{
 				instancia = new managerIFachada();
 			}
-		}catch (FileNotFoundException e)
-		{
-			throw new FileNotFoundException(e.getMessage());
-		}
-		catch (IOException e)
-		{
-			throw new IOException(e.getMessage());
-		} 
-		catch (NotBoundException e) 
-		{
-			throw new NotBoundException(e.getMessage());
+		}catch (ExcepcionPersistencia e){
+			throw new ExcepcionPersistencia(e.darMensaje());
+		} catch (ExcepcionRMI e) {
+			throw new ExcepcionRMI(e.darMensaje());
 		}
 		
 		
