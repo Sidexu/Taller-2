@@ -268,7 +268,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 								arrVO[i]= new VOBoletoTipo(e.getNroboleto(),e.getEdad_pas(),e.getLugar_procedencia(), e.getCel_pas(),e.getDescuento());
 							//}
 						}else{
-							System.out.println("entre a comun");
 							arrVO[i]= new VOBoletoTipo(arr.get(i).getNroboleto(), arr.get(i).getEdad_pas(), arr.get(i).getLugar_procedencia(), arr.get(i).getCel_pas(), 0);
 						}
 				}
