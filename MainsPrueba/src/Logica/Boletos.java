@@ -48,7 +48,7 @@ public class Boletos implements Serializable{
 				if(b instanceof Especial){
 					arr.add(new Especial(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas(),((Especial) b).getDescuento()));
 				}
-			}else if(b.tipoBoleto() == "comun"){
+			}else if(Objects.equals(new String("comun"),b.tipoBoleto())){ 
 
 				arr.add(new Boleto(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas()));
 			}	

@@ -226,7 +226,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			arr=ex.getBoletos().listadoDeBoletos();
 			
 			for(int i=0;i<arr.size();i++){
-				if(arr.get(i).tipoBoleto() == "comun"){
+				if(Objects.equals(arr.get(i).tipoBoleto(),"comun")){
 					if(arr.get(i).getEdad_pas() <= 12){
 						montoTotal=(float) (montoTotal+(ex.getPrecio_base()*0.8));
 					}else{
