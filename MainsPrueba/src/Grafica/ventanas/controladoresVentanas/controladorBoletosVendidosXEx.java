@@ -19,7 +19,7 @@ public class controladorBoletosVendidosXEx {
 	}
 	
 	public static VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws RemoteException,FileNotFoundException,ExcepcionExcursion,IOException,NotBoundException{
-		System.out.println("tipo boleto: "+tipoBoleto);
+		
 		try {
 			return managerIFachada.getInstancia().getIFachada().boletosVendidosXEx(codigo, tipoBoleto);
 			

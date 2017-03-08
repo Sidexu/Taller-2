@@ -39,8 +39,6 @@ public class controladorVentaBoleto {
 			throw new IOException(e.getMessage());
 		} catch (NotBoundException e) {
 			throw new NotBoundException(e.getMessage());
-		}catch(Exception e){
-			System.out.println("hubo un error");
 		}
 
 	}
