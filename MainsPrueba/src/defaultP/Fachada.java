@@ -200,15 +200,22 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				m.escrituraTerminada();
 				throw new ExcepcionBus(msg2);
 			}else{
-				if(vo.getDescuento() == 0){//boleto comun
-					Boleto b = new Boleto(excursiones.findExcursion(codEx).getBoletos().tamBoletos()+1,vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
-					ex.getBoletos().insert(b);
+				System.out.println("precio base: "+ex.getPrecio_base()+" Descuento: "+vo.getDescuento());
+				if(ex.getPrecio_base()<vo.getDescuento()){
+					String msg3="El descuento no puede ser mayor al precio base de la Excursion";
 					m.escrituraTerminada();
-				}else{ //boleto especial
-					Boleto b = new Especial(excursiones.findExcursion(codEx).getBoletos().tamBoletos()+1,vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas(),vo.getDescuento()); 
-					ex.getBoletos().insert(b);
-					m.escrituraTerminada();
-				}				
+					throw new ExcepcionExcursion(msg3);
+				}else{
+					if(vo.getDescuento() == 0){//boleto comun
+						Boleto b = new Boleto(excursiones.findExcursion(codEx).getBoletos().tamBoletos()+1,vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
+						ex.getBoletos().insert(b);
+						m.escrituraTerminada();
+					}else{ //boleto especial
+						Boleto b = new Especial(excursiones.findExcursion(codEx).getBoletos().tamBoletos()+1,vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas(),vo.getDescuento()); 
+						ex.getBoletos().insert(b);
+						m.escrituraTerminada();
+					}		
+				}		
 			}
 		}
 	}
