@@ -185,6 +185,8 @@ public class ventanaPrueba {
 								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
 							} catch (ExcepcionRMI e1) {
 								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
+							}catch(ExcepcionVentana e1){
+								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
 							}
 
 					}
@@ -764,6 +766,8 @@ public class ventanaPrueba {
 								} catch (ExcepcionExcursion e) {
 									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
 								} catch (ExcepcionBus e) {
+									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
+								}catch(ExcepcionVentana e){
 									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
 								}
 					}

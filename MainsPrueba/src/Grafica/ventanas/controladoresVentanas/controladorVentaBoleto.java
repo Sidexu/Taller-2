@@ -8,6 +8,7 @@ import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
+import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOBoletoTipo;
 
 public class controladorVentaBoleto {
@@ -19,24 +20,67 @@ public class controladorVentaBoleto {
 		
 	}
 	
-	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
+	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws ExcepcionVentana,RemoteException,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
 	{
-
-
-		VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
+		boolean error = false;
 		
-			try {
-				managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
-			} catch (ExcepcionPersistencia e) {
-				throw new ExcepcionPersistencia(e.darMensaje());
-			} catch (ExcepcionRMI e) {
-				throw new ExcepcionRMI(e.darMensaje());
-			}catch(ExcepcionBus e){
-				throw new ExcepcionBus(e.darMensaje());
-			}catch(ExcepcionExcursion e){
-				throw new ExcepcionExcursion(e.darMensaje());
+		String MSG = "";
+		String COD = codigo.trim();
+		if(COD.equals(new String(""))){
+			error=true;
+			MSG = "Error el código no puede ser vacío";
+		}else{
+			String PROC = procedencia.trim();
+			if(PROC.equals(new String(""))){
+				error=true;
+				MSG = "Error la procedencia no puede ser vacía";
 			}
+		}
 		
+		if(!error){
+			try{
+				float DESC= Float.parseFloat(descuento);
+				if(DESC < 0){
+					throw new ExcepcionVentana("Error, el descuento no puede ser negativo");
+				}
+			}catch(NumberFormatException e){
+				throw new ExcepcionVentana("Error, el descuento debe ser numerico");
+			}
+			try{
+				int EDAD= Integer.parseInt(edad);
+				if(EDAD < 0){
+					throw new ExcepcionVentana("Error, la edad no puede ser negativa");
+				}
+			}catch(NumberFormatException e){
+				throw new ExcepcionVentana("Error, la edad debe ser numerica");
+			}
+			
+			try{
+				long CEL= Long.parseLong(cel);
+				if(CEL < 0){
+					throw new ExcepcionVentana("Error, el celular no puede ser negativo");
+				}
+			}catch(NumberFormatException e){
+				throw new ExcepcionVentana("Error, el celular debe ser numerico");
+			}
+			
+			
+			VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
+		
+				try {
+					managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
+				} catch (ExcepcionPersistencia e) {
+					throw new ExcepcionPersistencia(e.darMensaje());
+				} catch (ExcepcionRMI e) {
+					throw new ExcepcionRMI(e.darMensaje());
+				}catch(ExcepcionBus e){
+					throw new ExcepcionBus(e.darMensaje());
+				}catch(ExcepcionExcursion e){
+					throw new ExcepcionExcursion(e.darMensaje());
+				}
+		}else{
+			throw new ExcepcionVentana(MSG);
+		}
 
 	}
 }
