@@ -200,7 +200,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				m.escrituraTerminada();
 				throw new ExcepcionBus(msg2);
 			}else{
-				System.out.println("precio base: "+ex.getPrecio_base()+" Descuento: "+vo.getDescuento());
 				if(ex.getPrecio_base()<vo.getDescuento()){
 					String msg3="El descuento no puede ser mayor al precio base de la Excursion";
 					m.escrituraTerminada();
