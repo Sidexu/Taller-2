@@ -24,7 +24,7 @@ public class controladorNuevaExcursion {
 		
 	}
 	
-	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio) throws RemoteException, ExcepcionExcursion, ExcepcionBus,ExcepcionRMI,ExcepcionPersistencia, ExcepcionVentana 
+	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio) throws  ExcepcionExcursion, ExcepcionBus,ExcepcionRMI,ExcepcionPersistencia, ExcepcionVentana 
 	{
 			boolean error = false;
 			
@@ -95,6 +95,8 @@ public class controladorNuevaExcursion {
 							throw new ExcepcionBus(e.darMensaje());
 						}catch (ExcepcionExcursion e){
 							throw new ExcepcionExcursion(e.darMensaje());
+						}catch (RemoteException e){
+							throw new ExcepcionRMI("Error en la conexión.");
 						}
 					}catch (NumberFormatException e){
 						throw new ExcepcionVentana("Error, precio debe de ser numérico");

@@ -18,7 +18,7 @@ public class controladorListadoExcursionDisp {
 		this.ven = ven;
 	}
 	
-	public static VOExcursionDisp [] listadoExcursionesXBus(String mat) throws RemoteException,  ExcepcionExcursion, ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana{
+	public static VOExcursionDisp [] listadoExcursionesXBus(String mat) throws  ExcepcionExcursion, ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana{
 		
 		boolean error = false;
 		String MSG = "";
@@ -36,6 +36,8 @@ public class controladorListadoExcursionDisp {
 				throw new ExcepcionRMI(e.darMensaje());
 			}catch(ExcepcionExcursion e){
 				throw new ExcepcionExcursion(e.darMensaje());
+			}catch (RemoteException e){
+				throw new ExcepcionRMI("Error en la conexión.");
 			}
 		}else{
 			throw new ExcepcionVentana(MSG);

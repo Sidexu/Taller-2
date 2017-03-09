@@ -20,7 +20,7 @@ public class controladorVentaBoleto {
 		
 	}
 	
-	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws ExcepcionVentana,RemoteException,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
+	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws ExcepcionVentana,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
 	{
 		boolean error = false;
 		
@@ -48,8 +48,8 @@ public class controladorVentaBoleto {
 			}
 			try{
 				int EDAD= Integer.parseInt(edad);
-				if(EDAD < 0){
-					throw new ExcepcionVentana("Error, la edad no puede ser negativa");
+				if(EDAD < 0 || EDAD>150){
+					throw new ExcepcionVentana("Error, la edad no puede ser negativa o mayor a 150 años");
 				}
 			}catch(NumberFormatException e){
 				throw new ExcepcionVentana("Error, la edad debe ser numerica");
@@ -77,6 +77,8 @@ public class controladorVentaBoleto {
 					throw new ExcepcionBus(e.darMensaje());
 				}catch(ExcepcionExcursion e){
 					throw new ExcepcionExcursion(e.darMensaje());
+				}catch (RemoteException e){
+					throw new ExcepcionRMI("Error en la conexión.");
 				}
 		}else{
 			throw new ExcepcionVentana(MSG);

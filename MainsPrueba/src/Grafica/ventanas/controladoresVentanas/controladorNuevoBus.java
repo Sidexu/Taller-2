@@ -24,7 +24,7 @@ public class controladorNuevoBus {
 		
 	}
 	
-	public static void nuevoBus(String Matricula,String Marca,String Capacidad) throws RemoteException, ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana{
+	public static void nuevoBus(String Matricula,String Marca,String Capacidad) throws  ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana{
 
 
 		boolean error=false;
@@ -55,6 +55,8 @@ public class controladorNuevoBus {
 						throw new ExcepcionRMI(e.darMensaje());
 					}catch (ExcepcionBus e){
 						throw new ExcepcionBus(e.darMensaje());
+					}catch (RemoteException e){
+						throw new ExcepcionRMI("Error en la conexión.");
 					}
 				
 			}catch(NumberFormatException e){

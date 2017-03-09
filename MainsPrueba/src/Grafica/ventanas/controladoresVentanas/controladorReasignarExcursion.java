@@ -21,7 +21,7 @@ public class controladorReasignarExcursion {
 		
 	}
 	
-	public static void reasignarExcursion(String Codigo) throws RemoteException, ExcepcionExcursion, ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana
+	public static void reasignarExcursion(String Codigo) throws  ExcepcionExcursion, ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana
 	{
 		
 		boolean error = false;
@@ -42,6 +42,8 @@ public class controladorReasignarExcursion {
 				throw new ExcepcionExcursion(e.darMensaje());
 			}catch(ExcepcionBus e){
 				throw new ExcepcionBus(e.darMensaje());
+			}catch (RemoteException e){
+				throw new ExcepcionRMI("Error en la conexión.");
 			}
 		}else{
 			throw new ExcepcionVentana(MSG);

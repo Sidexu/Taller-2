@@ -21,7 +21,7 @@ public class controladorListadoGralBuses {
 		this.ven = ven;
 	}
 	
-	public static VOBusCant [] listadoGralBuses() throws RemoteException, ExcepcionRMI,ExcepcionPersistencia
+	public static VOBusCant [] listadoGralBuses() throws  ExcepcionRMI,ExcepcionPersistencia
 	{
 		
 			try {
@@ -30,6 +30,8 @@ public class controladorListadoGralBuses {
 				throw new ExcepcionPersistencia(e.darMensaje());
 			} catch (ExcepcionRMI e) {
 				throw new ExcepcionRMI(e.darMensaje());
+			}catch (RemoteException e){
+				throw new ExcepcionRMI("Error en la conexión.");
 			}
 			
 	}

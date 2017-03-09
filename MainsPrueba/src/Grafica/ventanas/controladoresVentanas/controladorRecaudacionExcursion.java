@@ -17,7 +17,7 @@ public class controladorRecaudacionExcursion {
 		this.ven = ven;
 	}
 	
-	public static float recaudacionExcursion(String codEx) throws RemoteException,ExcepcionExcursion,ExcepcionPersistencia,ExcepcionRMI,ExcepcionVentana{
+	public static float recaudacionExcursion(String codEx) throws ExcepcionExcursion,ExcepcionPersistencia,ExcepcionRMI,ExcepcionVentana{
 		
 		boolean error = false;
 		String MSG = "";
@@ -35,6 +35,8 @@ public class controladorRecaudacionExcursion {
 				throw new ExcepcionRMI(e.darMensaje());
 			}catch(ExcepcionExcursion e){
 				throw new ExcepcionExcursion(e.darMensaje());
+			}catch (RemoteException e){
+				throw new ExcepcionRMI("Error en la conexión.");
 			}
 		}else{
 			throw new ExcepcionVentana(MSG);

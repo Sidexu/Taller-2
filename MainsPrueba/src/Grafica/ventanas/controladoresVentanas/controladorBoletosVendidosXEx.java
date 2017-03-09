@@ -21,7 +21,7 @@ public class controladorBoletosVendidosXEx {
 		this.ven = ven;
 	}
 	
-	public static VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, ExcepcionVentana,ExcepcionPersistencia, ExcepcionRMI, RemoteException{
+	public static VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, ExcepcionVentana,ExcepcionPersistencia, ExcepcionRMI{
 		
 		boolean error = false;
 		String MSG = "";
@@ -39,6 +39,8 @@ public class controladorBoletosVendidosXEx {
 				throw new ExcepcionRMI(e.darMensaje());
 			} catch (ExcepcionExcursion e) {
 				throw new ExcepcionExcursion(e.darMensaje());
+			}catch (RemoteException e){
+				throw new ExcepcionRMI("Error en la conexión.");
 			}
 		}else{
 			throw new ExcepcionVentana(MSG);
