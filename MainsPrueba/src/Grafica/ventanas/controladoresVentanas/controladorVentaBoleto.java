@@ -1,8 +1,5 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import Grafica.ventanas.managerIFachada;
@@ -24,6 +21,7 @@ public class controladorVentaBoleto {
 	
 	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
 	{
+
 
 		VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
 		

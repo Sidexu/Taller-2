@@ -1,8 +1,5 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import Grafica.ventanas.managerIFachada;
@@ -11,6 +8,7 @@ import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
+import Logica.Excepciones.ExcepcionVentana;
 
 
 public class controladorReasignarExcursion {
@@ -23,9 +21,17 @@ public class controladorReasignarExcursion {
 		
 	}
 	
-	public static void reasignarExcursion(String Codigo) throws RemoteException, ExcepcionExcursion, ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI
+	public static void reasignarExcursion(String Codigo) throws RemoteException, ExcepcionExcursion, ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana
 	{
 		
+		boolean error = false;
+		String MSG = "";
+		String COD = Codigo.trim();
+		if(COD.equals(new String(""))){
+			error=true;
+			MSG = "Error el código no puede ser vacío";
+		}
+		if(!error){
 			try {
 				managerIFachada.getInstancia().getIFachada().reasignacionExcursion(Codigo);
 			} catch (ExcepcionPersistencia e) {
@@ -37,6 +43,10 @@ public class controladorReasignarExcursion {
 			}catch(ExcepcionBus e){
 				throw new ExcepcionBus(e.darMensaje());
 			}
+		}else{
+			throw new ExcepcionVentana(MSG);
+		}
+
 		
 	}
 }

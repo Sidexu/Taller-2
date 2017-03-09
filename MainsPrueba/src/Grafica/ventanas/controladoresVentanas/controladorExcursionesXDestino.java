@@ -1,14 +1,12 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import Grafica.ventanas.managerIFachada;
 import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
+import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOExcursionDisp;
 
 public class controladorExcursionesXDestino {
@@ -19,8 +17,16 @@ public class controladorExcursionesXDestino {
 		this.ven = ven;
 	}
 	
-	public static VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI {
+	public static VOExcursionDisp[] excursionesXDestino(String destino) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana {
 		
+		boolean error = false;
+		String MSG = "";
+		String DES = destino.trim();
+		if(DES.equals(new String(""))){
+			error=true;
+			MSG = "Error el código no puede ser vacío";
+		}
+		if(!error){
 			try {
 				return managerIFachada.getInstancia().getIFachada().excursionesXDestino(destino);
 			} catch (ExcepcionPersistencia e) {
@@ -28,6 +34,8 @@ public class controladorExcursionesXDestino {
 			} catch (ExcepcionRMI e) {
 				throw new ExcepcionRMI(e.darMensaje());
 			}
-	
+		}else{
+			throw new ExcepcionVentana(MSG);
+		}
 	}
 }

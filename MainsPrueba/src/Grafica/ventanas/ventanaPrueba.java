@@ -42,6 +42,7 @@ import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
+import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOBoletoTipo;
 import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
@@ -297,6 +298,8 @@ public class ventanaPrueba {
 											lb_RecaudacionExc_msg.setText(e1.darMensaje());
 										} catch (ExcepcionRMI e1) {
 											lb_RecaudacionExc_msg.setText(e1.darMensaje());
+										} catch (ExcepcionVentana e1) {
+											lb_RecaudacionExc_msg.setText(e1.darMensaje());
 										}
 										
 									
@@ -347,7 +350,6 @@ public class ventanaPrueba {
 									                "Precio Base",
 									                "Cantidad disponible"};
 											
-
 											model.setColumnIdentifiers(columnNames);
 											
 											tableListExBus.setModel(model);
@@ -364,13 +366,13 @@ public class ventanaPrueba {
 												model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
 											}
 											lb_ListadoExcXRango_msg.setText("");
-										} catch (NumberFormatException e1) {
-											lb_ListadoExcXRango_msg.setText(e1.getMessage());
 										} catch (RemoteException e1) {
 											lb_ListadoExcXRango_msg.setText(e1.getMessage());
 										} catch (ExcepcionPersistencia e1) {
 											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
 										} catch (ExcepcionRMI e1) {
+											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
+										} catch (ExcepcionVentana e1) {
 											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
 										}
 										
@@ -467,6 +469,8 @@ public class ventanaPrueba {
 										lb_ListadoExcDest_msg.setText(e1.darMensaje());
 									} catch (ExcepcionRMI e1) {
 										lb_ListadoExcDest_msg.setText(e1.darMensaje());
+									} catch (ExcepcionVentana e1) {
+										lb_ListadoExcDest_msg.setText(e1.darMensaje());
 									}
 
 					}
@@ -557,6 +561,8 @@ public class ventanaPrueba {
 								} catch (ExcepcionPersistencia e1) {
 									lb_listadoExcBus_msg.setText(e1.darMensaje());
 								} catch (ExcepcionRMI e1) {
+									lb_listadoExcBus_msg.setText(e1.darMensaje());
+								} catch (ExcepcionVentana e1) {
 									lb_listadoExcBus_msg.setText(e1.darMensaje());
 								}
 			
@@ -915,6 +921,8 @@ public class ventanaPrueba {
 										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
 									} catch (ExcepcionPersistencia e) {
 										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
+									} catch (ExcepcionVentana e) {
+										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
 									}
 					}
 				});
@@ -998,6 +1006,8 @@ public class ventanaPrueba {
 								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
 							} catch (ExcepcionRMI e) {
 								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
+							} catch (ExcepcionVentana e) {
+								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
 							}
 			}
 		});
@@ -1069,9 +1079,7 @@ public class ventanaPrueba {
 			public void actionPerformed(ActionEvent arg0) {
 				String Matricula = Tf_NuevoBus_Matricula.getText();
 				String Marca = Tf_NuevoBus_Marca.getText();
-				String Capacidad = Tf_NuevoBus_Capacidad.getText();
-					
-						try {
+				String Capacidad = Tf_NuevoBus_Capacidad.getText();						try {
 							controladorNuevoBus.nuevoBus (Matricula, Marca, Capacidad);
 							Lb_NuevoBus_mensaje.setText("Bus ingresado correctamente");
 							Tf_NuevoBus_Matricula.setText("");
@@ -1084,6 +1092,8 @@ public class ventanaPrueba {
 						} catch (ExcepcionPersistencia e) {
 							Lb_NuevoBus_mensaje.setText(e.darMensaje());
 						} catch (ExcepcionRMI e) {
+							Lb_NuevoBus_mensaje.setText(e.darMensaje());
+						} catch (ExcepcionVentana e) {
 							Lb_NuevoBus_mensaje.setText(e.darMensaje());
 						}		
 			}
