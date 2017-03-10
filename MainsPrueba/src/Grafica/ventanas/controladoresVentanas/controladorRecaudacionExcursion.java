@@ -1,24 +1,17 @@
 package Grafica.ventanas.controladoresVentanas;
 
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 
 public class controladorRecaudacionExcursion {
-	private ventanaPrueba ven;
 
-	public controladorRecaudacionExcursion(ventanaPrueba ven)
-	{
-		this.ven = ven;
-	}
-	
-	public static float recaudacionExcursion(String codEx) throws ExcepcionExcursion,ExcepcionPersistencia,ExcepcionRMI,ExcepcionVentana{
-		
+	public static float recaudacionExcursion(String codEx) {
+		float recaudacion=0;
 		boolean error = false;
 		String MSG = "";
 		String COD = codEx.trim();
@@ -28,19 +21,19 @@ public class controladorRecaudacionExcursion {
 		}
 		if(!error){
 			try {
-				return managerIFachada.getInstancia().getIFachada().recaudacionExcursion(codEx);
+				recaudacion= managerIFachada.getInstancia().getIFachada().recaudacionExcursion(codEx);
 			} catch (ExcepcionPersistencia e) {
-				throw new ExcepcionPersistencia(e.darMensaje());
+				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {
-				throw new ExcepcionRMI(e.darMensaje());
+				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			}catch(ExcepcionExcursion e){
-				throw new ExcepcionExcursion(e.darMensaje());
+				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			}catch (RemoteException e){
-				throw new ExcepcionRMI("Error en la conexión.");
+				JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 			}
 		}else{
-			throw new ExcepcionVentana(MSG);
+			JOptionPane.showMessageDialog(null, MSG, "Duck Boat Window", 0);
 		}
-
+		return recaudacion;
 	}
 }

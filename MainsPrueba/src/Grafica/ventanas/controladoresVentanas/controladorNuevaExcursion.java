@@ -1,81 +1,85 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Hora;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOExcursion;
 
 public class controladorNuevaExcursion {
-	private ventanaPrueba ven;
-
-	public controladorNuevaExcursion(ventanaPrueba ven)
-	{
-		this.ven = ven;
-		
-	}
 	
-	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio) throws  ExcepcionExcursion, ExcepcionBus,ExcepcionRMI,ExcepcionPersistencia, ExcepcionVentana 
+	public static void nuevaExcursion(String Codigo,String Destino,String HrPartida,String HrPartidaMin,String HrRegreso,String HrRegresoMin,String Precio)
 	{
 			boolean error = false;
 			
-			String MSG = "";
+		
 			String COD = Codigo.trim();
 			if(COD.equals(new String(""))){
 				error=true;
-				MSG = "Error el código no puede ser vacío";
+				JOptionPane.showMessageDialog(null,"Error el código no puede ser vacío", "Duck Boat Window", 0);
 			}else{
 				String DES = Destino.trim();
 				if(DES.equals(new String(""))){
 					error=true;
-					MSG = "Error el destino no puede ser vacío";
+					JOptionPane.showMessageDialog(null,"Error el destino no puede ser vacío", "Duck Boat Window", 0);
 				}
 			}	
-				
-			try{
-				int hrp = Integer.parseInt(HrPartida);
-				if(hrp >24 || hrp < 0){
-					throw new ExcepcionVentana("Error, la hora debe estar comprendida entre 00 y 24");
+			
+			if(!error){
+				try{
+					int hrp = Integer.parseInt(HrPartida);
+					if(hrp >24 || hrp < 0){
+						error=true;
+						JOptionPane.showMessageDialog(null,"Error, la hora de partida debe estar comprendida entre 00 y 24", "Duck Boat Window", 0);
+					}
+				}catch(NumberFormatException e){
+					error=true;
+					JOptionPane.showMessageDialog(null,"Error, la hora de partida debe de ser numerica", "Duck Boat Window", 0);
 				}
-			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, la hora debe de ser numerica");
 			}
 			
-			try{
-				int hrpm = Integer.parseInt(HrPartidaMin);
-				if(hrpm >59 || hrpm < 0){
-					throw new ExcepcionVentana("Error, los minutos deben estar comprendids entre 00 y 59");
+			if(!error){
+				try{
+					int hrpm = Integer.parseInt(HrPartidaMin);
+					if(hrpm >59 || hrpm < 0){
+						error=true;
+						JOptionPane.showMessageDialog(null,"Error, los minutos de partida deben estar comprendids entre 00 y 59", "Duck Boat Window", 0);
+					}
+				}catch(NumberFormatException e){
+					error=true;
+					JOptionPane.showMessageDialog(null,"Error, los minutos de partida deben de ser numericos", "Duck Boat Window", 0);
 				}
-			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, los minutos deben de ser numericos");
 			}
 			
-			try{
-				int hrr = Integer.parseInt(HrRegreso);
-				if(hrr >24 || hrr < 0){
-					throw new ExcepcionVentana("Error, la hora debe estar comprendida entre 00 y 24");
+			if(!error){
+				try{
+					int hrr = Integer.parseInt(HrRegreso);
+					if(hrr >24 || hrr < 0){
+						error=true;
+						JOptionPane.showMessageDialog(null,"Error, la hora de regreso debe estar comprendida entre 00 y 24", "Duck Boat Window", 0);
+					}
+				}catch(NumberFormatException e){
+					error=true;
+					JOptionPane.showMessageDialog(null,"Error, la hora de regreso debe de ser numerica", "Duck Boat Window", 0);
 				}
-			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, la hora debe de ser numerica");
 			}
 			
-			try{
-				int hrrm = Integer.parseInt(HrRegresoMin);
-				if(hrrm >59 || hrrm < 0){
-					throw new ExcepcionVentana("Error, los minutos deben estar comprendids entre 00 y 59");
+			if(!error){
+				try{
+					int hrrm = Integer.parseInt(HrRegresoMin);
+					if(hrrm >59 || hrrm < 0){
+						error=true;
+						JOptionPane.showMessageDialog(null,"Error, los minutos de regreso deben estar comprendids entre 00 y 59", "Duck Boat Window", 0);
+					}	
+				}catch(NumberFormatException e){
+					error=true;
+					JOptionPane.showMessageDialog(null,"Error, los minutos de regreso deben de ser numericos", "Duck Boat Window", 0);
 				}
-					
-			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, los minutos deben de ser numericos");
 			}
 			
 			if(!error){
@@ -85,26 +89,26 @@ public class controladorNuevaExcursion {
 						Hora HrR = new Hora(Integer.parseInt(HrRegreso),Integer.parseInt(HrRegresoMin));
 
 						VOExcursion voE = new VOExcursion(Codigo,Destino,HrP,HrR,Float.parseFloat(Precio));
+						
 						try{
 							managerIFachada.getInstancia().getIFachada().registroExcursion(voE);
+							JOptionPane.showMessageDialog(null,"Excursión ingresada correctamente", "Duck Boat Window", 1);
 						} catch (ExcepcionPersistencia e) {
-							throw new ExcepcionPersistencia(e.darMensaje());
+							JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 						} catch (ExcepcionRMI e) {
-							throw new ExcepcionRMI(e.darMensaje());
+							JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 						}catch (ExcepcionBus e){
-							throw new ExcepcionBus(e.darMensaje());
+							JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 						}catch (ExcepcionExcursion e){
-							throw new ExcepcionExcursion(e.darMensaje());
+							JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 						}catch (RemoteException e){
-							throw new ExcepcionRMI("Error en la conexión.");
+							JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 						}
 					}catch (NumberFormatException e){
-						throw new ExcepcionVentana("Error, precio debe de ser numérico");
+						JOptionPane.showMessageDialog(null, "Error, precio debe de ser numérico", "Duck Boat Window", 0);
 					}catch (NullPointerException e){
-						throw new ExcepcionVentana("Error, precio no puede estar vacío");
+						JOptionPane.showMessageDialog(null, "Error, precio no puede estar vacío", "Duck Boat Window", 0);
 					}
-			}else{
-				throw new ExcepcionVentana(MSG);
 			}
 	}
 

@@ -1,30 +1,19 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
+
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionBus;
-import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
-import Logica.valueObjects.VOBoletoTipo;
 import Logica.valueObjects.VOBus;
 
 public class controladorNuevoBus {
-	private ventanaPrueba ven;
 
-	public controladorNuevoBus(ventanaPrueba ven)
-	{
-		this.ven = ven;
-		
-	}
 	
-	public static void nuevoBus(String Matricula,String Marca,String Capacidad) throws  ExcepcionBus,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana{
+	public static void nuevoBus(String Matricula,String Marca,String Capacidad) {
 
 
 		boolean error=false;
@@ -42,28 +31,25 @@ public class controladorNuevoBus {
 		}	
 		if(error == false){
 			try{
-				int cap = Integer.parseInt(Capacidad);
-				if(cap >100 || cap < 0){
-					throw new ExcepcionVentana("Error, la capacidad no puede superar los 100 asientos ni ser negativa");
-				} 
 				VOBus voB = new VOBus(Matricula,Marca,Integer.parseInt(Capacidad));
 				try {
 					managerIFachada.getInstancia().getIFachada().registroNuevoBus(voB);
+					JOptionPane.showMessageDialog(null, "Bus ingresado correctamente", "Duck Boat Window", 1);
 					} catch (ExcepcionPersistencia e) {
-						throw new ExcepcionPersistencia(e.darMensaje());
+						JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 					} catch (ExcepcionRMI e) {
-						throw new ExcepcionRMI(e.darMensaje());
+						JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 					}catch (ExcepcionBus e){
-						throw new ExcepcionBus(e.darMensaje());
+						JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 					}catch (RemoteException e){
-						throw new ExcepcionRMI("Error en la conexión.");
+						JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 					}
 				
 			}catch(NumberFormatException e){
-					throw new ExcepcionVentana("Error, la capacidad debe de ser numerica");
+				JOptionPane.showMessageDialog(null, "Error, la capacidad debe de ser numerica y no superar los 100 asientos", "Duck Boat Window", 0);
 			}
 		}else{
-			throw new ExcepcionVentana(MSG);
+			JOptionPane.showMessageDialog(null, MSG, "Duck Boat Window", 0);
 		}
 		
 	}

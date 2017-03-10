@@ -39,6 +39,6 @@ public class Monitor1 {
 	
 	public synchronized void escrituraTerminada(){
 		alguien_escribe=false;
-		this.notify();
+		this.notifyAll();
 	}
 }

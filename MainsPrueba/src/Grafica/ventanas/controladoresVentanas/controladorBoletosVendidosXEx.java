@@ -1,28 +1,22 @@
 package Grafica.ventanas.controladoresVentanas;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
+
 import java.rmi.RemoteException;
 
+import javax.swing.JOptionPane;
+
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOBoletoTipo;
 
-public class controladorBoletosVendidosXEx {
-	private ventanaPrueba ven;
 
-	public controladorBoletosVendidosXEx(ventanaPrueba ven)
-	{
-		this.ven = ven;
-	}
+public class controladorBoletosVendidosXEx {
+
 	
-	public static VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) throws ExcepcionExcursion, ExcepcionVentana,ExcepcionPersistencia, ExcepcionRMI{
-		
+	public static VOBoletoTipo[] boletosVendidosXEx(String codigo, String tipoBoleto) {
+		VOBoletoTipo[] arr=null;
 		boolean error = false;
 		String MSG = "";
 		String COD = codigo.trim();
@@ -32,18 +26,20 @@ public class controladorBoletosVendidosXEx {
 		}
 		if(!error){
 			try {
-				return managerIFachada.getInstancia().getIFachada().boletosVendidosXEx(codigo, tipoBoleto);
+				arr= managerIFachada.getInstancia().getIFachada().boletosVendidosXEx(codigo, tipoBoleto);
 			} catch (ExcepcionPersistencia e){
-				throw new ExcepcionPersistencia(e.darMensaje());
+				JOptionPane.showMessageDialog(null, e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {
-				throw new ExcepcionRMI(e.darMensaje());
+				JOptionPane.showMessageDialog(null, e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionExcursion e) {
-				throw new ExcepcionExcursion(e.darMensaje());
+				JOptionPane.showMessageDialog(null, e.darMensaje(), "Duck Boat Window", 0);
 			}catch (RemoteException e){
-				throw new ExcepcionRMI("Error en la conexión.");
+				JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 			}
 		}else{
-			throw new ExcepcionVentana(MSG);
+			JOptionPane.showMessageDialog(null, MSG, "Duck Boat Window", 0);
 		}
+		return arr;
 	}
+	
 }

@@ -1,37 +1,32 @@
 package Grafica.ventanas.controladoresVentanas;
 
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOExcursionDisp;
 
 public class controladorExcursionesXPrecio {
-	private ventanaPrueba ven;
 
-	public controladorExcursionesXPrecio(ventanaPrueba ven)
-	{
-		this.ven = ven;
-	}
-	
-	public static VOExcursionDisp[] excursionesXPrecio(String precio1, String precio2) throws RemoteException,ExcepcionPersistencia,ExcepcionRMI, ExcepcionVentana {
-		
+	public static VOExcursionDisp[] excursionesXPrecio(String precio1, String precio2) {
+		VOExcursionDisp[] arr=null;
 
 			try{
 				Float.parseFloat(precio1);
-				return managerIFachada.getInstancia().getIFachada().excursionesXPrecio(Float.parseFloat(precio1), Float.parseFloat(precio2));
+				arr= managerIFachada.getInstancia().getIFachada().excursionesXPrecio(Float.parseFloat(precio1), Float.parseFloat(precio2));
 			}catch (NumberFormatException e){
-				throw new ExcepcionVentana("Error, precio debe de ser numérico");
+				JOptionPane.showMessageDialog(null,"Error, precio debe de ser numérico", "Duck Boat Window", 0);
 			} catch (NullPointerException e){
-				throw new ExcepcionVentana("Error, precio no puede estar vacío");
+				JOptionPane.showMessageDialog(null,"Error, precio no puede estar vacío", "Duck Boat Window", 0);
 			} catch (ExcepcionPersistencia e) {
-				throw new ExcepcionPersistencia(e.darMensaje());
+				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {
-				throw new ExcepcionRMI(e.darMensaje());
+				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 			}
-	
+			return arr;
 	}
 }

@@ -2,27 +2,20 @@ package Grafica.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -39,17 +32,9 @@ import Grafica.ventanas.controladoresVentanas.controladorRecaudacionExcursion;
 import Grafica.ventanas.controladoresVentanas.controladorRespaldoDatos;
 import Grafica.ventanas.controladoresVentanas.controladorVentaBoleto;
 import Logica.Hora;
-import Logica.Excepciones.ExcepcionBus;
-import Logica.Excepciones.ExcepcionExcursion;
-import Logica.Excepciones.ExcepcionPersistencia;
-import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOBoletoTipo;
-import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
 import Logica.valueObjects.VOExcursionDisp;
-
-import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 public class ventanaPrueba {
@@ -77,7 +62,6 @@ public class ventanaPrueba {
 	private JTextField Tf_VentaBoleto_Procedencia;
 	private JTextField Tf_VentaBoleto_Cel;
 	private JTextField Tf_ListadoBoletosExcursion_Codigo;
-	private JTable tableListadoGralBus;
 	private JTable tableListadoBuses;
 	private JTable tableListExBus;
 	private JTable tableListadoExcDest;
@@ -121,6 +105,124 @@ public class ventanaPrueba {
 		
 		Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
 				
+
+				
+				
+				final JPanel panel_ventaBoleto = new JPanel();
+				panel_ventaBoleto.setBounds(183, 11, 819, 539);
+				frame.getContentPane().add(panel_ventaBoleto);
+				panel_ventaBoleto.setBackground(Color.WHITE);
+				panel_ventaBoleto.setLayout(null);
+				
+				JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
+				lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+				lblNewLabel_16.setBounds(28, 27, 754, 37);
+				panel_ventaBoleto.add(lblNewLabel_16);
+				
+				JPanel panel_9 = new JPanel();
+				panel_9.setBounds(28, 90, 754, 369);
+				panel_ventaBoleto.add(panel_9);
+				panel_9.setLayout(null);
+				
+				JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
+				lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_17.setBounds(63, 74, 129, 20);
+				panel_9.add(lblNewLabel_17);
+				
+				Tf_VentaBoleto_Codigo = new JTextField();
+				Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
+				panel_9.add(Tf_VentaBoleto_Codigo);
+				Tf_VentaBoleto_Codigo.setColumns(10);
+				
+				Tf_VentaBoleto_Descuento = new JTextField();
+				Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
+				panel_9.add(Tf_VentaBoleto_Descuento);
+				Tf_VentaBoleto_Descuento.setColumns(10);
+				
+				JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
+				lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNewLabel_18.setBounds(15, 160, 200, 50);
+				panel_9.add(lblNewLabel_18);
+				
+				JLabel lblNewLabel_19 = new JLabel("Edad");
+				lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_19.setBounds(63, 213, 70, 27);
+				panel_9.add(lblNewLabel_19);
+				
+				Tf_VentaBoleto_Edad = new JTextField();
+				Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Edad);
+				Tf_VentaBoleto_Edad.setColumns(10);
+				
+				JLabel lblNewLabel_20 = new JLabel("Procedencia");
+				lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_20.setBounds(63, 256, 100, 27);
+				panel_9.add(lblNewLabel_20);
+				
+				Tf_VentaBoleto_Procedencia = new JTextField();
+				Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Procedencia);
+				Tf_VentaBoleto_Procedencia.setColumns(10);
+				
+				JLabel lblNCel = new JLabel("N\u00B0 Cel");
+				lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNCel.setBounds(63, 299, 70, 27);
+				panel_9.add(lblNCel);
+				
+				Tf_VentaBoleto_Cel = new JTextField();
+				Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
+				panel_9.add(Tf_VentaBoleto_Cel);
+				Tf_VentaBoleto_Cel.setColumns(10);
+				
+				JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
+				lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
+				lblNewLabel_21.setBounds(10, 11, 200, 50);
+				panel_9.add(lblNewLabel_21);
+				
+				JLabel lblNewLabel_32 = new JLabel("Descuento");
+				lblNewLabel_32.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				lblNewLabel_32.setBounds(63, 105, 129, 26);
+				panel_9.add(lblNewLabel_32);
+				
+				
+				JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
+				Btn_VentaBoleto_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						String codigo = Tf_VentaBoleto_Codigo.getText();
+						String edad = Tf_VentaBoleto_Edad.getText();
+						String descuento = Tf_VentaBoleto_Descuento.getText();
+						String procedencia = Tf_VentaBoleto_Procedencia.getText();
+						String cel = Tf_VentaBoleto_Cel.getText();
+
+						controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
+
+					}
+				});
+				
+				
+				Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
+				panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
+				
+				final JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
+				Btn_VentaBoleto_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
+					
+					//BOTON LIMPIAR VENTA BOLETO
+					public void actionPerformed(ActionEvent arg0) {
+				
+						Tf_VentaBoleto_Codigo.setText("");
+						Tf_VentaBoleto_Edad.setText("");
+						Tf_VentaBoleto_Descuento.setText("0");
+						Tf_VentaBoleto_Procedencia.setText("");
+						Tf_VentaBoleto_Cel.setText("");
+					}
+				});
+				Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
+				Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
+				panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
+				
 				
 				
 				final JPanel panel_listExPrecio = new JPanel();
@@ -143,10 +245,6 @@ public class ventanaPrueba {
 				tableListExXRango.setBounds(0, 0, 754, 328);
 				panel_7.add(tableListExXRango);
 				
-				final JLabel lb_ListadoExcXRango_msg = new JLabel("");
-				lb_ListadoExcXRango_msg.setBounds(28, 481, 614, 42);
-				panel_listExPrecio.add(lb_ListadoExcXRango_msg);
-				
 				JButton Btn_ListadoExcXRango_Listar = new JButton("Listar");
 				Btn_ListadoExcXRango_Listar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				Btn_ListadoExcXRango_Listar.setBounds(655, 475, 127, 48);
@@ -157,49 +255,37 @@ public class ventanaPrueba {
 				Btn_ListadoExcXRango_Listar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
 							VOExcursionDisp arrVO[];
-								
 							model3.setRowCount(0);
-										try {
-											arrVO = controladorExcursionesXPrecio.excursionesXPrecio(Tf_ListadoExcXRango_Rango1.getText(), Tf_ListadoExcXRango_Rango2.getText());
-											
-											
-											String columnNames [] = new String[] {"Codigo",
-									                "Destino",
-									                "Hr Partida",
-									                "Hr Regreso",
-									                "Precio Base",
-									                "Cantidad disponible"};
-											
-											model3.setColumnIdentifiers(columnNames);
-											
-											tableListExXRango.setModel(model3);
-
-											panel_7.setLayout(new BorderLayout());
-											panel_7.add(tableListExXRango.getTableHeader(), BorderLayout.PAGE_START);
-											panel_7.add(tableListExXRango, BorderLayout.CENTER);
-											
-											for(int i=0;i<arrVO.length;i++){
-												Hora hp= arrVO[i].getHr_partida();
-												Hora hr= arrVO[i].getHr_regreso();
-												String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-												String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-												model3.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-											}
-											lb_ListadoExcXRango_msg.setText("");
-											if(arrVO.length == 0){
-												lb_ListadoExcXRango_msg.setText("No hay datos para listar.");
-											}
-										} catch (RemoteException e1) {
-											lb_ListadoExcXRango_msg.setText(e1.getMessage());
-										} catch (ExcepcionPersistencia e1) {
-											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
-										} catch (ExcepcionRMI e1) {
-											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
-										} catch (ExcepcionVentana e1) {
-											lb_ListadoExcXRango_msg.setText(e1.darMensaje());
-										}
 										
-									
+							arrVO = controladorExcursionesXPrecio.excursionesXPrecio(Tf_ListadoExcXRango_Rango1.getText(), Tf_ListadoExcXRango_Rango2.getText());
+
+							String columnNames [] = new String[] {"Codigo",
+					                "Destino",
+					                "Hr Partida",
+					                "Hr Regreso",
+					                "Precio Base",
+					                "Cantidad disponible"};
+							
+							model3.setColumnIdentifiers(columnNames);
+							
+							tableListExXRango.setModel(model3);
+
+							panel_7.setLayout(new BorderLayout());
+							panel_7.add(tableListExXRango.getTableHeader(), BorderLayout.PAGE_START);
+							panel_7.add(tableListExXRango, BorderLayout.CENTER);
+							
+							for(int i=0;i<arrVO.length;i++){
+								Hora hp= arrVO[i].getHr_partida();
+								Hora hr= arrVO[i].getHr_regreso();
+								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+								model3.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+							}
+							
+							if(arrVO.length == 0){
+								JOptionPane.showMessageDialog(null,"No hay datos para listar","Duck Boat Window", 2);
+							}
+						
 					}
 				});
 				
@@ -312,11 +398,6 @@ public class ventanaPrueba {
 				lblestSeguroQue.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
 				panel_11.add(lblestSeguroQue);
 				
-				final JLabel lb_respaldar_msg = new JLabel("");
-				lb_respaldar_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_respaldar_msg.setBounds(111, 334, 583, 96);
-				panel_respaldar.add(lb_respaldar_msg);
-				
 				JButton Btn_Respaldar_Aceptar = new JButton("Aceptar");
 				Btn_Respaldar_Aceptar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				Btn_Respaldar_Aceptar.setBounds(655, 475, 127, 48);
@@ -324,28 +405,11 @@ public class ventanaPrueba {
 				
 				Btn_Respaldar_Aceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
-						try {
-							
-							controladorRespaldoDatos.respaldoDatos();
-							lb_respaldar_msg.setText("Se respaldó con éxito.");
-						} catch (ExcepcionPersistencia e1) {
-							lb_respaldar_msg.setText(e1.darMensaje());
-						} catch (ExcepcionRMI e1) {
-							lb_respaldar_msg.setText(e1.darMensaje());
-						}
-							
-
+						controladorRespaldoDatos.respaldoDatos();
 					}
 				});
-				
-				
-				
-				
-				
-				
-				
 
-	
+				
 				final JPanel panel_listGralBus = new JPanel();
 				panel_listGralBus.setBounds(183, 11, 819, 539);
 				frame.getContentPane().add(panel_listGralBus);
@@ -373,11 +437,6 @@ public class ventanaPrueba {
 				panel_5.add(tableListadoBuses);
 				tableListadoBuses.setBorder(UIManager.getBorder("EditorPane.border"));
 				
-				final JLabel lb_listadoGral_msg = new JLabel("");
-				lb_listadoGral_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_listadoGral_msg.setBounds(38, 477, 744, 51);
-				panel_listGralBus.add(lb_listadoGral_msg);
-				
 				final JPanel panel_boletoVendidosEx = new JPanel();
 				panel_boletoVendidosEx.setBounds(183, 11, 819, 539);
 				frame.getContentPane().add(panel_boletoVendidosEx);
@@ -400,11 +459,6 @@ public class ventanaPrueba {
 				Cb_ListadoBoletosExcursion.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 				Cb_ListadoBoletosExcursion.setModel(new DefaultComboBoxModel(new String[] {"comun", "especial"}));
 				
-				final JLabel lb_ListadoBoletosEx_msg = new JLabel("");
-				lb_ListadoBoletosEx_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_ListadoBoletosEx_msg.setBounds(28, 475, 610, 53);
-				panel_boletoVendidosEx.add(lb_ListadoBoletosEx_msg);
-				
 				JButton Btn_ListadoBoletosExcursion_Listar = new JButton("Listar");
 				Btn_ListadoBoletosExcursion_Listar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				Btn_ListadoBoletosExcursion_Listar.setBounds(655, 475, 127, 48);
@@ -414,44 +468,32 @@ public class ventanaPrueba {
 					public void actionPerformed(ActionEvent e) {	
 						VOBoletoTipo arrVO[];	
 						model4.setRowCount(0);
-							try {
-								arrVO = controladorBoletosVendidosXEx.boletosVendidosXEx(Tf_ListadoBoletosExcursion_Codigo.getText(), Cb_ListadoBoletosExcursion.getSelectedItem().toString());
-								
-								
-								String columnNames [] = new String[] {"Nro boleto",
-						                "Edad pasajero",
-						                "Lugar procedencia",
-						                "Celular pasajero",
-						                "Descuento"};
-								
+					
+						arrVO = controladorBoletosVendidosXEx.boletosVendidosXEx(Tf_ListadoBoletosExcursion_Codigo.getText(), Cb_ListadoBoletosExcursion.getSelectedItem().toString());
+						
+						
+						String columnNames [] = new String[] {"Nro boleto",
+				                "Edad pasajero",
+				                "Lugar procedencia",
+				                "Celular pasajero",
+				                "Descuento"};
+						
 
-								model4.setColumnIdentifiers(columnNames);
-								
-								tableListExBus.setModel(model4);
+						model4.setColumnIdentifiers(columnNames);
+						
+						tableListExBus.setModel(model4);
 
-								panel_10.setLayout(new BorderLayout());
-								panel_10.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
-								panel_10.add(tableListExBus, BorderLayout.CENTER);
-								
-								for(int i=0;i<arrVO.length;i++){
-									model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
-								}
-								lb_ListadoBoletosEx_msg.setText("");
-								if(arrVO.length == 0){
-									lb_ListadoBoletosEx_msg.setText("No hay datos para listar.");
-								}
-							
-							} catch (ExcepcionExcursion e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
-							} catch (ExcepcionPersistencia e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
-							} catch (ExcepcionRMI e1) {
-								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
-							}catch(ExcepcionVentana e1){
-								lb_ListadoBoletosEx_msg.setText(e1.darMensaje());
-							}
-							
-
+						panel_10.setLayout(new BorderLayout());
+						panel_10.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
+						panel_10.add(tableListExBus, BorderLayout.CENTER);
+						
+						for(int i=0;i<arrVO.length;i++){
+							model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
+						}
+						
+						if(arrVO.length == 0){
+							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+						}
 					}
 				});
 				
@@ -504,41 +546,18 @@ public class ventanaPrueba {
 				lb_RecaudacionExc.setBounds(86, 84, 624, 54);
 				panel_8.add(lb_RecaudacionExc);
 				
-				final JLabel lb_RecaudacionExc_msg = new JLabel("");
-				lb_RecaudacionExc_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_RecaudacionExc_msg.setBounds(28, 477, 617, 46);
-				panel_recaudacionEx.add(lb_RecaudacionExc_msg);
-				
 				JButton Btn_RecaudacionExcursion_Ver = new JButton("Ver");
 				Btn_RecaudacionExcursion_Ver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				Btn_RecaudacionExcursion_Ver.setBounds(655, 475, 127, 48);
 				panel_recaudacionEx.add(Btn_RecaudacionExcursion_Ver);
 				
 				Btn_RecaudacionExcursion_Ver.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {	
-							
-								float monto;
-									
-										try {
-											monto = controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
-											lb_RecaudacionExc.setText("La recaudación para la excursión "+Tf_Recaudacion_Codigo.getText()+" es: "+monto);
-											lb_RecaudacionExc_msg.setText("");
-								
-										} catch (ExcepcionExcursion e1) {
-											lb_RecaudacionExc_msg.setText(e1.darMensaje());
-										} catch (ExcepcionPersistencia e1) {
-											lb_RecaudacionExc_msg.setText(e1.darMensaje());
-										} catch (ExcepcionRMI e1) {
-											lb_RecaudacionExc_msg.setText(e1.darMensaje());
-										} catch (ExcepcionVentana e1) {
-											lb_RecaudacionExc_msg.setText(e1.darMensaje());
-										}
-										
-									
-					
+					public void actionPerformed(ActionEvent e) {								
+						float monto;
+						monto = controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
+						lb_RecaudacionExc.setText("La recaudación para la excursión "+Tf_Recaudacion_Codigo.getText()+" es: "+monto);				
 					}
 				});
-				
 				
 				
 				final JPanel panel_listExDest = new JPanel();
@@ -562,11 +581,6 @@ public class ventanaPrueba {
 				panel_listExDest.add(Tf_ListadoExcDest_Destino);
 				Tf_ListadoExcDest_Destino.setColumns(10);
 				
-				final JLabel lb_ListadoExcDest_msg = new JLabel("");
-				lb_ListadoExcDest_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_ListadoExcDest_msg.setBounds(28, 475, 617, 48);
-				panel_listExDest.add(lb_ListadoExcDest_msg);
-				
 				tableListadoExcDest = new JTable();
 				tableListadoExcDest.setBounds(0, 0, 754, 333);
 				panel_6.add(tableListadoExcDest);
@@ -580,53 +594,43 @@ public class ventanaPrueba {
 				Btn_ListadoExcDest_Listar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 							
-							VOExcursionDisp arrVO[];
-							
-									model1.setRowCount(0);
-									try {
-										arrVO = controladorExcursionesXDestino.excursionesXDestino(Tf_ListadoExcDest_Destino.getText());
-										
-										
-										String columnNames [] = new String[] {"Codigo",
-								                "Destino",
-								                "Hr Partida",
-								                "Hr Regreso",
-								                "Precio Base",
-								                "Cantidad disponible"};
-										
+						VOExcursionDisp arrVO[];
+						model1.setRowCount(0);
+								
+						arrVO = controladorExcursionesXDestino.excursionesXDestino(Tf_ListadoExcDest_Destino.getText());
+						
+						
+						String columnNames [] = new String[] {"Codigo",
+				                "Destino",
+				                "Hr Partida",
+				                "Hr Regreso",
+				                "Precio Base",
+				                "Cantidad disponible"};
+						
 
-										model1.setColumnIdentifiers(columnNames);
-										
-										tableListExBus.setModel(model1);
+						model1.setColumnIdentifiers(columnNames);
+						
+						tableListExBus.setModel(model1);
 
-										panel_6.setLayout(new BorderLayout());
-										panel_6.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
-										panel_6.add(tableListExBus, BorderLayout.CENTER);
-										
-										for(int i=0;i<arrVO.length;i++){
-											Hora hp= arrVO[i].getHr_partida();
-											Hora hr= arrVO[i].getHr_regreso();
-											String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-											String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-											model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-										}
-										lb_ListadoExcDest_msg.setText("");
-									
-									} catch (ExcepcionPersistencia e1) {
-										lb_ListadoExcDest_msg.setText(e1.darMensaje());
-									} catch (ExcepcionRMI e1) {
-										lb_ListadoExcDest_msg.setText(e1.darMensaje());
-									} catch (ExcepcionVentana e1) {
-										lb_ListadoExcDest_msg.setText(e1.darMensaje());
-									}
+						panel_6.setLayout(new BorderLayout());
+						panel_6.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
+						panel_6.add(tableListExBus, BorderLayout.CENTER);
+						
+						for(int i=0;i<arrVO.length;i++){
+							Hora hp= arrVO[i].getHr_partida();
+							Hora hr= arrVO[i].getHr_regreso();
+							String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+							String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+							model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+						}
+						if(arrVO.length == 0){
+							JOptionPane.showMessageDialog(null,"No hay ninguna excursión con ese destino", "Duck Boat Window", 2);
+						}
 
 					}
 				});
 				
-	
-				
-				
-				
+
 				JLabel lblNewLabel_11 = new JLabel("Destino");
 				lblNewLabel_11.setBounds(43, 94, 63, 20);
 				panel_listExDest.add(lblNewLabel_11);
@@ -654,11 +658,6 @@ public class ventanaPrueba {
 				panel_4.add(tableListExBus);
 				final DefaultTableModel model = new DefaultTableModel(0, 0);
 				
-				final JLabel lb_listadoExcBus_msg = new JLabel("");
-				lb_listadoExcBus_msg.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lb_listadoExcBus_msg.setBounds(28, 475, 598, 48);
-				panel_listExBus.add(lb_listadoExcBus_msg);
-				
 				
 				JButton Btn_ListadoExcBus_Listar = new JButton("Listar");
 				Btn_ListadoExcBus_Listar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -667,58 +666,43 @@ public class ventanaPrueba {
 				
 				Btn_ListadoExcBus_Listar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						model.setRowCount(0);	
+						VOExcursionDisp arrVO[];
 
-							model.setRowCount(0);
-							
-							VOExcursionDisp arrVO[];
-							
-								try {
-									arrVO = controladorListadoExcursionDisp.listadoExcursionesXBus(Tf_ListadoExcBus_Matricula.getText());
-									
-									
-									String columnNames [] = new String[] {"Codigo",
-							                "Destino",
-							                "Hr Partida",
-							                "Hr Regreso",
-							                "Precio Base",
-							                "Cantidad disponible"};
-									
+						arrVO = controladorListadoExcursionDisp.listadoExcursionesXBus(Tf_ListadoExcBus_Matricula.getText());
+						
+						
+						String columnNames [] = new String[] {"Codigo",
+				                "Destino",
+				                "Hr Partida",
+				                "Hr Regreso",
+				                "Precio Base",
+				                "Cantidad disponible"};
+						
 
-									model.setColumnIdentifiers(columnNames);
-									
-									tableListExBus.setModel(model);
+						model.setColumnIdentifiers(columnNames);
+						
+						tableListExBus.setModel(model);
 
-									panel_4.setLayout(new BorderLayout());
-									panel_4.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
-									panel_4.add(tableListExBus, BorderLayout.CENTER);
-									
-									for(int i=0;i<arrVO.length;i++){
-										Hora hp= arrVO[i].getHr_partida();
-										Hora hr= arrVO[i].getHr_regreso();
-										String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-										String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-										model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-									}
-									lb_listadoExcBus_msg.setText("");
-									if(arrVO.length == 0){
-										lb_listadoExcBus_msg.setText("No hay datos para listar.");
-									}
-								} catch (ExcepcionExcursion e1) {
-									lb_listadoExcBus_msg.setText(e1.darMensaje());
-								} catch (ExcepcionPersistencia e1) {
-									lb_listadoExcBus_msg.setText(e1.darMensaje());
-								} catch (ExcepcionRMI e1) {
-									lb_listadoExcBus_msg.setText(e1.darMensaje());
-								} catch (ExcepcionVentana e1) {
-									lb_listadoExcBus_msg.setText(e1.darMensaje());
-								}
-			
+						panel_4.setLayout(new BorderLayout());
+						panel_4.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
+						panel_4.add(tableListExBus, BorderLayout.CENTER);
+						
+						for(int i=0;i<arrVO.length;i++){
+							Hora hp= arrVO[i].getHr_partida();
+							Hora hr= arrVO[i].getHr_regreso();
+							String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+							String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+							model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+						}
+
+						if(arrVO.length == 0){
+							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+						}
 					}
 				});
 				
-				
-				
-				
+	
 				JLabel lblMatricula_1 = new JLabel("Matricula");
 				lblMatricula_1.setBounds(44, 94, 63, 20);
 				panel_listExBus.add(lblMatricula_1);
@@ -729,146 +713,6 @@ public class ventanaPrueba {
 				panel_listExBus.add(Tf_ListadoExcBus_Matricula);
 				Tf_ListadoExcBus_Matricula.setColumns(10);
 				JButton btnListadoGeneralBuses = new JButton("Listado gral buses");
-				
-
-				
-				
-				final JPanel panel_ventaBoleto = new JPanel();
-				panel_ventaBoleto.setBounds(183, 11, 819, 539);
-				frame.getContentPane().add(panel_ventaBoleto);
-				panel_ventaBoleto.setBackground(Color.WHITE);
-				panel_ventaBoleto.setLayout(null);
-				
-				JLabel lblNewLabel_16 = new JLabel("Venta de boleto");
-				lblNewLabel_16.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-				lblNewLabel_16.setBounds(28, 27, 754, 37);
-				panel_ventaBoleto.add(lblNewLabel_16);
-				
-				JPanel panel_9 = new JPanel();
-				panel_9.setBounds(28, 90, 754, 369);
-				panel_ventaBoleto.add(panel_9);
-				panel_9.setLayout(null);
-				
-				JLabel lblNewLabel_17 = new JLabel("C\u00F3digo excursi\u00F3n");
-				lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lblNewLabel_17.setBounds(63, 74, 129, 20);
-				panel_9.add(lblNewLabel_17);
-				
-				Tf_VentaBoleto_Codigo = new JTextField();
-				Tf_VentaBoleto_Codigo.setBounds(191, 68, 220, 26);
-				panel_9.add(Tf_VentaBoleto_Codigo);
-				Tf_VentaBoleto_Codigo.setColumns(10);
-				
-				Tf_VentaBoleto_Descuento = new JTextField();
-				Tf_VentaBoleto_Descuento.setBounds(191, 107, 220, 26);
-				panel_9.add(Tf_VentaBoleto_Descuento);
-				Tf_VentaBoleto_Descuento.setColumns(10);
-				
-				JCheckBox Cb_VentaBoleto_Descuento = new JCheckBox("Descuento");
-				Cb_VentaBoleto_Descuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				Cb_VentaBoleto_Descuento.setBounds(63, 106, 118, 29);
-				panel_9.add(Cb_VentaBoleto_Descuento);
-				
-				JLabel lblNewLabel_18 = new JLabel("Datos de pasajero");
-				lblNewLabel_18.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-				lblNewLabel_18.setBounds(15, 160, 200, 50);
-				panel_9.add(lblNewLabel_18);
-				
-				JLabel lblNewLabel_19 = new JLabel("Edad");
-				lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lblNewLabel_19.setBounds(63, 213, 70, 27);
-				panel_9.add(lblNewLabel_19);
-				
-				Tf_VentaBoleto_Edad = new JTextField();
-				Tf_VentaBoleto_Edad.setBounds(159, 213, 252, 26);
-				panel_9.add(Tf_VentaBoleto_Edad);
-				Tf_VentaBoleto_Edad.setColumns(10);
-				
-				JLabel lblNewLabel_20 = new JLabel("Procedencia");
-				lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lblNewLabel_20.setBounds(63, 256, 100, 27);
-				panel_9.add(lblNewLabel_20);
-				
-				Tf_VentaBoleto_Procedencia = new JTextField();
-				Tf_VentaBoleto_Procedencia.setBounds(159, 256, 252, 26);
-				panel_9.add(Tf_VentaBoleto_Procedencia);
-				Tf_VentaBoleto_Procedencia.setColumns(10);
-				
-				JLabel lblNCel = new JLabel("N\u00B0 Cel");
-				lblNCel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				lblNCel.setBounds(63, 299, 70, 27);
-				panel_9.add(lblNCel);
-				
-				Tf_VentaBoleto_Cel = new JTextField();
-				Tf_VentaBoleto_Cel.setBounds(159, 299, 252, 26);
-				panel_9.add(Tf_VentaBoleto_Cel);
-				Tf_VentaBoleto_Cel.setColumns(10);
-				
-				JLabel lblNewLabel_21 = new JLabel("Datos del boleto");
-				lblNewLabel_21.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
-				lblNewLabel_21.setBounds(10, 11, 200, 50);
-				panel_9.add(lblNewLabel_21);
-				
-				final JLabel Lb_VentaBoleto_Mensaje = new JLabel("");
-				Lb_VentaBoleto_Mensaje.setBounds(28, 480, 413, 48);
-				panel_ventaBoleto.add(Lb_VentaBoleto_Mensaje);
-				
-				
-				JButton Btn_VentaBoleto_Ingresar = new JButton("Ingresar");
-				Btn_VentaBoleto_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				Btn_VentaBoleto_Ingresar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
-						String codigo = Tf_VentaBoleto_Codigo.getText();
-						String edad = Tf_VentaBoleto_Edad.getText();
-						String descuento = Tf_VentaBoleto_Descuento.getText();
-						String procedencia = Tf_VentaBoleto_Procedencia.getText();
-						String cel = Tf_VentaBoleto_Cel.getText();
-
-							
-								try {
-									controladorVentaBoleto.ventaBoleto (codigo, edad, procedencia, cel, descuento);
-									Lb_VentaBoleto_Mensaje.setText("Boleto ingresado correctamente");
-									Tf_VentaBoleto_Codigo.setText("");
-									Tf_VentaBoleto_Edad.setText("");
-									Tf_VentaBoleto_Descuento.setText("0");
-									Tf_VentaBoleto_Procedencia.setText("");
-									Tf_VentaBoleto_Cel.setText("");
-								
-								} catch (ExcepcionPersistencia e) {
-									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-								} catch (ExcepcionRMI e) {
-									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-								} catch (ExcepcionExcursion e) {
-									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-								} catch (ExcepcionBus e) {
-									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-								}catch(ExcepcionVentana e){
-									Lb_VentaBoleto_Mensaje.setText(e.darMensaje());
-								}
-					}
-				});
-				Btn_VentaBoleto_Ingresar.setBounds(655, 475, 127, 48);
-				panel_ventaBoleto.add(Btn_VentaBoleto_Ingresar);
-				
-				final JButton Btn_VentaBoleto_Limpiar = new JButton("Limpiar");
-				Btn_VentaBoleto_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				Btn_VentaBoleto_Limpiar.addActionListener(new ActionListener() {
-					
-					//BOTON LIMPIAR VENTA BOLETO
-					public void actionPerformed(ActionEvent arg0) {
-				
-						Tf_VentaBoleto_Codigo.setText("");
-						Tf_VentaBoleto_Edad.setText("");
-						Tf_VentaBoleto_Descuento.setText("0");
-						Tf_VentaBoleto_Procedencia.setText("");
-						Tf_VentaBoleto_Cel.setText("");
-						Lb_VentaBoleto_Mensaje.setText("");
-					}
-				});
-				Btn_VentaBoleto_Limpiar.setAutoscrolls(true);
-				Btn_VentaBoleto_Limpiar.setBounds(500, 475, 127, 48);
-				panel_ventaBoleto.add(Btn_VentaBoleto_Limpiar);
 		
 				
 				final JPanel panel_nuevaExcursion = new JPanel();
@@ -962,10 +806,6 @@ public class ventanaPrueba {
 				panel_2.add(Tf_RegistroNuevaExcursion_HrRegresoMin);
 				Tf_RegistroNuevaExcursion_HrRegresoMin.setColumns(10);
 				
-				final JLabel Lb_RegistroNuevaExcursion_Mensaje = new JLabel("");
-				Lb_RegistroNuevaExcursion_Mensaje.setBounds(51, 365, 589, 82);
-				panel_nuevaExcursion.add(Lb_RegistroNuevaExcursion_Mensaje);
-				
 				JButton Btn_RegistroNuevaExcursion_Ingresar = new JButton("Ingresar");
 				Btn_RegistroNuevaExcursion_Ingresar.addActionListener(new ActionListener() {
 					
@@ -979,32 +819,13 @@ public class ventanaPrueba {
 						String HrRegreso = Tf_RegistroNuevaExcursion_HrRegreso.getText();
 						String HrRegresoMin = Tf_RegistroNuevaExcursion_HrRegresoMin.getText();
 						String Precio = Tf_RegistroNuevaExcursion_Precio.getText();
-
-								
-									try {
-										controladorNuevaExcursion.nuevaExcursion (Codigo, Destino, HrPartida, HrPartidaMin, HrRegreso, HrRegresoMin, Precio);
-										Lb_RegistroNuevaExcursion_Mensaje.setText("Excursion ingresada correctamente!");
-										Tf_RegistroNuevaExcursion_Codigo.setText("");
-										Tf_RegistroNuevaExcursion_Destino.setText("");
-										Tf_RegistroNuevaExcursion_HrPartida.setText("");
-										Tf_RegistroNuevaExcursion_HrPartidaMin.setText("");
-										Tf_RegistroNuevaExcursion_HrRegreso.setText("");
-										Tf_RegistroNuevaExcursion_HrRegresoMin.setText("");
-										Tf_RegistroNuevaExcursion_Precio.setText("");
-									
-									} catch (ExcepcionExcursion e) {
-										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
-									} catch (ExcepcionBus e) {
-										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
-									} catch (ExcepcionRMI e) {
-										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
-									} catch (ExcepcionPersistencia e) {
-										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
-									} catch (ExcepcionVentana e) {
-										Lb_RegistroNuevaExcursion_Mensaje.setText(e.darMensaje());
-									}
+					
+						controladorNuevaExcursion.nuevaExcursion (Codigo, Destino, HrPartida, HrPartidaMin, HrRegreso, HrRegresoMin, Precio);
+						
 					}
 				});
+				
+				
 				Btn_RegistroNuevaExcursion_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				Btn_RegistroNuevaExcursion_Ingresar.setBounds(655, 475, 127, 48);
 				panel_nuevaExcursion.add(Btn_RegistroNuevaExcursion_Ingresar);
@@ -1019,7 +840,6 @@ public class ventanaPrueba {
 						Tf_RegistroNuevaExcursion_HrRegreso.setText("");
 						Tf_RegistroNuevaExcursion_HrRegresoMin.setText("");
 						Tf_RegistroNuevaExcursion_Precio.setText("");
-						Lb_RegistroNuevaExcursion_Mensaje.setText("");
 					}
 				});
 				Btn_RegistroNuevaExcursion_Limpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -1057,11 +877,6 @@ public class ventanaPrueba {
 		panel_3.add(Tf_ReasignacionDeExcursion_Codigo);
 		Tf_ReasignacionDeExcursion_Codigo.setColumns(10);
 		
-		
-		final JLabel Lb_ReasignacionDeExcursion_Mensaje = new JLabel("");
-		Lb_ReasignacionDeExcursion_Mensaje.setBounds(28, 393, 482, 66);
-		panel_reasigExcursion.add(Lb_ReasignacionDeExcursion_Mensaje);
-		
 		JButton Btn_ReasignacionNuevaExcursion_Reasignar = new JButton("Reasignar");
 		Btn_ReasignacionNuevaExcursion_Reasignar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		Btn_ReasignacionNuevaExcursion_Reasignar.addActionListener(new ActionListener() {
@@ -1069,29 +884,14 @@ public class ventanaPrueba {
 			
 			//BOTON REASIGNAR EXCURSION
 			public void actionPerformed(ActionEvent arg0) {
-				String Codigo = Tf_RegistroNuevaExcursion_Codigo.getText();
-
-					
-							try {
-								controladorReasignarExcursion.reasignarExcursion (Codigo);
-								Lb_ReasignacionDeExcursion_Mensaje.setText("Excursion reasignada con exito");
-							
-							} catch (ExcepcionExcursion e) {
-								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
-							} catch (ExcepcionBus e) {
-								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
-							} catch (ExcepcionPersistencia e) {
-								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
-							} catch (ExcepcionRMI e) {
-								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
-							} catch (ExcepcionVentana e) {
-								Lb_ReasignacionDeExcursion_Mensaje.setText(e.darMensaje());
-							}
+				String Codigo = Tf_RegistroNuevaExcursion_Codigo.getText();		
+				controladorReasignarExcursion.reasignarExcursion (Codigo);						
 			}
 		});
+		
+		
 		Btn_ReasignacionNuevaExcursion_Reasignar.setBounds(655, 475, 127, 48);
 		panel_reasigExcursion.add(Btn_ReasignacionNuevaExcursion_Reasignar);
-		
 		
 		final JPanel panel_nuevoBus = new JPanel();
 		panel_nuevoBus.setBounds(183, 11, 819, 539);
@@ -1144,10 +944,6 @@ public class ventanaPrueba {
 		panel_1.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 20));
 		
-		final JLabel Lb_NuevoBus_mensaje = new JLabel("");
-		Lb_NuevoBus_mensaje.setBounds(47, 352, 580, 48);
-		panel_nuevoBus.add(Lb_NuevoBus_mensaje);
-		
 		JButton Btn_NuevoBus_Ingresar = new JButton("Ingresar");
 		Btn_NuevoBus_Ingresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		Btn_NuevoBus_Ingresar.addActionListener(new ActionListener() {
@@ -1157,22 +953,9 @@ public class ventanaPrueba {
 			public void actionPerformed(ActionEvent arg0) {
 				String Matricula = Tf_NuevoBus_Matricula.getText();
 				String Marca = Tf_NuevoBus_Marca.getText();
-				String Capacidad = Tf_NuevoBus_Capacidad.getText();						try {
-							controladorNuevoBus.nuevoBus (Matricula, Marca, Capacidad);
-							Lb_NuevoBus_mensaje.setText("Bus ingresado correctamente");
-							Tf_NuevoBus_Matricula.setText("");
-							Tf_NuevoBus_Marca.setText("");
-							Tf_NuevoBus_Capacidad.setText("");
-						
-						} catch (ExcepcionBus e) {
-							Lb_NuevoBus_mensaje.setText(e.darMensaje());
-						} catch (ExcepcionPersistencia e) {
-							Lb_NuevoBus_mensaje.setText(e.darMensaje());
-						} catch (ExcepcionRMI e) {
-							Lb_NuevoBus_mensaje.setText(e.darMensaje());
-						} catch (ExcepcionVentana e) {
-							Lb_NuevoBus_mensaje.setText(e.darMensaje());
-						}		
+				String Capacidad = Tf_NuevoBus_Capacidad.getText();						
+				controladorNuevoBus.nuevoBus (Matricula, Marca, Capacidad);
+
 			}
 		});
 		Btn_NuevoBus_Ingresar.setBounds(655, 475, 127, 48);
@@ -1185,7 +968,6 @@ public class ventanaPrueba {
 				Tf_NuevoBus_Matricula.setText("");
 				Tf_NuevoBus_Marca.setText("");
 				Tf_NuevoBus_Capacidad.setText("");
-				Lb_NuevoBus_mensaje.setText("");
 			}
 		});
 		Btn_NuevoBus_Limpiar.setBounds(500, 475, 127, 48);
@@ -1221,7 +1003,6 @@ public class ventanaPrueba {
 		JButton btnNuevoBus = new JButton("Nuevo Bus");
 		btnNuevoBus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lb_NuevoBus_mensaje.setText("");
 				panel_inicio.setVisible(false);
 				panel_nuevoBus.setVisible(true);
 				panel_listGralBus.setVisible(false);
@@ -1260,42 +1041,36 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
+
 				
+				VOBusCant arrVO[];
+				arrVO = controladorListadoGralBuses.listadoGralBuses();
+				DefaultTableModel model = new DefaultTableModel(0, 0);
 				
-			
-					VOBusCant arrVO[];
-					try {
-						arrVO = controladorListadoGralBuses.listadoGralBuses();
-						DefaultTableModel model = new DefaultTableModel(0, 0);
-						
-						String columnNames [] = new String[] {"Matricula",
-				                "Marca",
-				                "Capacidad",
-				                "Cant Ex"};
-						
+				String columnNames [] = new String[] {"Matricula",
+		                "Marca",
+		                "Capacidad",
+		                "Cant Ex"};
+				
 
-						model.setColumnIdentifiers(columnNames);
-						
-						tableListadoBuses.setModel(model);
+				model.setColumnIdentifiers(columnNames);
+				
+				tableListadoBuses.setModel(model);
 
-						panel_5.setLayout(new BorderLayout());
-						panel_5.add(tableListadoBuses.getTableHeader(), BorderLayout.PAGE_START);
-						panel_5.add(tableListadoBuses, BorderLayout.CENTER);
-						
-						for(int i=0;i<arrVO.length;i++){
+				panel_5.setLayout(new BorderLayout());
+				panel_5.add(tableListadoBuses.getTableHeader(), BorderLayout.PAGE_START);
+				panel_5.add(tableListadoBuses, BorderLayout.CENTER);
+				
+				for(int i=0;i<arrVO.length;i++){
 
-							model.addRow(new Object[] { arrVO[i].getMatricula(), arrVO[i].getMarca(), arrVO[i].getCapacidad(),
-									arrVO[i].getCat_ex()});
-						}
-						lb_listadoGral_msg.setText("");
-						if(arrVO.length == 0){
-							lb_listadoGral_msg.setText("No hay datos para listar.");
-						}
-					} catch (ExcepcionRMI e1) {
-						lb_listadoGral_msg.setText(e1.darMensaje());
-					} catch (ExcepcionPersistencia e1) {
-						lb_listadoGral_msg.setText(e1.darMensaje());
-					}
+					model.addRow(new Object[] { arrVO[i].getMatricula(), arrVO[i].getMarca(), arrVO[i].getCapacidad(),
+							arrVO[i].getCat_ex()});
+				}
+				
+				if(arrVO.length == 0){
+					JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+				}
+					
 			}
 		});
 		
@@ -1316,7 +1091,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				Lb_RegistroNuevaExcursion_Mensaje.setText("");
 				Btn_RegistroNuevaExcursion_Limpiar.doClick();
 			}
 		});
@@ -1340,7 +1114,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				Lb_ReasignacionDeExcursion_Mensaje.setText("");
 				Tf_ReasignacionDeExcursion_Codigo.setText("");
 			}
 		});
@@ -1364,7 +1137,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				lb_listadoExcBus_msg.setText("");
 				Tf_ListadoExcBus_Matricula.setText("");
 				model.setRowCount(0);
 			}
@@ -1411,7 +1183,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				lb_ListadoExcXRango_msg.setText("");
 				Tf_ListadoExcXRango_Rango1.setText("");
 				Tf_ListadoExcXRango_Rango2.setText("");
 				model3.setRowCount(0);
@@ -1436,7 +1207,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				lb_RecaudacionExc_msg.setText("");
 				Tf_Recaudacion_Codigo.setText("");
 			}
 		});
@@ -1459,7 +1229,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(true);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(false);
-				Lb_VentaBoleto_Mensaje.setText("");
 				Btn_VentaBoleto_Limpiar.doClick();
 			}
 		});
@@ -1482,7 +1251,6 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(true);
 				panel_respaldar.setVisible(false);
-				lb_ListadoBoletosEx_msg.setText("");
 				Tf_ListadoBoletosExcursion_Codigo.setText("");
 				model4.setRowCount(0);
 			}
@@ -1506,30 +1274,10 @@ public class ventanaPrueba {
 				panel_ventaBoleto.setVisible(false);
 				panel_boletoVendidosEx.setVisible(false);
 				panel_respaldar.setVisible(true);
-				lb_respaldar_msg.setText("");
 			}
 		});
 		btnRespaldar.setBounds(10, 473, 153, 31);
 		panel.add(btnRespaldar);
 		
-	}
-	/*
-	public void abrirVentana (JPanel jp){
-		panel_inicio.setVisible(false);
-		panel_nuevoBus.setVisible(false);
-		panel_listGralBus.setVisible(false);
-		panel_nuevaExcursion.setVisible(false);
-		panel_reasigExcursion.setVisible(false);
-		panel_listExBus.setVisible(false);
-		panel_listExDest.setVisible(false);
-		panel_listExPrecio.setVisible(false);
-		panel_recaudacionEx.setVisible(false);
-		panel_ventaBoleto.setVisible(false);
-		panel_boletoVendidosEx.setVisible(false);
-		panel_respaldar.setVisible(false);
-		
-	}*/
-
-	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
 }

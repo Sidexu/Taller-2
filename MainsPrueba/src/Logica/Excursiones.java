@@ -39,7 +39,7 @@ public class Excursiones implements Serializable{
 		Iterator<Excursion> iter= arbol.values().iterator();
 		while(iter.hasNext()){
 			Excursion e=iter.next();
-			if(Objects.equals(e.getDestino(), destino)){
+			if(e.getDestino().equals(destino)){
 				arr.add(new Excursion(e.getCodigo(),e.getDestino(),e.getHr_partida(),e.getHr_regreso(),e.getPrecio_base(),e.getBus(),e.getBoletos()));
 			}
 		}

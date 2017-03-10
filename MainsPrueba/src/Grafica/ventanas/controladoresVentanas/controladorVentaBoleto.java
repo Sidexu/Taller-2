@@ -1,26 +1,18 @@
 package Grafica.ventanas.controladoresVentanas;
 
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 import Grafica.ventanas.managerIFachada;
-import Grafica.ventanas.ventanaPrueba;
 import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
 import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.Excepciones.ExcepcionRMI;
-import Logica.Excepciones.ExcepcionVentana;
 import Logica.valueObjects.VOBoletoTipo;
 
 public class controladorVentaBoleto {
-	private ventanaPrueba ven;
-
-	public controladorVentaBoleto(ventanaPrueba ven)
-	{
-		this.ven = ven;
-		
-	}
 	
-	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) throws ExcepcionVentana,ExcepcionPersistencia,ExcepcionRMI,  ExcepcionExcursion, ExcepcionBus 
+	public static void ventaBoleto(String codigo,String edad,String procedencia,String cel,String descuento) 
 	{
 		boolean error = false;
 		
@@ -41,27 +33,27 @@ public class controladorVentaBoleto {
 			try{
 				float DESC= Float.parseFloat(descuento);
 				if(DESC < 0){
-					throw new ExcepcionVentana("Error, el descuento no puede ser negativo");
+					JOptionPane.showMessageDialog(null,"Error, el descuento no puede ser negativo", "Duck Boat Window", 0);	
 				}
 			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, el descuento debe ser numerico");
+				JOptionPane.showMessageDialog(null,"Error, el descuento debe ser numerico", "Duck Boat Window", 0);	
 			}
 			try{
 				int EDAD= Integer.parseInt(edad);
 				if(EDAD < 0 || EDAD>150){
-					throw new ExcepcionVentana("Error, la edad no puede ser negativa o mayor a 150 años");
+					JOptionPane.showMessageDialog(null,"Error, la edad no puede ser negativa o mayor a 150 años", "Duck Boat Window", 0);
 				}
 			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, la edad debe ser numerica");
+				JOptionPane.showMessageDialog(null,"Error, la edad debe ser numerica", "Duck Boat Window", 0);
 			}
 			
 			try{
 				long CEL= Long.parseLong(cel);
-				if(CEL < 0){
-					throw new ExcepcionVentana("Error, el celular no puede ser negativo");
+				if(CEL < 0 || CEL >999999999){
+					JOptionPane.showMessageDialog(null,"Error, el celular no puede ser negativo o tener mas de 9 dígitos", "Duck Boat Window", 0);
 				}
 			}catch(NumberFormatException e){
-				throw new ExcepcionVentana("Error, el celular debe ser numerico");
+				JOptionPane.showMessageDialog(null,"Error, el celular debe ser numerico", "Duck Boat Window", 0);
 			}
 			
 			
@@ -69,19 +61,20 @@ public class controladorVentaBoleto {
 		
 				try {
 					managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
+					JOptionPane.showMessageDialog(null,"Se ingresó el boleto correctamente!", "Duck Boat Window", 1);
 				} catch (ExcepcionPersistencia e) {
-					throw new ExcepcionPersistencia(e.darMensaje());
+					JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 				} catch (ExcepcionRMI e) {
-					throw new ExcepcionRMI(e.darMensaje());
+					JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 				}catch(ExcepcionBus e){
-					throw new ExcepcionBus(e.darMensaje());
+					JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 				}catch(ExcepcionExcursion e){
-					throw new ExcepcionExcursion(e.darMensaje());
+					JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 				}catch (RemoteException e){
-					throw new ExcepcionRMI("Error en la conexión.");
+					JOptionPane.showMessageDialog(null, "Error en la conexión", "Duck Boat Window", 0);
 				}
 		}else{
-			throw new ExcepcionVentana(MSG);
+			JOptionPane.showMessageDialog(null, MSG, "Duck Boat Window", 0);
 		}
 
 	}

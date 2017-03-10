@@ -44,11 +44,11 @@ public class Boletos implements Serializable{
 		Iterator<Boleto> iter= LL.iterator();
 		while(iter.hasNext()){
 			Boleto b=iter.next();
-			if (Objects.equals(new String("especial"),tipo)){
+			if (tipo.equals("especial")){
 				if(b instanceof Especial){
 					arr.add(new Especial(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas(),((Especial) b).getDescuento()));
 				}
-			}else if(Objects.equals(new String("comun"),b.tipoBoleto())){ 
+			}else if(b.tipoBoleto().equals("comun")){ 
 
 				arr.add(new Boleto(b.getNroboleto(),b.getEdad_pas(),b.getLugar_procedencia(),b.getCel_pas()));
 			}	

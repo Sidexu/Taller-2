@@ -2,8 +2,6 @@ package defaultP;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Objects;
-
 import Logica.Boleto;
 import Logica.Boletos;
 import Logica.Bus;
@@ -36,11 +34,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	//Singleton
     public static Fachada getInstance() throws RemoteException, ExcepcionPersistencia {
         if (instancia == null){
-        	try {
-				instancia = new Fachada();
-			} catch (ExcepcionPersistencia e1) {
-				throw new ExcepcionPersistencia(e1.darMensaje());
-			}
+			instancia = new Fachada();
         }
         return instancia;
     }
@@ -63,13 +57,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 		}
 	}
 	
-	public void setBuses(Buses b){
-		this.buses=b;
-	}
-	
-	public void setExcursiones(Excursiones e){
-		this.excursiones=e;
-	}
 	
 	//Requerimiento 1
 	public void registroNuevoBus(VOBus vo) throws ExcepcionBus, RemoteException{
@@ -79,8 +66,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			m.escrituraTerminada();
 			throw new ExcepcionBus(msg);
 		}else{
-			if(vo.getCapacidad()<=0){
-				String msg="Error! La capacidad del Bus no puede ser menor o igual a cero.";
+			if(vo.getCapacidad()<=0 || vo.getCapacidad()>100 ){
+				String msg="Error! La capacidad del Bus no puede ser menor o igual a cero, ni mayor a 100.";
 				m.escrituraTerminada();
 				throw new ExcepcionBus(msg);
 			}else{
@@ -232,7 +219,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			arr=ex.getBoletos().listadoDeBoletos();
 			
 			for(int i=0;i<arr.size();i++){
-				if(Objects.equals(arr.get(i).tipoBoleto(),"comun")){
+				if(arr.get(i).tipoBoleto().equals("comun")){
 					if(arr.get(i).getEdad_pas() <= 12){
 						montoTotal=(float) (montoTotal+(ex.getPrecio_base()*0.8));
 					}else{
@@ -267,7 +254,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				arr= exc.getBoletos().listadoBoletoXTipo(tipoBoleto);
 				arrVO = new VOBoletoTipo[arr.size()];
 				for(int i=0; i<arr.size(); i++){
-						if(Objects.equals(arr.get(i).tipoBoleto(),tipoBoleto) && Objects.equals(new String("especial"),tipoBoleto) ){
+						if(arr.get(i).tipoBoleto().equals(tipoBoleto) && tipoBoleto.equals("especial") ){
 							//if(b instanceof Especial){
 							Especial e = (Especial) arr.get(i);
 							//float descuento = ((Especial)arr.get(i)).getDescuento();

@@ -6,14 +6,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.util.Properties;
 
-import Logica.Hora;
-import Logica.Excepciones.ExcepcionBus;
 import Logica.Excepciones.ExcepcionExcursion;
-import Logica.Excepciones.ExcepcionPersistencia;
 import Logica.valueObjects.VOBoletoTipo;
-import Logica.valueObjects.VOBus;
 import Logica.valueObjects.VOBusCant;
-import Logica.valueObjects.VOExcursion;
 import Logica.valueObjects.VOExcursionDisp;
 
 

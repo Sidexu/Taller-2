@@ -1,19 +1,13 @@
 package defaultP;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Properties;
 
-import Logica.Buses;
-import Logica.Excursiones;
-import Logica.Excepciones.ExcepcionBus;
+import javax.swing.JOptionPane;
 import Logica.Excepciones.ExcepcionPersistencia;
-import Logica.valueObjects.VOBus;
-import Logica.valueObjects.VOPersistencia;
-import Persistencia.Respaldo;
 
 public class mainServidor {
 	public static void main(String[] args)
@@ -40,20 +34,16 @@ public class mainServidor {
 			LocateRegistry.createRegistry(port);
 			String ruta = "//" + ip + ":" + puerto + "/obj";
 			Naming.rebind(ruta, fach);
-			System.out.println("Se inició servidor correctamente");
+
+			JOptionPane.showMessageDialog(null, "Se inició servidor correctamente", "Duck Boat Server", 1);
 			
-		}
-		catch (RemoteException e)
-		{
-		
-		}
-		catch (FileNotFoundException e)
-		{
-			
+		}catch(RemoteException e){
+			JOptionPane.showMessageDialog(null, "Error de comunicación", "Duck Boat Server", 0);
 		}
 		catch (IOException e)
 		{
-		
+			JOptionPane.showMessageDialog(null, "Error de archivo", "Duck Boat Server", 0);
 		}
+		
 	}
 }
