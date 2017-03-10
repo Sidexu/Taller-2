@@ -20,7 +20,7 @@ public class controladorReasignarExcursion {
 		boolean error = false;
 		String MSG = "";
 		String COD = Codigo.trim();
-		if(COD.equals(new String(""))){
+		if(COD.equals("")){
 			error=true;
 			MSG = "Error el código no puede ser vacío";
 		}

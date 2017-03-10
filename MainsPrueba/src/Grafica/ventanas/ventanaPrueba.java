@@ -487,13 +487,17 @@ public class ventanaPrueba {
 						panel_10.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
 						panel_10.add(tableListExBus, BorderLayout.CENTER);
 						
-						for(int i=0;i<arrVO.length;i++){
-							model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
-						}
 						
 						if(arrVO.length == 0){
 							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+						}else{
+							for(int i=0;i<arrVO.length;i++){
+								model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
+							}
 						}
+						
+						
+						
 					}
 				});
 				
@@ -616,15 +620,17 @@ public class ventanaPrueba {
 						panel_6.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
 						panel_6.add(tableListExBus, BorderLayout.CENTER);
 						
-						for(int i=0;i<arrVO.length;i++){
-							Hora hp= arrVO[i].getHr_partida();
-							Hora hr= arrVO[i].getHr_regreso();
-							String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-							String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-							model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-						}
+						
 						if(arrVO.length == 0){
 							JOptionPane.showMessageDialog(null,"No hay ninguna excursión con ese destino", "Duck Boat Window", 2);
+						}else{
+							for(int i=0;i<arrVO.length;i++){
+								Hora hp= arrVO[i].getHr_partida();
+								Hora hr= arrVO[i].getHr_regreso();
+								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+								model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+							}
 						}
 
 					}
@@ -688,16 +694,17 @@ public class ventanaPrueba {
 						panel_4.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
 						panel_4.add(tableListExBus, BorderLayout.CENTER);
 						
-						for(int i=0;i<arrVO.length;i++){
-							Hora hp= arrVO[i].getHr_partida();
-							Hora hr= arrVO[i].getHr_regreso();
-							String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-							String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-							model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-						}
 
 						if(arrVO.length == 0){
 							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+						}else{
+							for(int i=0;i<arrVO.length;i++){
+								Hora hp= arrVO[i].getHr_partida();
+								Hora hr= arrVO[i].getHr_regreso();
+								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+								model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+							}
 						}
 					}
 				});
@@ -884,7 +891,7 @@ public class ventanaPrueba {
 			
 			//BOTON REASIGNAR EXCURSION
 			public void actionPerformed(ActionEvent arg0) {
-				String Codigo = Tf_RegistroNuevaExcursion_Codigo.getText();		
+				String Codigo = Tf_ReasignacionDeExcursion_Codigo.getText();		
 				controladorReasignarExcursion.reasignarExcursion (Codigo);						
 			}
 		});
@@ -1050,7 +1057,7 @@ public class ventanaPrueba {
 				String columnNames [] = new String[] {"Matricula",
 		                "Marca",
 		                "Capacidad",
-		                "Cant Ex"};
+		                "Cantidad Excursiones"};
 				
 
 				model.setColumnIdentifiers(columnNames);
@@ -1061,14 +1068,15 @@ public class ventanaPrueba {
 				panel_5.add(tableListadoBuses.getTableHeader(), BorderLayout.PAGE_START);
 				panel_5.add(tableListadoBuses, BorderLayout.CENTER);
 				
-				for(int i=0;i<arrVO.length;i++){
-
-					model.addRow(new Object[] { arrVO[i].getMatricula(), arrVO[i].getMarca(), arrVO[i].getCapacidad(),
-							arrVO[i].getCat_ex()});
-				}
-				
+	
 				if(arrVO.length == 0){
 					JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+				}else{
+					for(int i=0;i<arrVO.length;i++){
+
+						model.addRow(new Object[] { arrVO[i].getMatricula(), arrVO[i].getMarca(), arrVO[i].getCapacidad(),
+								arrVO[i].getCat_ex()});
+					}
 				}
 					
 			}

@@ -17,12 +17,13 @@ public class mainServidor {
 			Fachada fach=null;
 			try {
 				fach = Fachada.getInstance();
-
+				JOptionPane.showMessageDialog(null, "Datos recuperados correctamente", "Duck Boat Server", 1);
 			} catch (ExcepcionPersistencia e) {
 				try {
 					fach = Fachada.getInstance();
+					JOptionPane.showMessageDialog(null, e.darMensaje(), "Duck Boat Server", 2);
 				} catch (ExcepcionPersistencia e1) {
-					System.out.println(e.getMessage());
+					JOptionPane.showMessageDialog(null, e1.darMensaje(), "Duck Boat Server", 2);
 				}
 			}
 			Properties p = new Properties();

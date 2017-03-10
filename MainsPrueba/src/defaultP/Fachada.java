@@ -53,7 +53,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			excursiones=voPers.getExcursiones();
 		} catch (ExcepcionPersistencia e) {
 			this.respaldoDatos();
-			throw new ExcepcionPersistencia(e.darMensaje());
+			throw new ExcepcionPersistencia("Se genera archivo vacío");
 		}
 	}
 	
