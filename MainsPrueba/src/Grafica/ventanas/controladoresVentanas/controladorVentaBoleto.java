@@ -61,7 +61,7 @@ public class controladorVentaBoleto {
 				}
 			}catch(NumberFormatException e){
 				error=true;
-				JOptionPane.showMessageDialog(null,"Error, el celular debe ser numerico o superar el tamaño máximo", "Duck Boat Window", 0);
+				JOptionPane.showMessageDialog(null,"Error, el celular debe ser numerico o superó el tamaño máximo admitido", "Duck Boat Window", 0);
 			}
 		}
 	

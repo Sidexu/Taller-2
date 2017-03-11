@@ -10,7 +10,7 @@ import Logica.Excepciones.ExcepcionRMI;
 
 public class controladorRecaudacionExcursion {
 
-	public static float recaudacionExcursion(String codEx) {
+	public static void recaudacionExcursion(String codEx) {
 		float recaudacion=0;
 		boolean error = false;
 		String MSG = "";
@@ -22,6 +22,7 @@ public class controladorRecaudacionExcursion {
 		if(!error){
 			try {
 				recaudacion= managerIFachada.getInstancia().getIFachada().recaudacionExcursion(codEx);
+				JOptionPane.showMessageDialog(null, "La recaudación para la excursión "+codEx+" es: "+recaudacion, "Duck Boat Window", 1);
 			} catch (ExcepcionPersistencia e) {
 				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {
@@ -34,6 +35,6 @@ public class controladorRecaudacionExcursion {
 		}else{
 			JOptionPane.showMessageDialog(null, MSG, "Duck Boat Window", 0);
 		}
-		return recaudacion;
+		
 	}
 }

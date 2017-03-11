@@ -123,16 +123,22 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			m.escrituraTerminada();
 			throw new ExcepcionExcursion(msg);
 		}else{
-			try{
-				Boletos bol=new Boletos();
-				Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");	
-				Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
-				excursiones.insertExcursion(ex);
-				b.getExc().insertExcursion(ex);
+			if(vo.getHr_regreso().esMenorIgual(vo.getHr_partida())){
+				String msg= "Error! La hora de regreso no puede ser menor a la hora de partida.";
 				m.escrituraTerminada();
-			}catch(ExcepcionBus e){
-				m.escrituraTerminada();
-				throw new ExcepcionBus(e.darMensaje());
+				throw new ExcepcionExcursion(msg);
+			}else{
+				try{
+					Boletos bol=new Boletos();
+					Bus b=buses.obtenerBusDisp(vo.getHr_partida(),vo.getHr_regreso(),0,"");	
+					Excursion ex= new Excursion(vo.getCodigo(),vo.getDestino(),vo.getHr_partida(),vo.getHr_regreso(),vo.getPrecioBase(),b,bol); 
+					excursiones.insertExcursion(ex);
+					b.getExc().insertExcursion(ex);
+					m.escrituraTerminada();
+				}catch(ExcepcionBus e){
+					m.escrituraTerminada();
+					throw new ExcepcionBus(e.darMensaje());
+				}
 			}
 		}
 	}

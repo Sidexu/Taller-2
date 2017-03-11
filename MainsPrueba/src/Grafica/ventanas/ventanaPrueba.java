@@ -105,9 +105,80 @@ public class ventanaPrueba {
 		
 		Image img= new ImageIcon(this.getClass().getResource("/iconDuck.png")).getImage();
 				
+				
+				final JPanel panel_listExDest = new JPanel();
+				panel_listExDest.setBackground(Color.WHITE);
+				panel_listExDest.setBounds(183, 11, 819, 539);
+				frame.getContentPane().add(panel_listExDest);
+				panel_listExDest.setLayout(null);
+				
+				JLabel lblNewLabel_10 = new JLabel("Listado de excursiones por destino");
+				lblNewLabel_10.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
+				lblNewLabel_10.setBounds(28, 27, 754, 37);
+				panel_listExDest.add(lblNewLabel_10);
+				
+				final JPanel panel_6 = new JPanel();
+				panel_6.setBounds(28, 126, 754, 333);
+				panel_listExDest.add(panel_6);
+				panel_6.setLayout(null);
+				
+				Tf_ListadoExcDest_Destino = new JTextField();
+				Tf_ListadoExcDest_Destino.setBounds(121, 93, 146, 26);
+				panel_listExDest.add(Tf_ListadoExcDest_Destino);
+				Tf_ListadoExcDest_Destino.setColumns(10);
+				
+				tableListadoExcDest = new JTable();
+				tableListadoExcDest.setBounds(0, 0, 754, 333);
+				panel_6.add(tableListadoExcDest);
+				
+				JLabel lblNewLabel_11 = new JLabel("Destino");
+				lblNewLabel_11.setBounds(43, 94, 63, 20);
+				panel_listExDest.add(lblNewLabel_11);
+				lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				
+				JButton Btn_ListadoExcDest_Listar = new JButton("Listar");
+				Btn_ListadoExcDest_Listar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				Btn_ListadoExcDest_Listar.setBounds(655, 475, 127, 48);
+				panel_listExDest.add(Btn_ListadoExcDest_Listar);
+				final DefaultTableModel model1 = new DefaultTableModel(0, 0);
+				
+				Btn_ListadoExcDest_Listar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						model1.setRowCount(0);	
+						VOExcursionDisp arrVO[];	
+						arrVO = controladorExcursionesXDestino.excursionesXDestino(Tf_ListadoExcDest_Destino.getText());
+						
+						String columnNames [] = new String[] {"Codigo",
+				                "Destino",
+				                "Hr Partida",
+				                "Hr Regreso",
+				                "Precio Base",
+				                "Cantidad disponible"};
+						
 
-				
-				
+						model1.setColumnIdentifiers(columnNames);
+						
+						tableListExBus.setModel(model1);
+
+						panel_6.setLayout(new BorderLayout());
+						panel_6.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
+						panel_6.add(tableListExBus, BorderLayout.CENTER);
+		
+						if(arrVO.length == 0){
+							JOptionPane.showMessageDialog(null,"No hay ninguna excursión con ese destino", "Duck Boat Window", 2);
+						}else{
+							for(int i=0;i<arrVO.length;i++){
+								Hora hp= arrVO[i].getHr_partida();
+								Hora hr= arrVO[i].getHr_regreso();
+								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+								model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+							}
+						}
+
+					}
+				});
+					
 				final JPanel panel_ventaBoleto = new JPanel();
 				panel_ventaBoleto.setBounds(183, 11, 819, 539);
 				frame.getContentPane().add(panel_ventaBoleto);
@@ -274,17 +345,24 @@ public class ventanaPrueba {
 							panel_7.add(tableListExXRango.getTableHeader(), BorderLayout.PAGE_START);
 							panel_7.add(tableListExXRango, BorderLayout.CENTER);
 							
-							for(int i=0;i<arrVO.length;i++){
-								Hora hp= arrVO[i].getHr_partida();
-								Hora hr= arrVO[i].getHr_regreso();
-								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-								model3.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+							if(arrVO != null){
+							{
+								if(arrVO.length == 0){
+									JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+								}else{
+									for(int i=0;i<arrVO.length;i++){
+										Hora hp= arrVO[i].getHr_partida();
+										Hora hr= arrVO[i].getHr_regreso();
+										String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+										String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+										model3.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+									}
+								}
+								
 							}
 							
-							if(arrVO.length == 0){
-								JOptionPane.showMessageDialog(null,"No hay datos para listar","Duck Boat Window", 2);
-							}
+							
+						}
 						
 					}
 				});
@@ -487,17 +565,15 @@ public class ventanaPrueba {
 						panel_10.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
 						panel_10.add(tableListExBus, BorderLayout.CENTER);
 						
-						
-						if(arrVO.length == 0){
-							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
-						}else{
-							for(int i=0;i<arrVO.length;i++){
-								model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
+						if(arrVO!=null){
+							if(arrVO.length == 0){
+								JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+							}else{
+								for(int i=0;i<arrVO.length;i++){
+									model4.addRow(new Object[] { arrVO[i].getNro_boleto(), arrVO[i].getEdad_pas(),arrVO[i].getLugar_procedencia(),arrVO[i].getCel_pas(),arrVO[i].getDescuento()});
+								}
 							}
-						}
-						
-						
-						
+						}					
 					}
 				});
 				
@@ -557,90 +633,10 @@ public class ventanaPrueba {
 				
 				Btn_RecaudacionExcursion_Ver.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {								
-						float monto;
-						monto = controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
-						lb_RecaudacionExc.setText("La recaudación para la excursión "+Tf_Recaudacion_Codigo.getText()+" es: "+monto);				
+						controladorRecaudacionExcursion.recaudacionExcursion(Tf_Recaudacion_Codigo.getText());
 					}
 				});
 				
-				
-				final JPanel panel_listExDest = new JPanel();
-				panel_listExDest.setBackground(Color.WHITE);
-				panel_listExDest.setBounds(183, 11, 819, 539);
-				frame.getContentPane().add(panel_listExDest);
-				panel_listExDest.setLayout(null);
-				
-				JLabel lblNewLabel_10 = new JLabel("Listado de excursiones por destino");
-				lblNewLabel_10.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 27));
-				lblNewLabel_10.setBounds(28, 27, 754, 37);
-				panel_listExDest.add(lblNewLabel_10);
-				
-				final JPanel panel_6 = new JPanel();
-				panel_6.setBounds(28, 126, 754, 333);
-				panel_listExDest.add(panel_6);
-				panel_6.setLayout(null);
-				
-				Tf_ListadoExcDest_Destino = new JTextField();
-				Tf_ListadoExcDest_Destino.setBounds(121, 93, 146, 26);
-				panel_listExDest.add(Tf_ListadoExcDest_Destino);
-				Tf_ListadoExcDest_Destino.setColumns(10);
-				
-				tableListadoExcDest = new JTable();
-				tableListadoExcDest.setBounds(0, 0, 754, 333);
-				panel_6.add(tableListadoExcDest);
-				final DefaultTableModel model1 = new DefaultTableModel(0, 0);
-				
-				JButton Btn_ListadoExcDest_Listar = new JButton("Listar");
-				Btn_ListadoExcDest_Listar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				Btn_ListadoExcDest_Listar.setBounds(655, 475, 127, 48);
-				panel_listExDest.add(Btn_ListadoExcDest_Listar);
-				
-				Btn_ListadoExcDest_Listar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-							
-						VOExcursionDisp arrVO[];
-						model1.setRowCount(0);
-								
-						arrVO = controladorExcursionesXDestino.excursionesXDestino(Tf_ListadoExcDest_Destino.getText());
-						
-						
-						String columnNames [] = new String[] {"Codigo",
-				                "Destino",
-				                "Hr Partida",
-				                "Hr Regreso",
-				                "Precio Base",
-				                "Cantidad disponible"};
-						
-
-						model1.setColumnIdentifiers(columnNames);
-						
-						tableListExBus.setModel(model1);
-
-						panel_6.setLayout(new BorderLayout());
-						panel_6.add(tableListExBus.getTableHeader(), BorderLayout.PAGE_START);
-						panel_6.add(tableListExBus, BorderLayout.CENTER);
-						
-						
-						if(arrVO.length == 0){
-							JOptionPane.showMessageDialog(null,"No hay ninguna excursión con ese destino", "Duck Boat Window", 2);
-						}else{
-							for(int i=0;i<arrVO.length;i++){
-								Hora hp= arrVO[i].getHr_partida();
-								Hora hr= arrVO[i].getHr_regreso();
-								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-								model1.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
-							}
-						}
-
-					}
-				});
-				
-
-				JLabel lblNewLabel_11 = new JLabel("Destino");
-				lblNewLabel_11.setBounds(43, 94, 63, 20);
-				panel_listExDest.add(lblNewLabel_11);
-				lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			
 				
 				final JPanel panel_listExBus = new JPanel();
@@ -695,18 +691,23 @@ public class ventanaPrueba {
 						panel_4.add(tableListExBus, BorderLayout.CENTER);
 						
 
-						if(arrVO.length == 0){
-							JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
-						}else{
-							for(int i=0;i<arrVO.length;i++){
-								Hora hp= arrVO[i].getHr_partida();
-								Hora hr= arrVO[i].getHr_regreso();
-								String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
-								String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
-								model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+						if(arrVO != null){
+							if(arrVO.length == 0){
+								JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+							}else{
+								for(int i=0;i<arrVO.length;i++){
+									Hora hp= arrVO[i].getHr_partida();
+									Hora hr= arrVO[i].getHr_regreso();
+									String hr_partida = String.valueOf(hp.getHora())+":"+String.valueOf(hp.getMin());
+									String hr_regreso = String.valueOf(hr.getHora())+":"+String.valueOf(hr.getMin());
+									model.addRow(new Object[] { arrVO[i].getCodigo(), arrVO[i].getDestino(),hr_partida,hr_regreso,arrVO[i].getPrecioBase(),arrVO[i].getCant_disponibles()});
+								}
 							}
+							
 						}
+					
 					}
+					
 				});
 				
 	
@@ -1069,7 +1070,7 @@ public class ventanaPrueba {
 				panel_5.add(tableListadoBuses, BorderLayout.CENTER);
 				
 	
-				if(arrVO.length == 0){
+				if(arrVO == null){
 					JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
 				}else{
 					for(int i=0;i<arrVO.length;i++){
