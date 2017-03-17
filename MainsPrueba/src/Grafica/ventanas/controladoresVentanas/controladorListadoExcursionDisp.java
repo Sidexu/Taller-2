@@ -23,6 +23,9 @@ public class controladorListadoExcursionDisp {
 		if(!error){
 			try {
 				arr= managerIFachada.getInstancia().getIFachada().listadoExcursionesXBus(mat);
+				if(arr.length == 0){
+					JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+				}
 			} catch (ExcepcionPersistencia e) {
 				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {

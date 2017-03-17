@@ -17,6 +17,9 @@ public class controladorListadoGralBuses {
 		VOBusCant [] arr=null;
 			try {
 				arr= managerIFachada.getInstancia().getIFachada().listadoGralBuses();
+				if(arr == null){
+					JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+				}
 			} catch (ExcepcionPersistencia e) {
 				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {

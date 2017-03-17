@@ -40,8 +40,16 @@ public class controladorExcursionesXPrecio {
 		
 		if(!error){
 			try{
-				Float.parseFloat(precio1);
-				arr= managerIFachada.getInstancia().getIFachada().excursionesXPrecio(Float.parseFloat(precio1), Float.parseFloat(precio2));
+				float p1=Float.parseFloat(precio1);
+				float p2=Float.parseFloat(precio2);
+				if(p1>p2){
+					JOptionPane.showMessageDialog(null,"Error, el precio final no puede ser menor al inicial", "Duck Boat Window", 0);
+				}else{
+					arr= managerIFachada.getInstancia().getIFachada().excursionesXPrecio(p1, p2);
+					if(arr.length == 0){
+						JOptionPane.showMessageDialog(null,"No hay datos para listar", "Duck Boat Window", 2);
+					}
+				}
 			}catch (NumberFormatException e){
 				JOptionPane.showMessageDialog(null,"Error, precio debe de ser numérico", "Duck Boat Window", 0);
 			} catch (NullPointerException e){

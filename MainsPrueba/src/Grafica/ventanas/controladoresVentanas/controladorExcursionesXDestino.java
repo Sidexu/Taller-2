@@ -22,6 +22,9 @@ public class controladorExcursionesXDestino {
 		if(!error){
 			try {
 				arr= managerIFachada.getInstancia().getIFachada().excursionesXDestino(destino);
+				if(arr.length == 0){
+					JOptionPane.showMessageDialog(null,"No hay ninguna excursión con ese destino", "Duck Boat Window", 2);
+				}
 			} catch (ExcepcionPersistencia e) {
 				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {
