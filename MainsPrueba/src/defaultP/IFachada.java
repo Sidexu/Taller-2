@@ -22,11 +22,11 @@ public interface IFachada extends Remote{
 	//Requerimiento 4
 	public void registroExcursion(VOExcursion vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException;
 	//Requerimiento 5
-	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException;
+	public String reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException;
 	//Requerimiento 6
 	public void respaldoDatos() throws ExcepcionPersistencia, RemoteException;
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException;
+	public String ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException;
 	//Requerimiento 8
 	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion, RemoteException;
 	//REQUERIMIENTO 9

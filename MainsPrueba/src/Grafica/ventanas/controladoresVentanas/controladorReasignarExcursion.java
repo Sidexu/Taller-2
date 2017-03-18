@@ -26,8 +26,9 @@ public class controladorReasignarExcursion {
 		}
 		if(!error){
 			try {
-				managerIFachada.getInstancia().getIFachada().reasignacionExcursion(Codigo);
-				JOptionPane.showMessageDialog(null,"Excursión se reasignó correctamente", "Duck Boat Window", 1);
+				String matBusReasig="";
+				matBusReasig=managerIFachada.getInstancia().getIFachada().reasignacionExcursion(Codigo);
+				JOptionPane.showMessageDialog(null,"Excursión se reasignó correctamente al bus con matricula: "+matBusReasig, "Duck Boat Window", 1);
 			} catch (ExcepcionPersistencia e) {
 				JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 			} catch (ExcepcionRMI e) {

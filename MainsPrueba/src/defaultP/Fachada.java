@@ -143,7 +143,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 		}
 	}
 	//Requerimiento 5
-	public void reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+	public String reasignacionExcursion(String codigo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+		String matBusReasignado="";
 		m.comenzarEscritura();
 		if(!excursiones.memberExcursion(codigo)){
 			String msg = "Error! El código ingresado no pertenece a ninguna Excursión.";
@@ -158,12 +159,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				bViejo.getExc().deleteExcursion(ex);
 				ex.setBus(b);
 				b.getExc().insertExcursion(ex);
+				int capacidadRestante=b.getCapacidad()-ex.getBoletos().tamBoletos();
+				matBusReasignado=b.getMatricula()+" con asientos restantes disponibles: "+capacidadRestante;
 				m.escrituraTerminada();
 			}catch(ExcepcionBus e){
 				m.escrituraTerminada();
 				throw new ExcepcionBus(e.darMensaje());
 			}
 		}
+		return matBusReasignado;
 	}
 	//Requerimiento 6
 	public void respaldoDatos() throws ExcepcionPersistencia, RemoteException{
@@ -179,7 +183,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 		}
 	}
 	//Requerimiento 7
-	public void ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+	public String ventaBoleto(String codEx,VOBoletoTipo vo) throws ExcepcionExcursion, ExcepcionBus, RemoteException{
+		String asientosDisp="";
 		m.comenzarEscritura();
 		if(!excursiones.memberExcursion(codEx)){
 			String msg = "La excursion no existe";
@@ -194,10 +199,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				throw new ExcepcionBus(msg2);
 			}else{
 				if(ex.getPrecio_base()<vo.getDescuento()){
-					String msg3="El descuento no puede ser mayor al precio base de la Excursion";
+					String msg3="El descuento no puede ser mayor al precio base de la Excursion ($"+ex.getPrecio_base()+")";
 					m.escrituraTerminada();
 					throw new ExcepcionExcursion(msg3);
 				}else{
+					int total=cant_disp-1;
+					asientosDisp=" Cantidad de asientos disponibles: "+total;
 					if(vo.getDescuento() == 0){//boleto comun
 						Boleto b = new Boleto(excursiones.findExcursion(codEx).getBoletos().tamBoletos()+1,vo.getEdad_pas(),vo.getLugar_procedencia(),vo.getCel_pas());
 						ex.getBoletos().insert(b);
@@ -210,6 +217,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				}		
 			}
 		}
+		return asientosDisp;
 	}
 	//Requerimiento 8
 	public float recaudacionExcursion(String codEx) throws ExcepcionExcursion, RemoteException{

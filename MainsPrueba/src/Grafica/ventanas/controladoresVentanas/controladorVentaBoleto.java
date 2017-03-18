@@ -69,8 +69,9 @@ public class controladorVentaBoleto {
 				VOBoletoTipo voBol= new VOBoletoTipo(0,Integer.parseInt(edad),procedencia,Long.parseLong(cel),Float.parseFloat(descuento));
 		
 				try {
-					managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
-					JOptionPane.showMessageDialog(null,"Se ingresó el boleto correctamente!", "Duck Boat Window", 1);
+					String result="";
+					result=managerIFachada.getInstancia().getIFachada().ventaBoleto(codigo, voBol);
+					JOptionPane.showMessageDialog(null,"Se ingresó el boleto correctamente!"+result, "Duck Boat Window", 1);
 				} catch (ExcepcionPersistencia e) {
 					JOptionPane.showMessageDialog(null,e.darMensaje(), "Duck Boat Window", 0);
 				} catch (ExcepcionRMI e) {
